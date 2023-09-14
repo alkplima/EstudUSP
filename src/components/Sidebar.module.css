@@ -67,3 +67,10 @@
   background: var(--green-500);
   color: var(--white);
 }
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: initial;  
+  }
+}

@@ -5,6 +5,7 @@ import ptBr from 'date-fns/locale/pt-BR'
 
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+import { Button } from '@primer/react'
 import styles from './Post.module.css'
 
 interface Author {
@@ -32,6 +33,7 @@ export function Post({ post }: PostProps) {
   const [comments, setComments] = useState<string[]>([]);
 
   const [newCommentText, setNewCommentText] = useState('');
+  const [newCommentAuthor, setNewCommentAuthor] = useState('');
 
   const publishedDateFormatted = format(post.publishedAt, "d 'de' LLLL 'às' HH:mm", {
     locale: ptBr 
@@ -41,6 +43,11 @@ export function Post({ post }: PostProps) {
     locale: ptBr,
     addSuffix: true
   })
+
+  function handleNewAuthorChange(event: ChangeEvent<HTMLInputElement>) {
+    event.target.setCustomValidity('');
+    setNewCommentAuthor(event.target.value);
+  }
 
   function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
@@ -108,6 +115,14 @@ export function Post({ post }: PostProps) {
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Respostas</strong>
 
+        <input 
+          name='author'
+          type="text"
+          placeholder='Nome (opcional)'
+          value={newCommentAuthor}
+          onChange={handleNewAuthorChange}
+        />
+
         <textarea 
           name='comment'
           placeholder='Deixe a sua resposta'
@@ -118,9 +133,9 @@ export function Post({ post }: PostProps) {
         />
 
         <footer>
-          <button type='submit' disabled={isNewCommentEmpty}>
+          <Button type='submit' disabled={isNewCommentEmpty} size='large'>
             Publicar
-          </button>
+          </Button>
         </footer>
       </form>
 

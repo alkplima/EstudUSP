@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { ThumbsUp, Trash } from 'phosphor-react'
 import styles from './Comment.module.css'
 import { Avatar } from './Avatar'
+import anonymousImgs from '../../data/anonymousImgs'
+import colors from '../../data/colors'
 
 interface CommentProps {
   content: string;
@@ -21,9 +23,22 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
     });
   }
 
+  function calcularHash(str: string, tamanhoMaximo: number): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = (hash << 5) - hash + char; // Fórmula de hash simples
+    }
+    return Math.abs(hash) % tamanhoMaximo;
+  }
+
   return (
     <div className={styles.comment}>
-      <Avatar hasBorder={false} src="https://ssl.gstatic.com/docs/common/profile/capybara_lg.png" />
+      <Avatar 
+        hasBorder={false}  
+        randomColor={colors[calcularHash(content, colors.length)]}
+        src={anonymousImgs[calcularHash(content, anonymousImgs.length)]} 
+      />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>

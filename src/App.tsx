@@ -2,9 +2,18 @@ import { Header } from './components/Header'
 import { Post } from './components/Post'
 import { Sidebar } from './components/Sidebar'
 import { PostType } from './components/Post'
+import {BaseStyles, ThemeProvider, theme} from '@primer/react'
+import deepmerge from 'deepmerge'
 
 import styles from './App.module.css'
 import './global.css'
+
+const customTheme = deepmerge(theme, {
+  fonts: {
+    normal: 'Roboto, sans-serif',
+    mono: 'MonoLisa, monospace',
+  },
+})
 
 const posts: PostType[] = [
   {
@@ -40,23 +49,25 @@ const posts: PostType[] = [
 function App() {
 
   return (
-    <>
-      <Header />
+    <ThemeProvider theme={customTheme} dayScheme='dark_dimmed'>
+      <BaseStyles>
+        <Header />
 
-      <div className={styles.wrapper}>
-        <Sidebar />
-        <main>
-          {posts.map(post => {
-            return (
-              <Post 
-                key={post.id} 
-                post={post}
-              />
-            )
-          })}
-        </main>
-      </div>
-    </>
+        <div className={styles.wrapper}>
+          <Sidebar />
+          <main>
+            {posts.map(post => {
+              return (
+                <Post 
+                  key={post.id} 
+                  post={post}
+                />
+                )
+              })}
+          </main>
+        </div>
+      </BaseStyles>
+    </ThemeProvider>
   )
 }
 

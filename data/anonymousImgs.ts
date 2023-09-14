@@ -1,4 +1,4 @@
-export const anonymousImgs = [
+const anonymousImgs: string[] = [
   'https://ssl.gstatic.com/docs/common/profile/alligator_lg.png',
   'https://ssl.gstatic.com/docs/common/profile/anteater_lg.png',		
   'https://ssl.gstatic.com/docs/common/profile/axolotl_lg.png',		
@@ -61,3 +61,5 @@ export const anonymousImgs = [
   'https://ssl.gstatic.com/docs/common/profile/wolverine_lg.png',	
   'https://ssl.gstatic.com/docs/common/profile/wombat_lg.png'
 ]	
+
+export default anonymousImgs;

@@ -3,11 +3,12 @@ import styles from './Avatar.module.css'
 
 interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
   hasBorder?: boolean;
+  randomColor?: string;
 }
 
-export function Avatar({ hasBorder = true, ...props }: AvatarProps) {
+export function Avatar({ hasBorder = true, randomColor, ...props }: AvatarProps) {
   return (
-    <div className={styles.imgBg}>
+    <div className={styles.imgBg} style={{backgroundColor: randomColor}}>
       <img 
         className={hasBorder ? styles.avatarWithBorder : styles.avatar} 
         {...props}
