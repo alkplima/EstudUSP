@@ -45,7 +45,6 @@ export function Post({ post }: PostProps) {
   })
 
   function handleNewAuthorChange(event: ChangeEvent<HTMLInputElement>) {
-    event.target.setCustomValidity('');
     setNewCommentAuthor(event.target.value);
   }
 
@@ -113,7 +112,7 @@ export function Post({ post }: PostProps) {
       </div>
 
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
-        <strong>Respostas</strong>
+        <strong>Poste uma resposta:</strong>
 
         <input 
           name='author'
@@ -139,16 +138,20 @@ export function Post({ post }: PostProps) {
         </footer>
       </form>
 
+
       <div className={styles.commentList}>
-        {comments.map(comment => {
-          return (
-            <Comment 
+        <>
+          <strong>Respostas</strong>
+          {comments.map(comment => {
+            return (
+              <Comment 
               key={comment} 
               content={comment} 
               onDeleteComment={deleteComment} 
-            />
-          )
-        })}
+              />
+              )
+            })}
+        </>
       </div>
     </article>
   );

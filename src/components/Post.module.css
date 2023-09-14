@@ -128,3 +128,8 @@
 .commentList {
   margin-top: 2rem;
 }
+
+.commentList > strong {
+  line-height: 1.6;
+  color: var(--gray-100);
+}
