@@ -1,3 +1,8 @@
+h1 {
+  color: var(--gray-100);
+  align-self: center;
+}
+
 .wrapper {
   max-width: 70rem;
   margin: 2rem auto;
@@ -7,7 +12,104 @@
   grid-template-columns: 256px 1fr;
   gap: 2rem;
   align-items: flex-start;
+}
 
+.wrapper main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* .questionForm {
+
+} */
+
+.newQuestion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--gray-800);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+}
+
+.questionForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.newQuestion strong {
+  display: block;
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.newQuestion .mainBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+ 
+  & .plusWrapper {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background: var(--gray-600);
+      border-radius: 8px;
+
+      svg {
+        color: var(--gray-100);
+      }
+    }
+  }
+}
+.newQuestion input[type="text"] {
+  width: 100%;
+  background: var(--gray-900);
+  border: 0;
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--gray-100);
+}
+
+.newQuestion textarea {
+  width: 100%;
+  background: var(--gray-900);
+  border: 0;
+  resize: none;
+  height: 6rem;
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--gray-100);
+  line-height: 1.4;
+}
+
+.newQuestion button[type=submit] {
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  border: 0;
+  background: var(--green-500);
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.newQuestion button[type=submit]:not(:disabled):hover {
+  background: var(--green-300);
+}
+
+.newQuestion button[type=submit]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

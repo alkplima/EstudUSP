@@ -1,9 +1,5 @@
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
-import { format, formatDistanceToNow } from 'date-fns'
-import ptBr from 'date-fns/locale/pt-BR'
-
-import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import { Button } from '@primer/react'
 import styles from './Post.module.css'
@@ -21,6 +17,7 @@ interface Content {
 export interface PostType {
   id: number;
   author: Author;
+  title: string;
   publishedAt: Date;
   content: Content[];
 }
@@ -34,15 +31,6 @@ export function Post({ post }: PostProps) {
 
   const [newCommentText, setNewCommentText] = useState('');
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
-
-  const publishedDateFormatted = format(post.publishedAt, "d 'de' LLLL 'às' HH:mm", {
-    locale: ptBr 
-  })
-
-  const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
-    locale: ptBr,
-    addSuffix: true
-  })
 
   function handleNewAuthorChange(event: ChangeEvent<HTMLInputElement>) {
     setNewCommentAuthor(event.target.value);
@@ -73,20 +61,7 @@ export function Post({ post }: PostProps) {
   const isNewCommentEmpty = newCommentText.length === 0
 
   return (
-    <article className={styles.post}>
-      <header>
-        <div className={styles.author}>
-          <Avatar src={post.author.avatarUrl} />
-          <div className={styles.authorInfo}>
-            <strong>{post.author.username}</strong>
-            {/* <span>{post.author.role}</span> */}
-          </div>
-        </div>
-
-        <time title={publishedDateFormatted} dateTime={post.publishedAt.toISOString()}>
-          {publishedDateRelativeToNow}
-        </time>
-      </header>
+    <div className={styles.post}>
 
       <div className={styles.content}>
         {post.content.map(line => {
@@ -142,6 +117,11 @@ export function Post({ post }: PostProps) {
       <div className={styles.commentList}>
         <>
           <strong>Respostas</strong>
+          {
+            comments.length === 0 && (
+              <p style={{marginTop: '1rem'}}>Seja o primeiro a responder!</p>
+            )
+          }
           {comments.map(comment => {
             return (
               <Comment 
@@ -153,6 +133,6 @@ export function Post({ post }: PostProps) {
             })}
         </>
       </div>
-    </article>
+    </div>
   );
 }

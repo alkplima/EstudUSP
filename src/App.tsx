@@ -1,12 +1,14 @@
 import { Header } from './components/Header'
-import { Post } from './components/Post'
 import { Sidebar } from './components/Sidebar'
 import { PostType } from './components/Post'
-import {BaseStyles, ThemeProvider, theme} from '@primer/react'
+import {BaseStyles, Button, ThemeProvider, theme} from '@primer/react'
 import deepmerge from 'deepmerge'
 
 import styles from './App.module.css'
 import './global.css'
+import { PostPreview } from './components/PostPreview'
+import { ChangeEvent, useState } from 'react'
+import { MinusCircle, PlusCircle } from 'phosphor-react'
 
 const customTheme = deepmerge(theme, {
   fonts: {
@@ -22,6 +24,7 @@ const posts: PostType[] = [
       avatarUrl: 'https://github.com/alkplima.png',
       username: 'Alexandre Kira'
     },
+    title: 'Post 1',
     content: [
       { type: 'paragraph', content: 'Post 1'},
       { type: 'paragraph', content: 'Batatinha frita 123'},
@@ -36,6 +39,7 @@ const posts: PostType[] = [
       avatarUrl: 'https://github.com/gustavohls1.png',
       username: 'Gustavo Henrique'
     },
+    title: 'Um título tal que reflete tal problema e etc e tals e mb a bafb afdb  af d bad nf da n adn anafdbafdbadnba adfnbadn',
     content: [
       { type: 'paragraph', content: 'Post 2'},
       { type: 'paragraph', content: 'Fala galeraa 👋'},
@@ -47,6 +51,16 @@ const posts: PostType[] = [
 ];
 
 function App() {
+  const [newQuestionText, setNewQuestionText] = useState('');
+  const [isQuestionCardOpen, setIsQuestionCardOpen] = useState(false);
+
+  function handleNewQuestionChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    event.target.setCustomValidity('');
+    setNewQuestionText(event.target.value);
+  }  
+  
+  const isNewQuestionEmpty = newQuestionText.length === 0
+
 
   return (
     <ThemeProvider theme={customTheme} dayScheme='dark_dimmed'>
@@ -56,12 +70,52 @@ function App() {
         <div className={styles.wrapper}>
           <Sidebar />
           <main>
+            <h1>Fórum de dúvidas</h1>
+            <div className={styles.newQuestion}>
+              <div className={styles.mainBox}>
+                <strong>Postar uma nova pergunta</strong>
+                <div className={styles.plusWrapper}>
+                  {isQuestionCardOpen ?
+                    <MinusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/>
+                    :
+                    <PlusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/> 
+                  }
+                </div>
+              </div>
+              {isQuestionCardOpen &&
+              <form className={styles.questionForm}>
+                <input 
+                  name='author'
+                  type="text"
+                  placeholder='Nome (opcional)'
+                  // value={newQuestionAuthor}
+                  // onChange={handleNewAuthorChange}
+                />
+                
+                <input 
+                  name='title'
+                  type="text"
+                  placeholder='Título da pergunta'
+                  // value={newQuestionAuthor}
+                  // onChange={handleTitleChange}
+                  required
+                />
+
+                <textarea 
+                  name='comment'
+                  placeholder='Descreva a sua pergunta'
+                  value={newQuestionText}
+                  onChange={handleNewQuestionChange}
+                  // onInvalid={handleNewQuestionInvalid}
+                  required
+                />
+                <Button type='submit' disabled={isNewQuestionEmpty} size='large'>Publicar</Button>
+              </form>
+              }
+            </div>
             {posts.map(post => {
               return (
-                <Post 
-                  key={post.id} 
-                  post={post}
-                />
+                <PostPreview key={post.id} post={post} />
                 )
               })}
           </main>

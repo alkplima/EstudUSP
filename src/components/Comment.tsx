@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ThumbsUp, Trash } from 'phosphor-react'
+import { Heart, ThumbsDown, ThumbsUp, Trash } from 'phosphor-react'
 import styles from './Comment.module.css'
 import { Avatar } from './Avatar'
 import anonymousImgs from '../../data/anonymousImgs'
@@ -20,6 +20,13 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
   function handleLikeComment() {
     setLikeCount(previousState => {
       return previousState + 1;
+    });
+  }
+
+  function handleDislikeComment() {
+    if (likeCount === 0) return;
+    setLikeCount(previousState => {
+      return previousState - 1;
     });
   }
 
@@ -57,9 +64,17 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
         </div>
 
         <footer>
-          <button onClick={handleLikeComment}>
+          <div>
+            <Heart size={20} className={styles.heartIcon} />
+            : {likeCount}
+          </div>
+          <button onClick={handleLikeComment} className={styles.likeButton}>
             <ThumbsUp size={20} />
-            Curtir <span>{likeCount}</span>
+            Curtir
+          </button>
+          <button onClick={handleDislikeComment} className={styles.dislikeButton}>
+            <ThumbsDown size={20} />
+            Descurtir
           </button>
         </footer>
       </div>

@@ -1,7 +1,6 @@
 .post {
   background: var(--gray-800);
   border-radius: 8px;
-  padding: 2.5rem;
 }
 
 .post + .post { /* estiliza todo post que tem outro post ANTES dele */ 
@@ -26,36 +25,6 @@
 
 .content a:hover {
   color: var(--green-300);
-}
-
-.post > header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.post > header time {
-  font-size: 0.875rem;
-  color: var(--gray-400);
-}
-
-.author {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.authorInfo strong {
-  display: block;
-  color: var(--gray-100);
-  line-height: 1.6;
-}
-
-.authorInfo span {
-  display: block;
-  font-size: 0.875rem;
-  color: var(--gray-400);
-  line-height: 1.6;
 }
 
 .commentForm {
@@ -94,11 +63,6 @@
   line-height: 1.4;
 }
 
-/* .commentForm footer {
-  visibility: hidden;
-  max-height: 0;
-} */
-
 .commentForm:focus-within footer {
   visibility: visible;
   max-height: none;
@@ -126,7 +90,7 @@
 }
 
 .commentList {
-  margin-top: 2rem;
+  margin-block: 2rem;
 }
 
 .commentList > strong {
