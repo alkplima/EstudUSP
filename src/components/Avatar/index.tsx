@@ -1,5 +1,5 @@
 import { ImgHTMLAttributes } from 'react';
-import styles from './Avatar.module.css'
+import { AvatarContainer } from './styles';
 
 interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
   hasBorder?: boolean;
@@ -8,11 +8,11 @@ interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 export function Avatar({ hasBorder = true, randomColor, ...props }: AvatarProps) {
   return (
-    <div className={styles.imgBg} style={{backgroundColor: randomColor}}>
+    <AvatarContainer style={{backgroundColor: randomColor}}>
       <img 
-        className={hasBorder ? styles.avatarWithBorder : styles.avatar} 
+        className={hasBorder ? 'avatarWithBorder' : 'avatar'} 
         {...props}
       />
-    </div>
+    </AvatarContainer>
   );
 }

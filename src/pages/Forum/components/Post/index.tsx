@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
-import { Comment } from './Comment';
+import { Comment } from '../Comment';
 import { Button } from '@primer/react'
-import styles from './Post.module.css'
+import { CommentForm, PostContainer } from './styles';
 
 interface Author {
   username: string;
@@ -61,9 +61,9 @@ export function Post({ post }: PostProps) {
   const isNewCommentEmpty = newCommentText.length === 0
 
   return (
-    <div className={styles.post}>
+    <PostContainer>
 
-      <div className={styles.content}>
+      <div className='content'>
         {post.content.map(line => {
           if (line.type === 'paragraph') {
             return <p key={line.content}>{line.content}</p>
@@ -86,7 +86,7 @@ export function Post({ post }: PostProps) {
         })}
       </div>
 
-      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+      <CommentForm onSubmit={handleCreateNewComment} >
         <strong>Poste uma resposta:</strong>
 
         <input 
@@ -111,10 +111,10 @@ export function Post({ post }: PostProps) {
             Publicar
           </Button>
         </footer>
-      </form>
+      </CommentForm>
 
 
-      <div className={styles.commentList}>
+      <div className='commentList'>
         <>
           <strong>Respostas</strong>
           {
@@ -133,6 +133,6 @@ export function Post({ post }: PostProps) {
             })}
         </>
       </div>
-    </div>
+    </PostContainer>
   );
 }

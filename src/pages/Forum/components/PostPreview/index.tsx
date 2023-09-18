@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
 
-import { Avatar } from './Avatar';
-import styles from './PostPreview.module.css'
-import { Post } from './Post';
+import { PostPreviewContainer, PostPreviewContent } from './styles';
+import { Avatar } from '../../../../components/Avatar';
+import { Post } from '../Post';
 
 interface Author {
   username: string;
@@ -46,32 +46,39 @@ export function PostPreview({ post }: PostProps) {
   }
 
   return (
-    <article className={styles.postPreview}>
+    <PostPreviewContainer>
       <header>
-        <div className={styles.author}>
+        <PostPreviewContent>
           <Avatar src={post.author.avatarUrl} />
-          <div className={styles.authorInfo}>
+          <div className='authorInfo'>
             {!isCardOpen ?
               <>
                 <p>{post.author.username}</p>
                 <strong>{post.title}</strong>
-                <div className={styles.downarrow} onClick={handleOpenCard}><div></div></div>
+                <div className='downarrow' onClick={handleOpenCard}><div></div></div>
               </>
               :
               <>
                 <strong>{post.author.username}</strong>
                 <p>{post.title}</p>
-                <Post key={post.id} post={post} />
-                <div className={styles.uparrow} onClick={handleOpenCard}><div></div></div>
+                {/* <Post key={post.id} post={post} />
+                <div className='uparrow' onClick={handleOpenCard}><div></div></div> */}
               </>
             }
           </div>
-        </div>
+        </PostPreviewContent>
 
         <time title={publishedDateFormatted} dateTime={post.publishedAt.toISOString()}>
           {publishedDateRelativeToNow}
         </time>
       </header>
-    </article>
+
+      {isCardOpen &&
+        <>
+          <Post key={post.id} post={post} />
+          <div className='uparrow' onClick={handleOpenCard}><div></div></div>
+        </>
+      }
+    </PostPreviewContainer>
   );
 }

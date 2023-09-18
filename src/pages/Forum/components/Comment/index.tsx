@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Heart, ThumbsDown, ThumbsUp, Trash } from 'phosphor-react'
-import styles from './Comment.module.css'
-import { Avatar } from './Avatar'
-import anonymousImgs from '../../data/anonymousImgs'
-import colors from '../../data/colors'
+import { CommentBox, CommentContainer } from './styles';
+import { Avatar } from '../../../../components/Avatar';
+import anonymousImgs from '../../../../../data/anonymousImgs';
+import colors from '../../../../../data/colors';
 
 interface CommentProps {
   content: string;
@@ -40,17 +40,17 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
   }
 
   return (
-    <div className={styles.comment}>
+    <CommentContainer>
       <Avatar 
         hasBorder={false}  
         randomColor={colors[calcularHash(content, colors.length)]}
         src={anonymousImgs[calcularHash(content, anonymousImgs.length)]} 
       />
 
-      <div className={styles.commentBox}>
-        <div className={styles.commentContent}>
+      <CommentBox>
+        <div className='commentContent'>
           <header>
-            <div className={styles.authorAndTime}>
+            <div className='authorAndTime'>
               <strong>angry_capybara08</strong>
               <time title='11 de setembro às 20:43' dateTime='2023-11-09 20:43:30'>Cerca de 1h atrás</time>
             </div>
@@ -65,19 +65,19 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
 
         <footer>
           <div>
-            <Heart size={20} className={styles.heartIcon} />
+            <Heart size={20} className='heartIcon' />
             : {likeCount}
           </div>
-          <button onClick={handleLikeComment} className={styles.likeButton}>
+          <button onClick={handleLikeComment} className='likeButton'>
             <ThumbsUp size={20} />
             Curtir
           </button>
-          <button onClick={handleDislikeComment} className={styles.dislikeButton}>
+          <button onClick={handleDislikeComment} className='dislikeButton'>
             <ThumbsDown size={20} />
             Descurtir
           </button>
         </footer>
-      </div>
-    </div>
+      </CommentBox>
+    </CommentContainer>
   )
 }
