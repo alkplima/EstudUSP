@@ -1,6 +1,6 @@
 import { HeaderContainer } from "./styles";
 
-import logo from '../../assets/logo-x.svg'
+import logo from '../../assets/estudusp_logo.svg'
 
 export function Header() {
   return (

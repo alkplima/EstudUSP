@@ -6,7 +6,7 @@ import { Router } from "./Router";
 
 const customTheme = deepmerge(theme, {
   fonts: {
-    normal: 'Roboto, sans-serif',
+    normal: 'Segoe_UI, sans-serif',
     mono: 'MonoLisa, monospace',
   },
 })

@@ -12,6 +12,8 @@
   --green-500: #00875f;
 
   --red-500: #f75a68;
+
+  --bg-dark: #0d1117;
 }
 
 :focus {
@@ -26,13 +28,27 @@
 }
 
 body {
-  background: var(--gray-900);
+  background: var(--bg-dark);
   color: var(--gray-300);
   -webkit-font-smoothing: antialiased;
 }
 
 body, input, textarea, button {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Segoe_UI', sans-serif;
   font-weight: 400;
   font-size: 1rem;
+}
+
+strong, h1, h2, h3 {
+  font-family: 'Segoe_UI_Bold', sans-serif;
+}
+
+@font-face {
+  font-family: 'Segoe_UI';
+  src: url('/fonts/segoe_ui.ttf');
+}
+
+@font-face {
+  font-family: 'Segoe_UI_Bold';
+  src: url('/fonts/segoe_ui_bold.ttf');
 }

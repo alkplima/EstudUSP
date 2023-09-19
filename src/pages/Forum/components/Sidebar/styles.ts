@@ -19,6 +19,8 @@ export const SidebarContainer = styled.aside`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
+    padding-inline: 1rem;
   
     /* margin-top: calc(0px - 1.5rem - 6px); */
   }

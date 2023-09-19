@@ -20,9 +20,19 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, input, textarea, button {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Segoe_UI', sans-serif;
     font-weight: 400;
     font-size: 1rem;
+  }
+
+  @font-face {
+    font-family: 'Segoe_UI';
+    src: url('/fonts/segoe_ui.ttf');
+  }
+
+  @font-face {
+    font-family: 'Segoe_UI_Bold';
+    src: url('/fonts/segoe_ui_bold.ttf');
   }
 
 `;

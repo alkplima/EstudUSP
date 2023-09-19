@@ -5,6 +5,11 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-block: 1rem;
+
+  img {
+    height: 100%;
+  }
 
   /* nav {
     display: flex;

@@ -19,6 +19,7 @@ export const ForumContainer = styled.div`
     gap: 1rem;
     
     h1 {
+      font-family: 'Segoe_UI_Bold';
       color: var(--gray-100);
       align-self: center;
     }
