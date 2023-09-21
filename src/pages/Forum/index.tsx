@@ -6,6 +6,7 @@ import { PostType } from "./components/Post";
 import { PostPreview } from './components/PostPreview'
 import { MinusCircle, PlusCircle } from 'phosphor-react'
 import { DisciplinesProvider } from "../../contexts/DisciplinesContext";
+import { FileProvider } from "../../contexts/files";
 
 
 const posts: PostType[] = [
@@ -56,53 +57,56 @@ export function Forum() {
       </DisciplinesProvider>
       <main>
         <h1>Fórum de dúvidas</h1>
-        <NewQuestionCard>
-          <MainBox>
-            <strong>Postar uma nova pergunta</strong>
-            <div className='plusWrapper'>
-              {isQuestionCardOpen ?
-                <MinusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/>
-                :
-                <PlusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/> 
-              }
-            </div>
-          </MainBox>
-          {isQuestionCardOpen &&
-            <QuestionForm>
-              <input 
-                name='author'
-                type="text"
-                placeholder='Nome (opcional)'
-                // value={newQuestionAuthor}
-                // onChange={handleNewAuthorChange}
-              />
-              
-              <input 
-                name='title'
-                type="text"
-                placeholder='Título da pergunta'
-                // value={newQuestionAuthor}
-                // onChange={handleTitleChange}
-                required
-              />
+        <FileProvider>
 
-              <textarea 
-                name='comment'
-                placeholder='Descreva a sua pergunta'
-                value={newQuestionText}
-                onChange={handleNewQuestionChange}
-                // onInvalid={handleNewQuestionInvalid}
-                required
-              />
-              <button type='submit' disabled={isNewQuestionEmpty}>Publicar</button>
-            </QuestionForm>
-          }
-        </NewQuestionCard>
-        {posts.map(post => {
-          return (
-            <PostPreview key={post.id} post={post} />
-            )
+          <NewQuestionCard>
+            <MainBox>
+              <strong>Postar uma nova pergunta</strong>
+              <div className='plusWrapper'>
+                {isQuestionCardOpen ?
+                  <MinusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/>
+                  :
+                  <PlusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/> 
+                }
+              </div>
+            </MainBox>
+            {isQuestionCardOpen &&
+              <QuestionForm>
+                <input 
+                  name='author'
+                  type="text"
+                  placeholder='Nome (opcional)'
+                  // value={newQuestionAuthor}
+                  // onChange={handleNewAuthorChange}
+                />
+                
+                <input 
+                  name='title'
+                  type="text"
+                  placeholder='Título da pergunta'
+                  // value={newQuestionAuthor}
+                  // onChange={handleTitleChange}
+                  required
+                />
+
+                <textarea 
+                  name='comment'
+                  placeholder='Descreva a sua pergunta'
+                  value={newQuestionText}
+                  onChange={handleNewQuestionChange}
+                  // onInvalid={handleNewQuestionInvalid}
+                  required
+                />
+                <button type='submit' disabled={isNewQuestionEmpty}>Publicar</button>
+              </QuestionForm>
+            }
+          </NewQuestionCard>
+          {posts.map(post => {
+            return (
+              <PostPreview key={post.id} post={post} />
+              )
           })}
+        </FileProvider>
       </main>
     </ForumContainer>
   )
