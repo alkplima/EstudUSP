@@ -4,7 +4,7 @@ export const AvatarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--green-500);
+  background-color: ${props => props.theme['green-500']};
   border-radius: 100%;
   width: fit-content;
   height: fit-content;
@@ -20,8 +20,8 @@ export const AvatarContainer = styled.div`
     width: calc(3rem + 12px);
     height: calc(3rem + 12px);
     border-radius: 100%;
-    border: 4px solid var(--gray-800);
-    outline: 2px solid var(--green-500);
+    border: 4px solid ${props => props.theme['gray-800']};
+    outline: 2px solid ${props => props.theme['green-500']};
     padding: 0.3rem;
   }
   
@@ -44,8 +44,8 @@ export const AvatarContainer = styled.div`
 //   width: calc(3rem + 12px);
 //   height: calc(3rem + 12px);
 //   border-radius: 100%;
-//   border: 4px solid var(--gray-800);
-//   outline: 2px solid var(--green-500);
+//   border: 4px solid ${props => props.theme['gray-800']};
+//   outline: 2px solid ${props => props.theme['green-500']};
 // }
 
 // .imgBg :not(.avatarWithBorder) {
@@ -58,7 +58,7 @@ export const AvatarContainer = styled.div`
 //   display: flex;
 //   align-items: center;
 //   justify-content: center;
-//   background-color: var(--green-500);
+//   background-color: ${props => props.theme['green-500']};
 //   border-radius: 100%;
 //   width: fit-content;
 //   height: fit-content;

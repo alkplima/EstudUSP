@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PostPreviewContainer = styled.article`
-  background: var(--gray-800);
+  background: ${props => props.theme['gray-800']};
   border-radius: 8px;
   padding: 2rem;
   position: relative;
@@ -14,7 +14,7 @@ export const PostPreviewContainer = styled.article`
   
     time {
       font-size: 0.875rem;
-      color: var(--gray-400);
+      color: ${props => props.theme['gray-400']};
       white-space: nowrap;
       align-self: flex-start;
     }
@@ -41,7 +41,7 @@ export const PostPreviewContainer = styled.article`
     }
 
     &:hover {
-      background: var(--gray-600);
+      background: ${props => props.theme['gray-600']};
     }
   }
 
@@ -50,16 +50,16 @@ export const PostPreviewContainer = styled.article`
 
     > div {
       margin-top: -.3rem;
-      border-bottom: 2px solid var(--gray-300);
-      border-right: 2px solid var(--gray-300);
+      border-bottom: 2px solid ${props => props.theme['gray-300']};
+      border-right: 2px solid ${props => props.theme['gray-300']};
     }
   }
 
   .uparrow {
     > div {
       margin-bottom: -.3rem;
-      border-top: 2px solid var(--gray-300);
-      border-left: 2px solid var(--gray-300);
+      border-top: 2px solid ${props => props.theme['gray-300']};
+      border-left: 2px solid ${props => props.theme['gray-300']};
     }
   }
 
@@ -76,7 +76,7 @@ export const PostPreviewContent = styled.div`
 
   .authorInfo strong {
     display: block;
-    color: var(--gray-100);
+    color: ${props => props.theme['gray-100']};
     line-height: 1.6;
   }
 `

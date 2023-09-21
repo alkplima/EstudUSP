@@ -1,8 +1,10 @@
 import {BaseStyles, ThemeProvider, theme} from '@primer/react'
 import deepmerge from 'deepmerge'
 import { BrowserRouter } from "react-router-dom";
-import './global.css'
+// import './global.css'
 import { Router } from "./Router";
+import { GlobalStyle } from './styles/global';
+import { defaultTheme } from './styles/themes/default';
 
 const customTheme = deepmerge(theme, {
   fonts: {
@@ -17,11 +19,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={customTheme} dayScheme='dark_dimmed'>
-        <BaseStyles>
+      <ThemeProvider theme={defaultTheme} /*nightScheme='dark_dimmed'*/>
+        <GlobalStyle />
+        {/* <BaseStyles> */}
           <Router />
 
-        </BaseStyles>
+        {/* </BaseStyles> */}
       </ThemeProvider>
     </BrowserRouter>
   )

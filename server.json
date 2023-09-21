@@ -33,14 +33,12 @@
       "id": 4
     }
   ],
-
   "users": [
     {
       "id": 0,
       "name": "Anonymous"
     }
   ],
-
   "posts": [
     {
       "id": 1,
@@ -51,7 +49,15 @@
       "disciplineId": 0
     }
   ],
-
+  "images": [
+    {
+      "name": "AlexandreKira.jpeg",
+      "size": 322505,
+      "url": "blob:http://localhost:5173/4c8b393b-0518-41e3-95e2-187395ed7ccc",
+      "postId": 1,
+      "id": 1
+    }
+  ],
   "disciplines": [
     {
       "id": 0,

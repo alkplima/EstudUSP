@@ -1,4 +1,4 @@
-import { Button } from "@primer/react";
+// import { Button } from "@primer/react";
 import { useState, ChangeEvent } from "react";
 import { ForumContainer, MainBox, NewQuestionCard, QuestionForm } from "./styles";
 import { Sidebar } from "./components/Sidebar";
@@ -94,7 +94,7 @@ export function Forum() {
                 // onInvalid={handleNewQuestionInvalid}
                 required
               />
-              <Button type='submit' disabled={isNewQuestionEmpty} size='large'>Publicar</Button>
+              <button type='submit' disabled={isNewQuestionEmpty}>Publicar</button>
             </QuestionForm>
           }
         </NewQuestionCard>

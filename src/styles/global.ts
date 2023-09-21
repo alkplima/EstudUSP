@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
+import "react-circular-progressbar/dist/styles.css";
+
 export const GlobalStyle = createGlobalStyle`
+
   * {
     margin: 0;
     padding: 0;
@@ -13,9 +16,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${props => props.theme['gray-900']};
+    background: ${props => props.theme['bg-dark']};
     color: ${props => props.theme['gray-300']};
-    color: #fff;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
 

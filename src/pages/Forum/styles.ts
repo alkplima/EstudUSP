@@ -20,7 +20,7 @@ export const ForumContainer = styled.div`
     
     h1 {
       font-family: 'Segoe_UI_Bold';
-      color: var(--gray-100);
+      color: ${props => props.theme['gray-100']};
       align-self: center;
     }
   }
@@ -35,51 +35,51 @@ export const NewQuestionCard = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  background: var(--gray-800);
+  background: ${props => props.theme['gray-800']};
   padding: 1rem 2rem;
   border-radius: 8px;
 
   strong {
     display: block;
-    color: var(--gray-100);
+    color: ${props => props.theme['gray-100']};
     line-height: 1.6;
   }
 
   input[type="text"] {
     width: 100%;
-    background: var(--gray-900);
+    background: ${props => props.theme['gray-900']};
     border: 0;
     padding: 1rem;
     border-radius: 8px;
-    color: var(--gray-100);
+    color: ${props => props.theme['gray-100']};
   }
 
   textarea {
     width: 100%;
-    background: var(--gray-900);
+    background: ${props => props.theme['gray-900']};
     border: 0;
     resize: none;
     height: 6rem;
     padding: 1rem;
     border-radius: 8px;
-    color: var(--gray-100);
+    color: ${props => props.theme['gray-100']};
     line-height: 1.4;
   }
 
   button[type=submit] {
-    padding: 1rem 1.5rem;
+    padding: .75rem 1.5rem;
     margin-top: 1rem;
     border-radius: 8px;
     border: 0;
-    background: var(--green-500);
-    color: var(--white);
+    background: ${props => props.theme['green-500']};
+    color: ${props => props.theme.white};
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.1s;
   }
 
   button[type=submit]:not(:disabled):hover {
-    background: var(--green-300);
+    background: ${props => props.theme['green-300']};
   }
 
   button[type=submit]:disabled {
@@ -101,11 +101,11 @@ export const MainBox = styled.div`
     justify-content: center;
     
     &:hover {
-      background: var(--gray-600);
+      background: ${props => props.theme['gray-600']};
       border-radius: 8px;
 
       svg {
-        color: var(--gray-100);
+        color: ${props => props.theme['gray-100']};
       }
     }
   }

@@ -20,7 +20,7 @@ export const CommentBox = styled.div`
   flex: 1;
 
   .commentContent {
-    background: var(--gray-700);
+    background: ${props => props.theme['gray-700']};
     border-radius: 8px;
     padding: 0.5rem 1rem;
     
@@ -33,7 +33,7 @@ export const CommentBox = styled.div`
         background: transparent;
         border: 0;
         cursor: pointer;
-        color: var(--gray-400);
+        color: ${props => props.theme['gray-400']};
         
         line-height: 0;
         border-radius: 2px;
@@ -44,14 +44,14 @@ export const CommentBox = styled.div`
         }
         
         &:not(:disabled):hover {
-          color: var(--red-500);
+          color: ${props => props.theme['red-500']};
         }
       }
     }
   
     p {
       margin-top: 1rem;
-      color: var(--gray-300);
+      color: ${props => props.theme['gray-300']};
     }
 
 
@@ -75,22 +75,22 @@ export const CommentBox = styled.div`
   footer button, footer div {
     background: transparent;
     border: 0;
-    color: var(--gray-400);
+    color: ${props => props.theme['gray-400']};
     display: flex;
     align-items: center;
     border-radius: 2px;
   }
 
   .heartIcon {
-    /* color: var(--red-500); */
+    /* color: ${props => props.theme['red-500']}; */
   }
 
   footer .likeButton:hover {
-    color: var(--green-300);
+    color: ${props => props.theme['green-300']};
   }
 
   footer .dislikeButton:hover {
-    color: var(--red-500);
+    color: ${props => props.theme['red-500']};
   }
 
   .authorAndTime strong {
@@ -103,7 +103,7 @@ export const CommentBox = styled.div`
     display: block;
     font-size: 0.75rem;
     line-height: 1.6;
-    color: var(--gray-400);
+    color: ${props => props.theme['gray-400']};
   }
 `
 
