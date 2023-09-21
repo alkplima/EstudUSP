@@ -1,0 +1,75 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2021-03-27T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "description": "Hamburguer",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 50,
+      "createdAt": "2022-06-27T19:30:44.505Z"
+    },
+    {
+      "id": 3,
+      "description": "EstudUSP",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 140,
+      "createdAt": "2023-06-27T19:30:44.505Z"
+    },
+    {
+      "description": "Compra de bananas",
+      "price": 10,
+      "category": "Alimentação",
+      "type": "outcome",
+      "createdAt": "2023-09-20T17:57:50.331Z",
+      "id": 4
+    }
+  ],
+
+  "users": [
+    {
+      "id": 0,
+      "name": "Anonymous"
+    }
+  ],
+
+  "posts": [
+    {
+      "id": 1,
+      "title": "Post 1",
+      "content": "Corpo do post 1",
+      "upvote": 12,
+      "userId": 0,
+      "disciplineId": 0
+    }
+  ],
+
+  "disciplines": [
+    {
+      "id": 0,
+      "name": "Organização e Arquitetura de Computadores II",
+      "semester": 4,
+      "previewImg": "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+    },
+    {
+      "id": 1,
+      "name": "Sistemas Operacionais",
+      "semester": 4,
+      "previewImg": "https://cdn.pixabay.com/photo/2020/01/24/06/46/ball-4789466_960_720.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Banco de Dados 2",
+      "semester": 4,
+      "previewImg": "https://cdn.pixabay.com/photo/2023/05/26/06/29/ai-generated-8018846_960_720.png"
+    }
+  ]
+}

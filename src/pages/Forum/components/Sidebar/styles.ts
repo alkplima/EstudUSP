@@ -1,17 +1,29 @@
 import styled from "styled-components";
 
 export const SidebarContainer = styled.aside`
-  position: sticky;
+  /* position: sticky;
   top: 2rem;
   bottom: 0;
-  left: 0;
-  background: var(--gray-800);
+  left: 0; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
+
+interface SidebarItemProps {
+  isActive: boolean;
+}
+
+export const SidebarItem = styled.div<SidebarItemProps>`
+  border: 2px solid transparent;
+  outline: 2px solid ${props => props.isActive ? 'var(--green-500)' : 'none'};
+  background: ${props => props.isActive ? 'var(--gray-700)' : 'var(--gray-800)'};
   border-radius: 8px;
   overflow: hidden;
 
   .cover {
     width: 100%;
-    height: 10rem;
+    height: 5rem;
     object-fit: cover;
   }
   
@@ -39,10 +51,14 @@ export const SidebarContainer = styled.aside`
     margin-bottom: 1rem;
   }
 
+  &:hover {
+    background: var(--gray-700);
+  } 
+
   @media (max-width: 768px) {
     position: initial;
   } 
-`
+`;
 
 
 // .sidebar footer {

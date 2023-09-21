@@ -1,31 +1,39 @@
 // import { PencilLine } from 'phosphor-react'
-
-import { SidebarContainer } from './styles'
+import { SidebarContainer, SidebarItem } from './styles'
+import { DisciplinesContext } from '../../../../contexts/DisciplinesContext';
+import { useContextSelector } from 'use-context-selector';
 // import { Avatar } from '../../../../components/Avatar'
 
-export function Sidebar () {
+interface SidebarProps {
+  activeDisciplineId: number;
+  setActiveDisciplineId: (id: number) => void;
+}
+
+export function Sidebar ({ activeDisciplineId, setActiveDisciplineId  }: SidebarProps) {  
+  const disciplines = useContextSelector(DisciplinesContext, (context) => {
+    return context.disciplines;
+  });
+
+  function handleChangeActiveDiscipline(currentId: number) {
+    setActiveDisciplineId(currentId);
+  }
+  
   return (
     <SidebarContainer>
-      <img 
-        className='cover' 
-        src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-      />
-      
-      <div className='profile'>
-        {/* <Avatar src="https://github.com/alkplima.png" /> */}
-
-        <strong>Organização e Arquitetura de Computadores II</strong>
-        <span>Semestre 4</span>
-      </div>
-
-      {/* <footer>
-        <a href="#">
-          <PencilLine
-            size={20}
-          />
-          Editar seu perfil
-        </a>
-      </footer> */}
+      {disciplines.map(discipline => {
+        return (
+          <SidebarItem key={discipline.id} isActive={discipline.id===activeDisciplineId} onClick={() => handleChangeActiveDiscipline(discipline.id)}>
+            <img 
+              className='cover' 
+              src={discipline.previewImg}
+            />
+            <div className='profile'>
+              <strong>{discipline.name}</strong>
+              <span>Semestre {discipline.semester}</span>
+            </div>
+          </SidebarItem>
+        )
+      })}
     </SidebarContainer>
   )
 }

@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { Heart, ThumbsDown, ThumbsUp, Trash } from 'phosphor-react'
 import { CommentBox, CommentContainer } from './styles';
 import { Avatar } from '../../../../components/Avatar';
-import anonymousImgs from '../../../../../data/anonymousImgs';
-import colors from '../../../../../data/colors';
-
 interface CommentProps {
   content: string;
   onDeleteComment: (commentToDelete: string) => void;
@@ -30,21 +27,11 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
     });
   }
 
-  function calcularHash(str: string, tamanhoMaximo: number): number {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i);
-      hash = (hash << 5) - hash + char; // Fórmula de hash simples
-    }
-    return Math.abs(hash) % tamanhoMaximo;
-  }
-
   return (
     <CommentContainer>
       <Avatar 
-        hasBorder={false}  
-        randomColor={colors[calcularHash(content, colors.length)]}
-        src={anonymousImgs[calcularHash(content, anonymousImgs.length)]} 
+        hasBorder={false} 
+        content = {content}
       />
 
       <CommentBox>
@@ -68,7 +55,7 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
             <Heart size={20} className='heartIcon' />
             : {likeCount}
           </div>
-          <button onClick={handleLikeComment} className='likeButton'>
+          <button onClick={handleLikeComment} className='likeButton' >
             <ThumbsUp size={20} />
             Curtir
           </button>

@@ -9,17 +9,17 @@ interface Author {
   avatarUrl: string;
 }
 
-interface Content {
-  type: 'paragraph' | 'link';
-  content: string;
-}
+// interface Content {
+//   type: 'paragraph' | 'link';
+//   content: string;
+// }
 
 export interface PostType {
   id: number;
   author: Author;
   title: string;
   publishedAt: Date;
-  content: Content[];
+  content: string;
 }
 
 interface PostProps {
@@ -28,9 +28,21 @@ interface PostProps {
 
 export function Post({ post }: PostProps) {
   const [comments, setComments] = useState<string[]>([]);
+  const [likeCount, setLikeCount] = useState(0);
+  const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
 
   const [newCommentText, setNewCommentText] = useState('');
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
+
+  function handleLikePost() {
+    setLikeCount(previousState => {
+      return previousState + 1;
+    });
+  }
+
+  function handleOpenAnswerBox() {
+    setIsAnswerBoxOpen(true);
+  }
 
   function handleNewAuthorChange(event: ChangeEvent<HTMLInputElement>) {
     setNewCommentAuthor(event.target.value);
@@ -64,54 +76,49 @@ export function Post({ post }: PostProps) {
     <PostContainer>
 
       <div className='content'>
-        {post.content.map(line => {
-          if (line.type === 'paragraph') {
-            return <p key={line.content}>{line.content}</p>
-          }
-          else if (line.type === 'link') {
-            return (
-              <p key={line.content}>
-                <a
-                  href='#'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  {line.content}
-                </a>
-              </p>
-            )
-          }
+        {post.content}
 
-          return null
-        })}
+        <div>
+          <button onClick={handleLikePost} className='likeButton' >
+            Tenho a mesma pergunta ({likeCount})
+          </button>
+
+          {!isAnswerBoxOpen &&
+            <button onClick={handleOpenAnswerBox} className='likeButton' >
+              Adicionar resposta
+            </button>
+          }
+        </div>
       </div>
 
-      <CommentForm onSubmit={handleCreateNewComment} >
-        <strong>Poste uma resposta:</strong>
+      {isAnswerBoxOpen &&
+        <CommentForm onSubmit={handleCreateNewComment} >
+          <strong>Sua resposta:</strong>
 
-        <input 
-          name='author'
-          type="text"
-          placeholder='Nome (opcional)'
-          value={newCommentAuthor}
-          onChange={handleNewAuthorChange}
-        />
+          <input 
+            name='author'
+            type="text"
+            placeholder='Nome (opcional)'
+            value={newCommentAuthor}
+            onChange={handleNewAuthorChange}
+          />
 
-        <textarea 
-          name='comment'
-          placeholder='Deixe a sua resposta'
-          value={newCommentText}
-          onChange={handleNewCommentChange}
-          onInvalid={handleNewCommentInvalid}
-          required
-        />
+          <textarea 
+            name='comment'
+            placeholder='Deixe a sua resposta'
+            value={newCommentText}
+            onChange={handleNewCommentChange}
+            onInvalid={handleNewCommentInvalid}
+            required
+          />
 
-        <footer>
-          <Button type='submit' disabled={isNewCommentEmpty} size='large'>
-            Publicar
-          </Button>
-        </footer>
-      </CommentForm>
+          <footer>
+            <Button type='submit' disabled={isNewCommentEmpty} size='large'>
+              Publicar
+            </Button>
+          </footer>
+        </CommentForm>
+      }
 
 
       <div className='commentList'>

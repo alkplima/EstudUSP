@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 
 export const PostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background: var(--gray-800);
   border-radius: 8px;
 
   .content {
+    display: flex;
+    flex-direction: column;
     line-height: 1.6;
     color: var(--gray-300);
-    margin-top: 1.5rem;
-      p {
+    margin-top: 1rem;
+
+    p {
       margin-top: 1rem;
     }
 
@@ -21,9 +26,30 @@ export const PostContainer = styled.div`
         color: var(--green-300);
       }
     }
+
+    > div {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .likeButton {
+      padding: 0.5rem 1rem;
+      color: var(--gray-100);
+      background: var(--gray-600);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      width: fit-content;
+      margin-top: 2.5rem;
+
+      &:hover {
+        border: 1px solid var(--green-300);
+        background: transparent;
+      }
+    }
   }
 
   .commentList {
+    width: 100%;
     margin-block: 2rem;
   }
 

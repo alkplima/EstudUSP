@@ -37,8 +37,13 @@ export const CommentBox = styled.div`
         
         line-height: 0;
         border-radius: 2px;
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
         
-        :hover {
+        &:not(:disabled):hover {
           color: var(--red-500);
         }
       }

@@ -12,17 +12,17 @@ interface Author {
   avatarUrl: string;
 }
 
-interface Content {
-  type: 'paragraph' | 'link';
-  content: string;
-}
+// interface Content {
+//   type: 'paragraph' | 'link';
+//   content: string;
+// }
 
 export interface PostType {
   id: number;
   author: Author;
   title: string;
   publishedAt: Date;
-  content: Content[];
+  content: string;
 }
 
 interface PostProps {
@@ -47,9 +47,11 @@ export function PostPreview({ post }: PostProps) {
 
   return (
     <PostPreviewContainer>
-      <header>
+      <div className='header'>
         <PostPreviewContent>
-          <Avatar src={post.author.avatarUrl} />
+          <Avatar 
+            content={post.author.username}
+          />
           <div className='authorInfo'>
             {!isCardOpen ?
               <>
@@ -71,7 +73,7 @@ export function PostPreview({ post }: PostProps) {
         <time title={publishedDateFormatted} dateTime={post.publishedAt.toISOString()}>
           {publishedDateRelativeToNow}
         </time>
-      </header>
+      </div>
 
       {isCardOpen &&
         <>

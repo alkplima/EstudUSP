@@ -22,6 +22,7 @@ export const AvatarContainer = styled.div`
     border-radius: 100%;
     border: 4px solid var(--gray-800);
     outline: 2px solid var(--green-500);
+    padding: 0.3rem;
   }
   
   /* &:not(.avatarWithBorder) {
