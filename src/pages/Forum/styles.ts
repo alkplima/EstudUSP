@@ -71,10 +71,10 @@ export const NewQuestionCard = styled.div`
 
   button[type=submit] {
     padding: .75rem 1.5rem;
-    margin-top: 1rem;
+    margin-block: 0 0.5rem;
     border-radius: 8px;
     border: 0;
-    background: ${props => props.theme['green-500']};
+    background: ${props => props.theme['blue-primary']};
     color: ${props => props.theme.white};
     font-weight: bold;
     cursor: pointer;
@@ -82,7 +82,7 @@ export const NewQuestionCard = styled.div`
   }
 
   button[type=submit]:not(:disabled):hover {
-    background: ${props => props.theme['green-300']};
+    background: ${props => props.theme['blue-secondary']};
   }
 
   button[type=submit]:disabled {

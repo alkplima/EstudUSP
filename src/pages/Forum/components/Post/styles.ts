@@ -15,11 +15,11 @@ export const PostContainer = styled.div`
 
     a {
       font-weight: bold;
-      color: ${props => props.theme['green-500']};
+      color: ${props => props.theme['blue-secondary']};
       text-decoration: none;
       
       :hover {
-        color: ${props => props.theme['green-300']};
+        color: ${props => props.theme['blue-primary']};
       }
     }
 
@@ -38,15 +38,23 @@ export const PostContainer = styled.div`
       margin-top: 2.5rem;
 
       &:hover {
-        border: 1px solid ${props => props.theme['green-300']};
+        border: 1px solid ${props => props.theme['blue-primary']};
         background: transparent;
       }
     }
   }
 
+  .separator {
+    align-self: center;
+    width: 100%;
+    height: 1px;
+    background-color: ${props => props.theme['gray-600']};
+    margin-block: 1.5rem;
+  }
+
   .commentList {
     width: 100%;
-    margin-block: 2rem;
+    margin-block: 0 2rem;
   }
 
   .commentList > strong {

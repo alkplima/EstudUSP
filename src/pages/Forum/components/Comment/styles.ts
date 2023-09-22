@@ -52,11 +52,11 @@ export const CommentBox = styled.div`
 
     a {
       font-weight: bold;
-      color: ${props => props.theme['green-500']};
+      color: ${props => props.theme['blue-secondary']};
       text-decoration: none;
       
       :hover {
-        color: ${props => props.theme['green-300']};
+        color: ${props => props.theme['blue-primary']};
       }
     }
   }

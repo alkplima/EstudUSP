@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${props => props.theme['bg-dark']};
+    background: ${props => props.theme['gray-900']};
     color: ${props => props.theme['gray-300']};
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -26,6 +26,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Segoe_UI', sans-serif;
     font-weight: 400;
     font-size: 1rem;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px ${props => props.theme['blue-secondary']};
   }
 
   @font-face {

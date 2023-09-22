@@ -155,6 +155,7 @@ export function Post({ post }: PostProps) {
         </CommentForm>
       }
 
+      <div className='separator'></div>
 
       <div className='commentList'>
         <>

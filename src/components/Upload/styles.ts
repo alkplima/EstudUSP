@@ -14,7 +14,7 @@ type IDropContainer = {
 };
 
 export const DropContainer = styled.div<IDropContainer>`
-  border: 1px dashed #ddd;
+  border: 1px dashed #999;
   border-radius: 4px;
   cursor: pointer;
 

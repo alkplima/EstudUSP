@@ -16,7 +16,7 @@ interface SidebarItemProps {
 
 export const SidebarItem = styled.div<SidebarItemProps>`
   border: 2px solid transparent;
-  outline: 2px solid ${props => props.isActive ? props.theme['green-500'] : 'none'};
+  outline: 2px solid ${props => props.isActive ? props.theme['blue-secondary'] : 'none'};
   background: ${props => props.isActive ? props.theme['gray-700'] : props.theme['gray-800']};
   border-radius: 8px;
   overflow: hidden;
