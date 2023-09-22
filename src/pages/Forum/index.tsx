@@ -10,6 +10,8 @@ import Upload from "../../components/Upload";
 import FileList from "../../components/FileList";
 import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../contexts/PostsContext";
+import { Button } from "../../components/Button/styles";
+import { SearchForm } from "./components/SearchForm";
 
 
 export function Forum() {
@@ -36,8 +38,10 @@ export function Forum() {
 
     createPost(newPost);
 
+    setNewQuestionAuthor('');
     setNewQuestionTitle('');
     setNewQuestionText('');
+    setIsQuestionCardOpen(false);
   }
 
   function handleNewQuestionChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -58,7 +62,9 @@ export function Forum() {
     event.target.setCustomValidity('Preencha este campo');
   }
   
-  const isNewQuestionEmpty = newQuestionText.length === 0
+  const isNewQuestionEmpty = newQuestionText.length === 0;
+
+  const isNewQuestionTitleEmpty = newQuestionTitle.length === 0;
 
 
   return (
@@ -116,10 +122,11 @@ export function Forum() {
                 <Upload />
                 <FileList />
 
-                <button type='submit' disabled={isNewQuestionEmpty}>Publicar</button>
+                <Button type='submit' disabled={isNewQuestionEmpty || isNewQuestionTitleEmpty}>Publicar</Button>
               </QuestionForm>
             }
           </NewQuestionCard>
+          <SearchForm />
           {posts.flatMap(post => {
             if (post.disciplineId === activeDisciplineId) {
               return (

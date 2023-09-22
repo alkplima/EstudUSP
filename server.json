@@ -63,7 +63,7 @@
       "postTitle": "Batata quente",
       "content": "Queria comer um Mac hoje...",
       "publishedAt": "2023-09-22T15:26:36.703Z",
-      "upvote": 0,
+      "upvote": 4,
       "disciplineId": 0,
       "userId": 0,
       "id": 3
@@ -73,7 +73,7 @@
       "postTitle": "Férias AGORA",
       "content": "Queria tanto entrar de férias antes...",
       "publishedAt": "2023-09-22T15:27:28.113Z",
-      "upvote": 4,
+      "upvote": 10,
       "disciplineId": 0,
       "userId": 0,
       "id": 4
@@ -87,6 +87,26 @@
       "disciplineId": 1,
       "userId": 0,
       "id": 5
+    },
+    {
+      "name": "alguem...",
+      "postTitle": "Uma pergunta",
+      "content": "Alguma pergunta",
+      "publishedAt": "2023-09-22T17:42:20.558Z",
+      "upvote": 0,
+      "disciplineId": 1,
+      "userId": 0,
+      "id": 6
+    },
+    {
+      "name": "pessoa",
+      "postTitle": "Título",
+      "content": "Pergunta",
+      "publishedAt": "2023-09-22T17:43:41.212Z",
+      "upvote": 1,
+      "disciplineId": 1,
+      "userId": 0,
+      "id": 7
     }
   ],
   "images": [],
@@ -120,6 +140,46 @@
       "userId": 0,
       "postId": 5,
       "id": 1
+    },
+    {
+      "name": "Anônimo",
+      "content": "Estranho",
+      "publishedAt": "2023-09-22T17:21:21.386Z",
+      "upvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 3,
+      "id": 2
+    },
+    {
+      "name": "outra pessoa",
+      "content": "Resposta",
+      "publishedAt": "2023-09-22T17:44:02.774Z",
+      "upvote": 0,
+      "disciplineId": 1,
+      "userId": 0,
+      "postId": 7,
+      "id": 3
+    },
+    {
+      "name": "outra pessoa de novo",
+      "content": "Outra resposta",
+      "publishedAt": "2023-09-22T17:44:57.027Z",
+      "upvote": 0,
+      "disciplineId": 1,
+      "userId": 0,
+      "postId": 7,
+      "id": 4
+    },
+    {
+      "name": "anonimato_total",
+      "content": "Eu também, mano...osso",
+      "publishedAt": "2023-09-22T18:03:40.332Z",
+      "upvote": 1,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 4,
+      "id": 5
     }
   ]
 }

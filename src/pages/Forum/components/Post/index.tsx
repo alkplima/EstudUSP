@@ -8,6 +8,7 @@ import FileList from '../../../../components/FileList';
 import { useContextSelector } from 'use-context-selector';
 import { PostsContext } from '../../../../contexts/PostsContext';
 import { CommentsContext } from '../../../../contexts/CommentsContext';
+import { Button } from '../../../../components/Button/styles';
 
 export interface PostType {
   id: number;
@@ -71,7 +72,10 @@ export function Post({ post }: PostProps) {
       postId: post.id,
       disciplineId: post.disciplineId,
     });
+
+    setNewCommentAuthor('');
     setNewCommentText('');
+    setIsAnswerBoxOpen(false);
   }
 
   function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -134,9 +138,9 @@ export function Post({ post }: PostProps) {
             {/* <Button type='submit' disabled={isNewCommentEmpty} size='large'>
               Publicar
             </Button> */}
-            <button type='submit' disabled={isNewCommentEmpty}>
+            <Button type='submit' disabled={isNewCommentEmpty}>
               Publicar
-            </button>
+            </Button>
           </footer>
         </CommentForm>
       }
@@ -147,7 +151,7 @@ export function Post({ post }: PostProps) {
           <strong>Respostas</strong>
           {
             commentsFiltered.length > 0 && (
-              <p style={{marginTop: '1rem'}}>{comments.length} resposta(s)</p>
+              <p style={{marginTop: '1rem'}}>{commentsFiltered.length} resposta(s)</p>
             )
           }
           {
@@ -156,14 +160,12 @@ export function Post({ post }: PostProps) {
             )
           }
           {commentsFiltered.map(comment => {
-            if (comment.disciplineId === post.disciplineId) {
-              return (
-                <Comment 
-                  key={comment.id}
-                  comment={comment}
-                />
-              )
-            }
+            return (
+              <Comment 
+                key={comment.id}
+                comment={comment}
+              />
+            )
           })}
         </>
       </div>

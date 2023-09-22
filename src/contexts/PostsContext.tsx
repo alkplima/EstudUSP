@@ -66,9 +66,15 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }, []);
 
   const updateUpvote = useCallback(async (id: number, data: Partial<Post>) => {
-    const response = await api.patch(`/posts/${id}`, data);
+    await api.patch(`/posts/${id}`, data);
+    const response = await api.get('/posts', {
+      params: {
+        _sort: 'publishedAt',
+        _order: 'desc',
+      }
+    });
     
-    setPosts(state => [response.data, ...state])
+    setPosts(response.data);
   }
   , []);
 

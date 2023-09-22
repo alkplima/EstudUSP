@@ -10,12 +10,17 @@ interface SidebarProps {
 }
 
 export function Sidebar ({ activeDisciplineId, setActiveDisciplineId  }: SidebarProps) {  
+  const fetchDisciplines = useContextSelector(DisciplinesContext, (context) => {
+    return context.fetchDisciplines;
+  });
+
   const disciplines = useContextSelector(DisciplinesContext, (context) => {
     return context.disciplines;
   });
 
   function handleChangeActiveDiscipline(currentId: number) {
     setActiveDisciplineId(currentId);
+    fetchDisciplines();
   }
   
   return (

@@ -39,7 +39,7 @@ export const NewQuestionCard = styled.div`
   justify-content: center;
   gap: 1rem;
   background: ${props => props.theme['gray-800']};
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 8px;
 
   strong {

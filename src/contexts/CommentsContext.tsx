@@ -74,9 +74,15 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   , []);
 
   const updateUpvote = useCallback(async (id: number, data: Partial<Comment>) => {
-    const response = await api.patch(`/comments/${id}`, data);
-
-    setComments(state => [response.data, ...state]);
+    await api.patch(`/comments/${id}`, data);
+    const response = await api.get('/comments', {
+      params: {
+        _sort: 'publishedAt',
+        _order: 'desc',
+      }
+    });
+    
+    setComments(response.data);
   }, []);
 
   useEffect(() => {

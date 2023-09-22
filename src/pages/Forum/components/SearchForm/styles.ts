@@ -8,7 +8,7 @@ export const SearchFormContainer = styled.form`
     flex: 1;
     border-radius: 6px;
     border: 0;
-    background-color: ${props => props.theme['gray-900']};
+    background-color: ${props => props.theme['gray-800']};
     color: ${props => props.theme['gray-300']};
     padding: 1rem;
 
@@ -23,7 +23,7 @@ export const SearchFormContainer = styled.form`
     gap: 0.75rem;
 
     border: 0;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     background: transparent;
     border: 1px solid ${props => props.theme['green-300']};
     color: ${props => props.theme['green-300']};

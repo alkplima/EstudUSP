@@ -101,25 +101,4 @@ export const CommentForm = styled.form`
     visibility: visible;
     max-height: none;
   }
-
-  button[type=submit] {
-    padding: .75rem 1.5rem;
-    margin-top: 1rem;
-    border-radius: 8px;
-    border: 0;
-    background: ${props => props.theme['green-500']};
-    color: ${props => props.theme.white};
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.1s;
-  }
-
-  button[type=submit]:not(:disabled):hover {
-    background: ${props => props.theme['green-300']};
-  }
-
-  button[type=submit]:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
 `
