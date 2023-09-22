@@ -11,12 +11,9 @@ export const CommentContainer = styled.div`
     height: 3rem;
     border-radius: 8px;
   }
-
-
 `
 
 export const CommentBox = styled.div`
-
   flex: 1;
 
   .commentContent {
@@ -53,9 +50,6 @@ export const CommentBox = styled.div`
       margin-top: 1rem;
       color: ${props => props.theme['gray-300']};
     }
-
-
-
   }
   
   footer {
@@ -91,6 +85,13 @@ export const CommentBox = styled.div`
 
   footer .dislikeButton:hover {
     color: ${props => props.theme['red-500']};
+  }
+
+  .authorAndTime {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .authorAndTime strong {

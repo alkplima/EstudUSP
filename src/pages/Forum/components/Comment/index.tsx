@@ -53,9 +53,9 @@ export function Comment({ comment }: CommentProps) {
               </time>
             </div>
 
-            <button onClick={handleDeleteComment} title='Deletar comentário'>
+            {/* <button onClick={handleDeleteComment} title='Deletar comentário'>
               <Trash size={24} />
-            </button>
+            </button> */}
           </header>
 
           <p>{comment.content}</p>
