@@ -8,6 +8,7 @@ import { GlobalStyle } from './styles/global';
 import { defaultTheme } from './styles/themes/default';
 import { PostsProvider } from './contexts/PostsContext';
 import { ThemeProvider } from "styled-components";
+import { DisciplinesProvider } from "./contexts/DisciplinesContext";
 
 // const customTheme = deepmerge(theme, {
 //   fonts: {
@@ -25,9 +26,12 @@ function App() {
       <ThemeProvider theme={defaultTheme} /*nightScheme='dark_dimmed'*/>
         <GlobalStyle />
         {/* <BaseStyles> */}
+
+        <DisciplinesProvider>
         <PostsProvider>
           <Router />
         </PostsProvider>
+        </DisciplinesProvider>
 
         {/* </BaseStyles> */}
       </ThemeProvider>

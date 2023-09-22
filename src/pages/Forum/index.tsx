@@ -4,7 +4,7 @@ import { ForumContainer, MainBox, NewQuestionCard, QuestionForm } from "./styles
 import { Sidebar } from "./components/Sidebar";
 import { PostPreview } from './components/PostPreview'
 import { MinusCircle, PlusCircle } from 'phosphor-react'
-import { DisciplinesProvider } from "../../contexts/DisciplinesContext";
+import { DisciplinesContext, DisciplinesProvider } from "../../contexts/DisciplinesContext";
 import { FileProvider } from "../../contexts/files";
 import Upload from "../../components/Upload";
 import FileList from "../../components/FileList";
@@ -15,10 +15,12 @@ import { SearchForm } from "./components/SearchForm";
 
 
 export function Forum() {
+  const disciplines = useContextSelector(DisciplinesContext, (context) => context.disciplines);
+
   const posts = useContextSelector(PostsContext, (context) => context.posts);
   const createPost = useContextSelector(PostsContext, (context) => context.createPost);
 
-  const [activeDisciplineId, setActiveDisciplineId] = useState(0);
+  const [activeDisciplineId, setActiveDisciplineId] = useState(-1);
   const [isQuestionCardOpen, setIsQuestionCardOpen] = useState(false);
   const [newQuestionText, setNewQuestionText] = useState('');
 
@@ -78,62 +80,68 @@ export function Forum() {
       </DisciplinesProvider>
       <main>
         <h1>Fórum de dúvidas</h1>
+        {activeDisciplineId !== -1 && <h1 className="disciplineName">{disciplines.find(discipline => discipline.id===activeDisciplineId)?.name}</h1>} 
+        {activeDisciplineId === -1 && <h2>Selecione uma disciplina para começar a estudar!</h2>}
         <FileProvider>
 
-          <NewQuestionCard>
-            <MainBox>
-              <strong>Postar uma nova pergunta</strong>
-              <div className='plusWrapper'>
-                {isQuestionCardOpen ?
-                  <MinusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/>
-                  :
-                  <PlusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/> 
-                }
-              </div>
-            </MainBox>
-            {isQuestionCardOpen &&
-              <QuestionForm onSubmit={handleCreateNewQuestion}>
-                <input 
-                  name='author'
-                  type="text"
-                  placeholder='Nome (opcional)'
-                  value={newQuestionAuthor}
-                  onChange={handleNewAuthorChange}
-                />
-                
-                <input 
-                  name='postTitle'
-                  type="text"
-                  placeholder='Título da pergunta'
-                  value={newQuestionTitle}
-                  onChange={handleTitleChange}
-                  required
-                />
+          { activeDisciplineId !== -1 &&
+          <>
+            <NewQuestionCard>
+              <MainBox>
+                <strong>Postar uma nova pergunta</strong>
+                <div className='plusWrapper'>
+                  {isQuestionCardOpen ?
+                    <MinusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/>
+                    :
+                    <PlusCircle size={24} onClick={() => setIsQuestionCardOpen(!isQuestionCardOpen) }/> 
+                  }
+                </div>
+              </MainBox>
+              {isQuestionCardOpen &&
+                <QuestionForm onSubmit={handleCreateNewQuestion}>
+                  <input 
+                    name='author'
+                    type="text"
+                    placeholder='Nome (opcional)'
+                    value={newQuestionAuthor}
+                    onChange={handleNewAuthorChange}
+                  />
+                  
+                  <input 
+                    name='postTitle'
+                    type="text"
+                    placeholder='Título da pergunta'
+                    value={newQuestionTitle}
+                    onChange={handleTitleChange}
+                    required
+                  />
 
-                <textarea 
-                  name='comment'
-                  placeholder='Descreva a sua pergunta'
-                  value={newQuestionText}
-                  onChange={handleNewQuestionChange}
-                  onInvalid={handleNewQuestionInvalid}
-                  required
-                />
+                  <textarea 
+                    name='comment'
+                    placeholder='Descreva a sua pergunta'
+                    value={newQuestionText}
+                    onChange={handleNewQuestionChange}
+                    onInvalid={handleNewQuestionInvalid}
+                    required
+                  />
 
-                <Upload />
-                <FileList />
+                  <Upload />
+                  <FileList />
 
-                <Button type='submit' disabled={isNewQuestionEmpty || isNewQuestionTitleEmpty}>Publicar</Button>
-              </QuestionForm>
-            }
-          </NewQuestionCard>
-          <SearchForm />
-          {posts.flatMap(post => {
-            if (post.disciplineId === activeDisciplineId) {
-              return (
-                <PostPreview key={post.id} post={post} />
-              )
-            }
-          })}
+                  <Button type='submit' disabled={isNewQuestionEmpty || isNewQuestionTitleEmpty}>Publicar</Button>
+                </QuestionForm>
+              }
+            </NewQuestionCard>
+            <SearchForm />
+            {posts.flatMap(post => {
+              if (post.disciplineId === activeDisciplineId) {
+                return (
+                  <PostPreview key={post.id} post={post} />
+                )
+              }
+            })}
+          </>
+          }
         </FileProvider>
       </main>
     </ForumContainer>

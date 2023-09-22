@@ -24,6 +24,19 @@ export const ForumContainer = styled.div`
       font-family: 'Segoe_UI_Bold';
       color: ${props => props.theme['gray-100']};
       align-self: center;
+      text-align: center;
+    }
+
+    .disciplineName {
+      color: ${props => props.theme['yellow-usp']};
+      align-self: center;
+      text-align: center;
+      margin-block: -.5rem 1rem;
+    }
+
+    h2 {
+      align-self: center;
+      margin-top: 2rem;
     }
   }
 

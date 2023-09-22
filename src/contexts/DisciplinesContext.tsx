@@ -33,8 +33,8 @@ export function DisciplinesProvider({ children }: DisciplinesProviderProps) {
   const fetchDisciplines = useCallback(async (query?: string) => {
     const response = await api.get('/disciplines', {
       params: {
-        _sort: 'semester',
-        _order: 'desc',
+        _sort: 'name', // pode ser 'semester' tbm, se tiverem mais disciplinas
+        _order: 'z',
         q: query,
       }
     });
