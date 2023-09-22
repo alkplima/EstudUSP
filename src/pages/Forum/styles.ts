@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const ForumContainer = styled.div`
 
+  width: 100%;
   max-width: 70rem;
   margin: 2rem auto;
   padding: 0 1rem;
@@ -13,6 +14,7 @@ export const ForumContainer = styled.div`
   align-items: flex-start;
   
   main {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,6 +33,7 @@ export const ForumContainer = styled.div`
 `
 
 export const NewQuestionCard = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

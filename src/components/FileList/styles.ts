@@ -8,6 +8,9 @@ export const Container = styled.ul`
     justify-content: space-between;
     align-items: center;
     color: #444;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: ${props => props.theme['gray-700']};
 
     & + li {
       margin-top: 15px;

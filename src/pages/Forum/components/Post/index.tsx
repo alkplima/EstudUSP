@@ -5,23 +5,18 @@ import { Comment } from '../Comment';
 import { CommentForm, PostContainer } from './styles';
 import Upload from '../../../../components/Upload';
 import FileList from '../../../../components/FileList';
-
-interface Author {
-  username: string;
-  avatarUrl: string;
-}
-
-// interface Content {
-//   type: 'paragraph' | 'link';
-//   content: string;
-// }
+import { useContextSelector } from 'use-context-selector';
+import { PostsContext } from '../../../../contexts/PostsContext';
+import { CommentsContext } from '../../../../contexts/CommentsContext';
 
 export interface PostType {
   id: number;
-  author: Author;
-  title: string;
-  publishedAt: Date;
+  name?: string;
+  postTitle: string;
   content: string;
+  upvote: number;
+  publishedAt: Date;
+  disciplineId: number;
 }
 
 interface PostProps {
@@ -41,18 +36,20 @@ export interface UploadedFile {
 }
 
 export function Post({ post }: PostProps) {
-  const [comments, setComments] = useState<string[]>([]);
-  const [likeCount, setLikeCount] = useState(0);
-  const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
+  // const [comments, setComments] = useState<string[]>([]);
 
+  const comments = useContextSelector(CommentsContext, (context) => context.comments);
+  const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
+
+  const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
+  
   const [newCommentText, setNewCommentText] = useState('');
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
-
+  
+  const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
 
   function handleLikePost() {
-    setLikeCount(previousState => {
-      return previousState + 1;
-    });
+    updateUpvote(post.id, { upvote: post.upvote + 1 });
   }
 
   function handleOpenAnswerBox() {
@@ -66,7 +63,14 @@ export function Post({ post }: PostProps) {
   function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
-    setComments([...comments, newCommentText]);
+    // setComments([...comments, newCommentText]);
+    createComment({
+      name: newCommentAuthor,
+      content: newCommentText,
+      upvote: 0,
+      postId: post.id,
+      disciplineId: post.disciplineId,
+    });
     setNewCommentText('');
   }
 
@@ -79,14 +83,9 @@ export function Post({ post }: PostProps) {
     event.target.setCustomValidity('O comentário não pode estar vazio');
   }
 
-  function deleteComment(commentToDelete: string) {
-    const commentsWithoutDeletedOne = comments.filter(c => c !== commentToDelete);
-
-    setComments(commentsWithoutDeletedOne);
-  }
-
   const isNewCommentEmpty = newCommentText.length === 0;
 
+  const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
 
   return (
     <PostContainer>
@@ -96,7 +95,7 @@ export function Post({ post }: PostProps) {
 
         <div>
           <button onClick={handleLikePost} className='likeButton' >
-            Tenho a mesma pergunta ({likeCount})
+            Tenho a mesma pergunta ({post.upvote})
           </button>
 
           {!isAnswerBoxOpen &&
@@ -130,8 +129,6 @@ export function Post({ post }: PostProps) {
 
           <Upload />
           <FileList />
-          {/* {!!uploadedFiles.length && (
-          )} */}
 
           <footer>
             {/* <Button type='submit' disabled={isNewCommentEmpty} size='large'>
@@ -149,19 +146,25 @@ export function Post({ post }: PostProps) {
         <>
           <strong>Respostas</strong>
           {
-            comments.length === 0 && (
+            commentsFiltered.length > 0 && (
+              <p style={{marginTop: '1rem'}}>{comments.length} resposta(s)</p>
+            )
+          }
+          {
+            commentsFiltered.length === 0 && (
               <p style={{marginTop: '1rem'}}>Seja o primeiro a responder!</p>
             )
           }
-          {comments.map(comment => {
-            return (
-              <Comment 
-              key={comment} 
-              content={comment} 
-              onDeleteComment={deleteComment} 
-              />
+          {commentsFiltered.map(comment => {
+            if (comment.disciplineId === post.disciplineId) {
+              return (
+                <Comment 
+                  key={comment.id}
+                  comment={comment}
+                />
               )
-            })}
+            }
+          })}
         </>
       </div>
     </PostContainer>

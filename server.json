@@ -36,17 +36,57 @@
   "users": [
     {
       "id": 0,
-      "name": "Anonymous"
+      "name": "Anônimo"
     }
   ],
   "posts": [
     {
       "id": 1,
-      "title": "Post 1",
-      "content": "Corpo do post 1",
-      "upvote": 12,
-      "userId": 0,
+      "name": "Alexandre Kira",
+      "postTitle": "Um post aí interessante",
+      "content": "Batatinha frita 123. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo accusamus ducimus quam vitae nihil, sed, numquam ratione eligendi totam iusto minus sit deserunt? Atque explicabo a facere veniam unde vel? https://github.com/alkplima",
+      "publishedAt": "2023-09-22T15:11:18.820Z",
+      "upvote": 0,
       "disciplineId": 0
+    },
+    {
+      "id": 2,
+      "name": "Gustavo Henrique",
+      "postTitle": "Um título tal que reflete tal problema e etc e tals e mb a bafb afdb  af d bad nf da n adn anafdbafdbadnba adfnbadn",
+      "content": "Post 2. Fala galeraa 👋. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo accusamus ducimus quam vitae nihil, sed, numquam ratione eligendi totam iusto minus sit deserunt? Atque explicabo a facere veniam unde vel? https://github.com/gustavohls1",
+      "publishedAt": "2023-09-22T15:11:18.820Z",
+      "upvote": 0,
+      "disciplineId": 0
+    },
+    {
+      "name": "banana_split123",
+      "postTitle": "Batata quente",
+      "content": "Queria comer um Mac hoje...",
+      "publishedAt": "2023-09-22T15:26:36.703Z",
+      "upvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 3
+    },
+    {
+      "name": "banana_split123",
+      "postTitle": "Férias AGORA",
+      "content": "Queria tanto entrar de férias antes...",
+      "publishedAt": "2023-09-22T15:27:28.113Z",
+      "upvote": 4,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 4
+    },
+    {
+      "name": "banana_split123",
+      "postTitle": "LINUX YESSIR",
+      "content": "Vamos usar linux hoje??",
+      "publishedAt": "2023-09-22T15:28:06.649Z",
+      "upvote": 0,
+      "disciplineId": 1,
+      "userId": 0,
+      "id": 5
     }
   ],
   "images": [],
@@ -68,6 +108,18 @@
       "name": "Banco de Dados 2",
       "semester": 4,
       "previewImg": "https://cdn.pixabay.com/photo/2023/05/26/06/29/ai-generated-8018846_960_720.png"
+    }
+  ],
+  "comments": [
+    {
+      "name": "simsimsim",
+      "content": "Opa, vamos sim, óbviooooo",
+      "publishedAt": "2023-09-22T16:51:52.662Z",
+      "upvote": 0,
+      "disciplineId": 1,
+      "userId": 0,
+      "postId": 5,
+      "id": 1
     }
   ]
 }

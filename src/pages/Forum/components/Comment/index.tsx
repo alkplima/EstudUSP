@@ -1,45 +1,56 @@
-import { useState } from 'react';
 import { Heart, ThumbsDown, ThumbsUp, Trash } from 'phosphor-react'
 import { CommentBox, CommentContainer } from './styles';
 import { Avatar } from '../../../../components/Avatar';
+import { useContextSelector } from 'use-context-selector';
+import { Comment, CommentsContext } from '../../../../contexts/CommentsContext';
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBr from 'date-fns/locale/pt-BR'
 interface CommentProps {
-  content: string;
-  onDeleteComment: (commentToDelete: string) => void;
+  comment: Comment;
 }
 
-export function Comment({ content, onDeleteComment }: CommentProps) {
-  const [likeCount, setLikeCount] = useState(0);
+export function Comment({ comment }: CommentProps) {
+  const updateUpvote = useContextSelector(CommentsContext, comments => comments.updateUpvote);
+  const deleteComment = useContextSelector(CommentsContext, comments => comments.deleteComment);
 
   function handleDeleteComment() {
-    onDeleteComment(content);
+    deleteComment(comment.id);
   }
 
   function handleLikeComment() {
-    setLikeCount(previousState => {
-      return previousState + 1;
-    });
+    updateUpvote(comment.id, { upvote: comment.upvote + 1 });
   }
 
   function handleDislikeComment() {
-    if (likeCount === 0) return;
-    setLikeCount(previousState => {
-      return previousState - 1;
-    });
+    if (comment.upvote === 0) return;
+    updateUpvote(comment.id, { upvote: comment.upvote - 1 });
   }
+
+  const publishedDateFormatted = format(new Date(comment.publishedAt), "d 'de' LLLL 'às' HH:mm", {
+    locale: ptBr 
+  })
+
+  const publishedDateRelativeToNow = formatDistanceToNow(new Date(comment.publishedAt), {
+    locale: ptBr,
+    addSuffix: true
+  })
+
 
   return (
     <CommentContainer>
       <Avatar 
         hasBorder={false} 
-        content = {content}
+        content = {comment.content}
       />
 
       <CommentBox>
         <div className='commentContent'>
           <header>
             <div className='authorAndTime'>
-              <strong>angry_capybara08</strong>
-              <time title='11 de setembro às 20:43' dateTime='2023-11-09 20:43:30'>Cerca de 1h atrás</time>
+              <strong>{comment.name}</strong>
+              <time title={publishedDateFormatted} dateTime={new Date(comment.publishedAt).toISOString()}>
+                {publishedDateRelativeToNow}
+              </time>
             </div>
 
             <button onClick={handleDeleteComment} title='Deletar comentário'>
@@ -47,13 +58,13 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
             </button>
           </header>
 
-          <p>{content}</p>
+          <p>{comment.content}</p>
         </div>
 
         <footer>
           <div>
             <Heart size={20} className='heartIcon' />
-            : {likeCount}
+            : {comment.upvote}
           </div>
           <button onClick={handleLikeComment} className='likeButton' >
             <ThumbsUp size={20} />

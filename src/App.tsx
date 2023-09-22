@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Router } from "./Router";
 import { GlobalStyle } from './styles/global';
 import { defaultTheme } from './styles/themes/default';
+import { PostsProvider } from './contexts/PostsContext';
 
 const customTheme = deepmerge(theme, {
   fonts: {
@@ -22,7 +23,9 @@ function App() {
       <ThemeProvider theme={defaultTheme} /*nightScheme='dark_dimmed'*/>
         <GlobalStyle />
         {/* <BaseStyles> */}
+        <PostsProvider>
           <Router />
+        </PostsProvider>
 
         {/* </BaseStyles> */}
       </ThemeProvider>

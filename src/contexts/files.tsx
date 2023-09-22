@@ -16,6 +16,7 @@ export interface IPost {
   size: number;
   key: string;
   url: string;
+  postId: number
 }
 
 export interface IFile {
@@ -59,6 +60,7 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
           name: post.name,
           size: post.size,
           url: post.url,
+          postId: post.postId,
         };
       });
 
@@ -85,15 +87,13 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
       //   data.append("file", uploadedFile.file, uploadedFile.name);
       // }
       const data = {
-        preview: uploadedFile.url,
-        readableSize: uploadedFile.readableSize,
+        preview: uploadedFile.preview,
         file: updateFile,
         error: false,
         uploaded: true,
         name: uploadedFile.name,
         size: uploadedFile.file?.size,
         url: uploadedFile.preview,
-
       };
 
       api

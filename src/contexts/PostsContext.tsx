@@ -4,21 +4,28 @@ import { createContext } from "use-context-selector";
 
 interface Post {
   id: number;
-  name: string;
-  semester: number;
-  previewImg: string;
+  name?: string;
+  postTitle: string;
+  content: string;
+  publishedAt: Date;
+  upvote: number;
+  disciplineId: number;
+  userId: number;
 }
 
 interface CreatePostInput {
-  name: string;
-  semester: number;
-  previewImg: string;
+  name?: string;
+  postTitle: string;
+  content: string;
+  upvote: number;
+  disciplineId: number;
 }
 
 interface PostsContextType {
   posts: Post[];
   fetchPosts: (query?: string) => Promise<void>;
   createPost: (data: CreatePostInput) => Promise<void>;
+  updateUpvote: (id: number, data: Partial<Post>) => Promise<void>;
 }
 
 export const PostsContext = createContext({} as PostsContextType);
@@ -33,7 +40,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
   const fetchPosts = useCallback(async (query?: string) => {
     const response = await api.get('/posts', {
       params: {
-        _sort: 'semester',
+        _sort: 'publishedAt',
         _order: 'desc',
         q: query,
       }
@@ -43,16 +50,27 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }, []);
 
   const createPost = useCallback(async (data: CreatePostInput) => {
-    const { name, semester, previewImg } = data;
+    const { name, postTitle, content, upvote, disciplineId } = data;
 
     const response = await api.post('/posts', {
-      name,
-      semester,
-      previewImg,
+      name: name || 'Anônimo',
+      postTitle,
+      content,
+      publishedAt: new Date(),
+      upvote,
+      disciplineId,
+      userId: 0
     });
 
     setPosts(state => [response.data, ...state])
   }, []);
+
+  const updateUpvote = useCallback(async (id: number, data: Partial<Post>) => {
+    const response = await api.patch(`/posts/${id}`, data);
+    
+    setPosts(state => [response.data, ...state])
+  }
+  , []);
 
   useEffect(() => {
     fetchPosts();
@@ -63,6 +81,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
       posts,
       fetchPosts,
       createPost,
+      updateUpvote
     }}>
       {children}
     </PostsContext.Provider>
