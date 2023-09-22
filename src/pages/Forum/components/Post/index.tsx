@@ -49,6 +49,16 @@ export function Post({ post }: PostProps) {
   
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
 
+  function checkTextForLineBreak(text: string) {
+    const textWithLinksAndLineBreaks = text.split('\n').map(paragraph => {
+      return paragraph
+        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>'); // Transforma em link
+    })
+    .join('<br>'); // Adiciona quebras de linha.
+  
+    return <p dangerouslySetInnerHTML={{ __html: textWithLinksAndLineBreaks }} />
+  } 
+
   function handleLikePost() {
     updateUpvote(post.id, { upvote: post.upvote + 1 });
   }
@@ -95,7 +105,7 @@ export function Post({ post }: PostProps) {
     <PostContainer>
 
       <div className='content'>
-        {post.content}
+        {checkTextForLineBreak(post.content)}
 
         <div>
           <button onClick={handleLikePost} className='likeButton' >

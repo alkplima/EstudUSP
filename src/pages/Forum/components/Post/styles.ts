@@ -11,11 +11,7 @@ export const PostContainer = styled.div`
     flex-direction: column;
     line-height: 1.6;
     color: ${props => props.theme['gray-300']};
-    margin-top: 1rem;
-
-    p {
-      margin-top: 1rem;
-    }
+    margin-top: 2rem;
 
     a {
       font-weight: bold;
@@ -57,9 +53,7 @@ export const PostContainer = styled.div`
     line-height: 1.6;
     color: ${props => props.theme['gray-100']};
   }
-
 `
-
 
 export const CommentForm = styled.form`
 

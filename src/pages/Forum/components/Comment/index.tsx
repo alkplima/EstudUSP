@@ -17,6 +17,16 @@ export function Comment({ comment }: CommentProps) {
     deleteComment(comment.id);
   }
 
+  function checkTextForLineBreak(text: string) {
+    const textWithLinksAndLineBreaks = text.split('\n').map(paragraph => {
+      return paragraph
+        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>'); // Transforma em link
+    })
+    .join('<br>'); // Adiciona quebras de linha.
+  
+    return <p dangerouslySetInnerHTML={{ __html: textWithLinksAndLineBreaks }} />
+  } 
+
   function handleLikeComment() {
     updateUpvote(comment.id, { upvote: comment.upvote + 1 });
   }
@@ -58,7 +68,7 @@ export function Comment({ comment }: CommentProps) {
             </button> */}
           </header>
 
-          <p>{comment.content}</p>
+          {checkTextForLineBreak(comment.content)}
         </div>
 
         <footer>

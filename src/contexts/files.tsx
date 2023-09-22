@@ -53,7 +53,7 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
           ...post,
           id: post.id,
           preview: post.url,
-          readableSize: post.size.toString(),
+          readableSize: filesize(post.size),
           file: null,
           error: false,
           uploaded: true,

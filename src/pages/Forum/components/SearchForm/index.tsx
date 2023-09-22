@@ -49,7 +49,7 @@ export function SearchForm() {
         </button>
       </SearchFormContainer>
       {!!currentSearchWord &&
-        <p>Resultados para a busca "<i>{currentSearchWord}</i>"</p>
+        <p>Resultados para <i>"{currentSearchWord}"</i> :</p>
       }
     </>
   )

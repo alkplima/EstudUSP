@@ -47,8 +47,17 @@ export const CommentBox = styled.div`
     }
   
     p {
-      margin-top: 1rem;
       color: ${props => props.theme['gray-300']};
+    }
+
+    a {
+      font-weight: bold;
+      color: ${props => props.theme['green-500']};
+      text-decoration: none;
+      
+      :hover {
+        color: ${props => props.theme['green-300']};
+      }
     }
   }
   
