@@ -77,6 +77,7 @@ export const PostPreviewContent = styled.div`
   .authorInfo strong {
     display: block;
     color: ${props => props.theme['gray-100']};
+    font-family: "Segoe_UI_Bold", sans-serif;
     line-height: 1.6;
   }
 `

@@ -5,6 +5,7 @@ import * as z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../../../contexts/PostsContext";
+import { useState } from "react";
 
 
 const searchFormSchema = z.object({
@@ -13,8 +14,9 @@ const searchFormSchema = z.object({
 
 type SearchFormInputs = z.infer<typeof searchFormSchema>;
 
-// function SearchFormComponent() {
 export function SearchForm() {
+  const [currentSearchWord, setCurrentSearchWord] = useState('');
+
   const fetchPosts = useContextSelector(PostsContext, (context) => {
     return context.fetchPosts;
   });
@@ -29,21 +31,27 @@ export function SearchForm() {
 
   async function handleSearchPosts(data: SearchFormInputs) {
     await fetchPosts(data.query);
+    setCurrentSearchWord(data.query);
   }
 
   return (
-    <SearchFormContainer onSubmit={handleSubmit(handleSearchPosts)}>
-      <input 
-        type="text" 
-        placeholder="Buscar perguntas pelo título/autor"
-        {...register('query')}
-      />
+    <>
+      <SearchFormContainer onSubmit={handleSubmit(handleSearchPosts)}>
+        <input 
+          type="text" 
+          placeholder="Buscar perguntas pelo título/autor"
+          {...register('query')}
+          />
 
-      <button type="submit" disabled={isSubmitting}>
-        <MagnifyingGlass size={20} />
-        Buscar
-      </button>
-    </SearchFormContainer>
+        <button type="submit" disabled={isSubmitting}>
+          <MagnifyingGlass size={20} />
+          Buscar
+        </button>
+      </SearchFormContainer>
+      {!!currentSearchWord &&
+        <p>Resultados para a busca "<i>{currentSearchWord}</i>"</p>
+      }
+    </>
   )
 }
 

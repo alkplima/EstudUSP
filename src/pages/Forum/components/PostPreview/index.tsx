@@ -54,19 +54,10 @@ export function PostPreview({ post }: PostProps) {
             content={post.name || 'Anônimo'}
           />
           <div className='authorInfo'>
-            {!isCardOpen ?
-              <>
-                <p>{post.name}</p>
-                <strong>{post.postTitle}</strong>
-                <div className='downarrow' onClick={handleOpenCard}><div></div></div>
-              </>
-              :
-              <>
-                <strong>{post.name}</strong>
-                <p>{post.postTitle}</p>
-                {/* <Post key={post.id} post={post} />
-                <div className='uparrow' onClick={handleOpenCard}><div></div></div> */}
-              </>
+            <p>{post.name}</p>
+            <strong>{post.postTitle}</strong>
+            {!isCardOpen &&
+              <div className='downarrow' onClick={handleOpenCard}><div></div></div>
             }
           </div>
         </PostPreviewContent>
