@@ -70,6 +70,12 @@ export function Comment({ comment }: CommentProps) {
           </header>
 
           {checkTextForLineBreak(comment.content)}
+
+          <div className='commentImgsWrapper'>
+            {comment.images && comment.images.map(image => (
+              <img key={image} src={image} alt='' className='commentImgs' />
+            ))}
+          </div>
         </div>
 
         <footer>

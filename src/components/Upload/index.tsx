@@ -4,6 +4,7 @@ import { useDropzone } from "react-dropzone";
 import { DropContainer, UploadMessage } from "./styles";
 import { useFiles } from "../../contexts/files";
 
+
 function Upload() {
   const { handleUpload } = useFiles();
 

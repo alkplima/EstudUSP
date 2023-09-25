@@ -16,7 +16,7 @@ export interface IPost {
   size: number;
   key: string;
   url: string;
-  postId: number
+  postId: number;
 }
 
 export interface IFile {

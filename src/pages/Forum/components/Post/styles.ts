@@ -9,6 +9,22 @@ export const PostContainer = styled.div`
     flex-direction: column;
     margin-top: 1.5rem;
 
+    .postImgsWrapper {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      padding-block: 0.5rem;
+  
+      .postImgs {
+        min-width: 50%;
+        width: fit-content;
+        max-width: 80%;
+      }
+    }
+
     a {
       font-weight: bold;
       color: ${props => props.theme['tertiary']};

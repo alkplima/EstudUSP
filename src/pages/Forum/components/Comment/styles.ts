@@ -45,6 +45,22 @@ export const CommentBox = styled.div`
         }
       }
     }
+
+    .commentImgsWrapper {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      padding-block: 0.5rem;
+  
+      .commentImgs {
+        min-width: 50%;
+        width: fit-content;
+        max-width: 80%;
+      }
+    }
   
     p {
       color: ${props => props.theme['gray-300']};

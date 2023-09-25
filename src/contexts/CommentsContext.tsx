@@ -6,6 +6,7 @@ export interface Comment {
   id: number;
   name?: string;
   content: string;
+  images?: string[];
   publishedAt: Date;
   upvote: number;
   downvote: number;
@@ -17,6 +18,7 @@ export interface Comment {
 interface CreateCommentInput {
   name?: string;
   content: string;
+  images?: string[];
   disciplineId: number;
   postId: number;
 }
@@ -52,11 +54,12 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }, []);
 
   const createComment = useCallback(async (data: CreateCommentInput) => {
-    const { name, content, disciplineId, postId } = data;
+    const { name, content, images, disciplineId, postId } = data;
 
     const response = await api.post('/comments', {
       name: name || 'Anônimo',
       content,
+      images,
       publishedAt: new Date(),
       upvote: 0,
       downvote: 0,

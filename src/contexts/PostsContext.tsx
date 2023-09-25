@@ -19,6 +19,7 @@ interface CreatePostInput {
   name?: string;
   postTitle: string;
   content: string;
+  images?: string[];
   disciplineId: number;
 }
 
@@ -53,12 +54,13 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }, []);
 
   const createPost = useCallback(async (data: CreatePostInput) => {
-    const { name, postTitle, content, disciplineId } = data;
+    const { name, postTitle, content, images, disciplineId } = data;
 
     const response = await api.post('/posts', {
       name: name || 'Anônimo',
       postTitle,
       content,
+      images,
       publishedAt: new Date(),
       sameQuestionCount: 0,
       upvote: 0,

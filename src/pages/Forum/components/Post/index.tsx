@@ -10,12 +10,14 @@ import { PostsContext } from '../../../../contexts/PostsContext';
 import { CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
 import { ThumbsDown, ThumbsUp } from 'phosphor-react';
+import { useFiles } from '../../../../contexts/files';
 
 export interface PostType {
   id: number;
   name?: string;
   postTitle: string;
   content: string;
+  images?: string[];
   sameQuestionCount: number;
   upvote: number;
   downvote: number;
@@ -42,6 +44,8 @@ export interface UploadedFile {
 export function Post({ post }: PostProps) {
   // const [comments, setComments] = useState<string[]>([]);
 
+  const { uploadedFiles } = useFiles();
+
   const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
   const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
@@ -50,8 +54,8 @@ export function Post({ post }: PostProps) {
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
-  const [newCommentText, setNewCommentText] = useState('');
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
+  const [newCommentText, setNewCommentText] = useState('');
   
 
   function checkTextForLineBreak(text: string) {
@@ -85,6 +89,8 @@ export function Post({ post }: PostProps) {
     setNewCommentAuthor(event.target.value);
   }
 
+  const imagesURLs = uploadedFiles.map(file => file.url);
+
   function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
@@ -92,6 +98,7 @@ export function Post({ post }: PostProps) {
     createComment({
       name: newCommentAuthor,
       content: newCommentText,
+      images: imagesURLs,
       postId: post.id,
       disciplineId: post.disciplineId,
     });
@@ -119,6 +126,12 @@ export function Post({ post }: PostProps) {
 
       <div className='content'>
         {checkTextForLineBreak(post.content)}
+
+        <div className='postImgsWrapper'>
+          {post.images && post.images.map(image => (
+            <img key={image} src={image} alt='' className='postImgs' />
+          ))}
+        </div>
 
         <div className='buttons'>
           <div className="bigButtons">

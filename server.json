@@ -37,6 +37,11 @@
       "name": "Alexandre Kira",
       "postTitle": "Um post aí interessante",
       "content": "Batatinha frita 123.\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Quo accusamus ducimus quam vitae nihil, sed, numquam ratione eligendi totam iusto minus sit deserunt?\nAtque explicabo a facere veniam unde vel?\nhttps://github.com/alkplima",
+      "images": [
+        "https://images.unsplash.com/photo-1694392295383-75437a29ac91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1826&q=80",
+        "https://images.unsplash.com/photo-1682695795255-b236b1f1267d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1695491333484-ecb0ce9e8d3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+      ],
       "publishedAt": "2023-09-22T15:11:18.820Z",
       "upvote": 0,
       "disciplineId": 0
@@ -46,6 +51,10 @@
       "name": "Gustavo Henrique",
       "postTitle": "Um título tal que reflete tal problema e etc e tals e mb a bafb afdb  af d bad nf da n adn anafdbafdbadnba adfnbadn",
       "content": "Post 2. Fala galeraa 👋. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo accusamus ducimus quam vitae nihil, sed, numquam ratione eligendi totam iusto minus sit deserunt? Atque explicabo a facere veniam unde vel? https://github.com/gustavohls1",
+      "images": [
+        "https://images.unsplash.com/photo-1682695795255-b236b1f1267d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1695491333484-ecb0ce9e8d3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+      ],
       "publishedAt": "2023-09-22T15:11:18.820Z",
       "upvote": 0,
       "disciplineId": 0
@@ -58,7 +67,8 @@
       "upvote": 4,
       "disciplineId": 0,
       "userId": 0,
-      "id": 3
+      "id": 3,
+      "sameQuestionCount": null
     },
     {
       "name": "banana_split123",
@@ -169,7 +179,8 @@
       "upvote": 6,
       "disciplineId": 0,
       "userId": 0,
-      "id": 14
+      "id": 14,
+      "sameQuestionCount": 1
     },
     {
       "name": "Anônimo",
@@ -196,9 +207,9 @@
       "postTitle": "testando novo esquema de perguntas",
       "content": "seila",
       "publishedAt": "2023-09-25T18:45:48.248Z",
-      "sameQuestionCount": 1,
-      "upvote": 2,
-      "downvote": 2,
+      "sameQuestionCount": 4,
+      "upvote": 4,
+      "downvote": 4,
       "disciplineId": 0,
       "userId": 0,
       "id": 17
@@ -242,12 +253,12 @@
   ],
   "images": [
     {
-      "preview": "blob:http://localhost:5173/c09ab61f-637f-4d85-ae4c-1bd71e2e22cc",
+      "preview": "blob:http://localhost:5173/c75295b9-205f-44fa-8ec4-3d901f63f495",
       "error": false,
       "uploaded": true,
       "name": "Group 1.png",
       "size": 9967,
-      "url": "blob:http://localhost:5173/c09ab61f-637f-4d85-ae4c-1bd71e2e22cc",
+      "url": "blob:http://localhost:5173/c75295b9-205f-44fa-8ec4-3d901f63f495",
       "id": 1
     }
   ],
@@ -335,6 +346,11 @@
     {
       "name": "nome_qualquer",
       "content": "resposta qualquer",
+      "images": [
+        "https://images.unsplash.com/photo-1694392295383-75437a29ac91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1826&q=80",
+        "https://images.unsplash.com/photo-1682695795255-b236b1f1267d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1695491333484-ecb0ce9e8d3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+      ],
       "publishedAt": "2023-09-23T00:58:59.325Z",
       "upvote": 0,
       "disciplineId": 0,
@@ -345,6 +361,9 @@
     {
       "name": "Anônimo",
       "content": "tá ficando show esse site hein",
+      "images": [
+        "https://images.unsplash.com/photo-1694392295383-75437a29ac91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60"
+      ],
       "publishedAt": "2023-09-25T18:46:51.018Z",
       "upvote": 1,
       "downvote": 4,
@@ -352,6 +371,30 @@
       "userId": 0,
       "postId": 17,
       "id": 10
+    },
+    {
+      "name": "beti",
+      "content": "oioioi esytou aqui \n\nlinnk aqui: https://trello.com/b/BO4kPCg4/rp2-esi1",
+      "images": [],
+      "publishedAt": "2023-09-25T22:33:18.171Z",
+      "upvote": 1,
+      "downvote": 1,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 17,
+      "id": 11
+    },
+    {
+      "name": "beti",
+      "content": "jdkbvkjbdfjvfad",
+      "images": [],
+      "publishedAt": "2023-09-25T22:33:47.613Z",
+      "upvote": 0,
+      "downvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 17,
+      "id": 12
     }
   ]
 }
