@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import * as z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContextSelector } from "use-context-selector";
-import { PostsContext } from "../../../../contexts/PostsContext";
+import { DisciplinesContext } from "../../../../contexts/DisciplinesContext";
 import { useState } from "react";
 
 
@@ -17,8 +17,8 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>;
 export function SearchForm() {
   const [currentSearchWord, setCurrentSearchWord] = useState('');
 
-  const fetchPosts = useContextSelector(PostsContext, (context) => {
-    return context.fetchPosts;
+  const fetchDisciplines = useContextSelector(DisciplinesContext, (context) => {
+    return context.fetchDisciplines;
   });
 
   const { 
@@ -29,17 +29,17 @@ export function SearchForm() {
     resolver: zodResolver(searchFormSchema),
   });
 
-  async function handleSearchPosts(data: SearchFormInputs) {
-    await fetchPosts(data.query);
+  async function handleSearchDisciplines(data: SearchFormInputs) {
+    await fetchDisciplines(data.query);
     setCurrentSearchWord(data.query);
   }
 
   return (
     <>
-      <SearchFormContainer onSubmit={handleSubmit(handleSearchPosts)}>
+      <SearchFormContainer onSubmit={handleSubmit(handleSearchDisciplines)}>
         <input 
           type="text" 
-          placeholder="Buscar perguntas pelo título/autor"
+          placeholder="Buscar disciplinas"
           {...register('query')}
         />
 

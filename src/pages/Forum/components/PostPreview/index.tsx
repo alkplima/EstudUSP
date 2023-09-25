@@ -7,6 +7,7 @@ import { PostPreviewContainer, PostPreviewContent } from './styles';
 import { Avatar } from '../../../../components/Avatar';
 import { Post } from '../Post';
 import { CommentsProvider } from '../../../../contexts/CommentsContext';
+import { Subtitle } from '../../../../styles/global';
 
 
 // interface Content {
@@ -19,7 +20,9 @@ export interface PostType {
   name?: string;
   postTitle: string;
   content: string;
+  sameQuestionCount: number;
   upvote: number;
+  downvote: number;
   publishedAt: Date;
   disciplineId: number;
 }
@@ -54,8 +57,8 @@ export function PostPreview({ post }: PostProps) {
             content={post.name || 'Anônimo'}
           />
           <div className='authorInfo'>
-            <p>{post.name}</p>
-            <strong>{post.postTitle}</strong>
+            <h6>{post.postTitle}</h6>
+            <Subtitle>{post.name}</Subtitle>
             {!isCardOpen &&
               <div className='downarrow' onClick={handleOpenCard}><div></div></div>
             }

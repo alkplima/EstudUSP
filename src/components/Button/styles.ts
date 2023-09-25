@@ -1,19 +1,22 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  padding: .75rem 1.5rem;
-  margin-top: 1rem;
-  border-radius: 8px;
-  border: 0;
-  background: ${props => props.theme['yellow-usp']};
-  opacity: 0.9;
-  color: ${props => props.theme.white};
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.1s;
 
+  padding: 0.4rem 1.25rem;
+  border-radius: 8px;
+  width: fit-content;
+  margin-top: 1.5rem;
+  color: ${props => props.theme['on-primary']};
+  background: ${props => props.theme['primary']};
+  border: 1px solid transparent;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+  
   &:not(:disabled):hover {
-    background: ${props => props.theme['yellow-usp']};
+    color: ${props => props.theme['primary']};
+    background: transparent;
+    border: 1px solid ${props => props.theme['primary']};
     opacity: 1;
   }
 

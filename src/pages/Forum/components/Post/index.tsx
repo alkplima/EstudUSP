@@ -9,13 +9,16 @@ import { useContextSelector } from 'use-context-selector';
 import { PostsContext } from '../../../../contexts/PostsContext';
 import { CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
+import { ThumbsDown, ThumbsUp } from 'phosphor-react';
 
 export interface PostType {
   id: number;
   name?: string;
   postTitle: string;
   content: string;
+  sameQuestionCount: number;
   upvote: number;
+  downvote: number;
   publishedAt: Date;
   disciplineId: number;
 }
@@ -41,13 +44,15 @@ export function Post({ post }: PostProps) {
 
   const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
+  const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
+  const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
+  const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
   const [newCommentText, setNewCommentText] = useState('');
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
   
-  const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
 
   function checkTextForLineBreak(text: string) {
     const textWithLinksAndLineBreaks = text.split('\n').map(paragraph => {
@@ -59,8 +64,17 @@ export function Post({ post }: PostProps) {
     return <p dangerouslySetInnerHTML={{ __html: textWithLinksAndLineBreaks }} />
   } 
 
+  function handleHaveSameQuestion() {
+    updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount + 1 });
+  }
+
   function handleLikePost() {
     updateUpvote(post.id, { upvote: post.upvote + 1 });
+  }
+
+  function handleDislikePost() {
+    if (post.upvote === 0) return;
+    updateDownvote(post.id, { downvote: post.downvote + 1 });
   }
 
   function handleOpenAnswerBox() {
@@ -78,7 +92,6 @@ export function Post({ post }: PostProps) {
     createComment({
       name: newCommentAuthor,
       content: newCommentText,
-      upvote: 0,
       postId: post.id,
       disciplineId: post.disciplineId,
     });
@@ -107,16 +120,28 @@ export function Post({ post }: PostProps) {
       <div className='content'>
         {checkTextForLineBreak(post.content)}
 
-        <div>
-          <button onClick={handleLikePost} className='likeButton' >
-            Tenho a mesma pergunta ({post.upvote})
-          </button>
+        <div className='buttons'>
+          <div className="bigButtons">
+            {!isAnswerBoxOpen &&
+              <Button onClick={handleOpenAnswerBox} className='answerButton' >
+                Responder
+              </Button>
+            }
 
-          {!isAnswerBoxOpen &&
-            <button onClick={handleOpenAnswerBox} className='likeButton' >
-              Adicionar resposta
+            <button onClick={handleHaveSameQuestion} className='sameQuestionButton' >
+              Tenho a mesma pergunta ({post.sameQuestionCount})
             </button>
-          }
+          </div>
+
+          <div className="likeDislikeButtons">
+            <button onClick={handleLikePost} className='likeButton' >
+              <ThumbsUp size={20} /> {post.upvote}
+            </button>
+            <div className="verticalSeparator"></div>
+            <button onClick={handleDislikePost} className='dislikeButton'>
+              <ThumbsDown size={20} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -159,7 +184,7 @@ export function Post({ post }: PostProps) {
 
       <div className='commentList'>
         <>
-          <strong>Respostas</strong>
+          <h6>Respostas</h6>
           {
             commentsFiltered.length > 0 && (
               <p style={{marginTop: '1rem'}}>{commentsFiltered.length} resposta(s)</p>

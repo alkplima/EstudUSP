@@ -8,6 +8,7 @@ export interface Comment {
   content: string;
   publishedAt: Date;
   upvote: number;
+  downvote: number;
   disciplineId: number;
   userId: number;
   postId: number;
@@ -16,7 +17,6 @@ export interface Comment {
 interface CreateCommentInput {
   name?: string;
   content: string;
-  upvote: number;
   disciplineId: number;
   postId: number;
 }
@@ -27,6 +27,7 @@ interface CommentsContextType {
   createComment: (data: CreateCommentInput) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
   updateUpvote: (id: number, data: Partial<Comment>) => Promise<void>;
+  updateDownvote: (id: number, data: Partial<Comment>) => Promise<void>;
 }
 
 export const CommentsContext = createContext({} as CommentsContextType);
@@ -51,13 +52,14 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }, []);
 
   const createComment = useCallback(async (data: CreateCommentInput) => {
-    const { name, content, upvote, disciplineId, postId } = data;
+    const { name, content, disciplineId, postId } = data;
 
     const response = await api.post('/comments', {
       name: name || 'Anônimo',
       content,
       publishedAt: new Date(),
-      upvote,
+      upvote: 0,
+      downvote: 0,
       disciplineId,
       userId: 0,
       postId
@@ -85,6 +87,18 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
     setComments(response.data);
   }, []);
 
+  const updateDownvote = useCallback(async (id: number, data: Partial<Comment>) => {
+    await api.patch(`/comments/${id}`, data);
+    const response = await api.get('/comments', {
+      params: {
+        _sort: 'publishedAt',
+        _order: 'desc',
+      }
+    });
+    
+    setComments(response.data);
+  }, []);
+
   useEffect(() => {
     fetchComments();
   }, [fetchComments]);
@@ -95,7 +109,8 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
       fetchComments,
       createComment,
       deleteComment,
-      updateUpvote
+      updateUpvote,
+      updateDownvote,
     }}>
       {children}
     </CommentsContext.Provider>

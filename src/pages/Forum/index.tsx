@@ -4,7 +4,6 @@ import { ForumContainer, MainBox, NewQuestionCard, QuestionForm } from "./styles
 import { Sidebar } from "./components/Sidebar";
 import { PostPreview } from './components/PostPreview'
 import { MinusCircle, PlusCircle } from 'phosphor-react'
-import { DisciplinesContext, DisciplinesProvider } from "../../contexts/DisciplinesContext";
 import { FileProvider } from "../../contexts/files";
 import Upload from "../../components/Upload";
 import FileList from "../../components/FileList";
@@ -12,15 +11,21 @@ import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../contexts/PostsContext";
 import { Button } from "../../components/Button/styles";
 import { SearchForm } from "./components/SearchForm";
+import { DisciplinesContext } from "../../contexts/DisciplinesContext";
 
 
 export function Forum() {
-  const disciplines = useContextSelector(DisciplinesContext, (context) => context.disciplines);
 
   const posts = useContextSelector(PostsContext, (context) => context.posts);
   const createPost = useContextSelector(PostsContext, (context) => context.createPost);
+  let activeDisciplineId = useContextSelector(DisciplinesContext, (context) => context.activeDisciplineId);
 
-  const [activeDisciplineId, setActiveDisciplineId] = useState(-1);
+  if (activeDisciplineId === -1) {
+    activeDisciplineId = parseInt(localStorage.getItem('activeDisciplineId') || "-1", 10);
+  } else {
+    localStorage.setItem('activeDisciplineId', activeDisciplineId.toString());
+  }
+
   const [isQuestionCardOpen, setIsQuestionCardOpen] = useState(false);
   const [newQuestionText, setNewQuestionText] = useState('');
 
@@ -34,7 +39,6 @@ export function Forum() {
       name: newQuestionAuthor,
       postTitle: newQuestionTitle,
       content: newQuestionText,
-      upvote: 0,
       disciplineId: activeDisciplineId,
     }
 
@@ -68,24 +72,19 @@ export function Forum() {
 
   const isNewQuestionTitleEmpty = newQuestionTitle.length === 0;
 
+  const filteredPosts = posts.filter(post => post.disciplineId === activeDisciplineId);
 
   return (
 
     <ForumContainer>
-      <DisciplinesProvider>
-        <Sidebar 
-          activeDisciplineId={activeDisciplineId}
-          setActiveDisciplineId={setActiveDisciplineId}
-        />
-      </DisciplinesProvider>
+      <Sidebar />
       <main>
-        <h1>Fórum de dúvidas</h1>
-        {activeDisciplineId !== -1 && <h1 className="disciplineName">{disciplines.find(discipline => discipline.id===activeDisciplineId)?.name}</h1>} 
-        {activeDisciplineId === -1 && <h2>Selecione uma disciplina para começar a estudar!</h2>}
+        {activeDisciplineId === -1 && <h6>Selecione uma disciplina para começar a estudar!</h6>}
         <FileProvider>
 
           { activeDisciplineId !== -1 &&
           <>
+            <SearchForm />
             <NewQuestionCard>
               <MainBox>
                 <strong>Postar uma nova pergunta</strong>
@@ -132,13 +131,13 @@ export function Forum() {
                 </QuestionForm>
               }
             </NewQuestionCard>
-            <SearchForm />
-            {posts.flatMap(post => {
-              if (post.disciplineId === activeDisciplineId) {
+            {filteredPosts.length === 0 && <h6>Ainda não há perguntas nesta disciplina :(</h6>
+              
+            }
+            {filteredPosts.map(post => {
                 return (
                   <PostPreview key={post.id} post={post} />
                 )
-              }
             })}
           </>
           }

@@ -17,6 +17,8 @@ interface CreateDisciplineInput {
 
 interface DisciplinesContextType {
   disciplines: Discipline[];
+  activeDisciplineId: number;
+  setActiveDisciplineId: (id: number) => void;
   fetchDisciplines: (query?: string) => Promise<void>;
   createDiscipline: (data: CreateDisciplineInput) => Promise<void>;
 }
@@ -29,6 +31,7 @@ interface DisciplinesProviderProps {
 
 export function DisciplinesProvider({ children }: DisciplinesProviderProps) {
   const [disciplines, setDisciplines] = useState<Discipline[]>([]);
+  const [activeDisciplineId, setActiveDisciplineId] = useState(-1);
   
   const fetchDisciplines = useCallback(async (query?: string) => {
     const response = await api.get('/disciplines', {
@@ -61,6 +64,8 @@ export function DisciplinesProvider({ children }: DisciplinesProviderProps) {
   return (
     <DisciplinesContext.Provider value={{
       disciplines,
+      activeDisciplineId,
+      setActiveDisciplineId,
       fetchDisciplines,
       createDiscipline,
     }}>

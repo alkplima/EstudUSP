@@ -3,43 +3,84 @@ import styled from 'styled-components';
 export const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background: ${props => props.theme['gray-800']};
-  border-radius: 8px;
 
   .content {
     display: flex;
     flex-direction: column;
-    line-height: 1.6;
-    color: ${props => props.theme['gray-300']};
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 
     a {
       font-weight: bold;
-      color: ${props => props.theme['blue-secondary']};
+      color: ${props => props.theme['tertiary']};
       text-decoration: none;
+      transition: color 0.2s;
       
       :hover {
-        color: ${props => props.theme['blue-primary']};
+        opacity: 0.9;
       }
     }
 
-    > div {
+    .buttons {
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+
+      .bigButtons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .likeDislikeButtons {
+        display: flex;
+        gap: 0.5rem;
+
+        .likeButton, .dislikeButton {
+          background: transparent;
+          color: ${props => props.theme['gray-400']};
+          display: flex;
+          align-items: center;
+          border-radius: 2px;
+          border: 0;
+        }
+        button {
+          cursor: pointer;
+        }
+
+        .likeButton {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .likeButton:hover {
+          color: ${props => props.theme['green-300']};
+        }
+
+        .dislikeButton:hover {
+          color: ${props => props.theme['red-500']};
+        }
+
+        .verticalSeparator {
+          width: 1px;
+          height: 1.5rem;
+          background: ${props => props.theme['gray-600']};
+        }
+
+      }
     }
 
-    .likeButton {
-      padding: 0.5rem 1rem;
-      color: ${props => props.theme['gray-100']};
-      background: ${props => props.theme['gray-600']};
-      border: 1px solid transparent;
+    .sameQuestionButton {
+      padding: 0.4rem 1.25rem;
       border-radius: 8px;
       width: fit-content;
-      margin-top: 2.5rem;
+      margin-top: 1.5rem;
+      color: ${props => props.theme['primary']};
+      background: transparent;
+      border: 1px solid ${props => props.theme['primary']};
 
       &:hover {
-        border: 1px solid ${props => props.theme['blue-primary']};
-        background: transparent;
+        border: 1px solid transparent;
+        background: ${props => props.theme['primary']};
+        color: ${props => props.theme['on-primary']};
       }
     }
   }
@@ -57,9 +98,9 @@ export const PostContainer = styled.div`
     margin-block: 0 2rem;
   }
 
-  .commentList > strong {
+  .commentList > h6 {
     line-height: 1.6;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
   }
 `
 
@@ -75,27 +116,27 @@ export const CommentForm = styled.form`
   
   > strong {
     line-height: 1.6;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
   }
 
   input[type="text"] {
     width: 100%;
-    background: ${props => props.theme['gray-900']};
+    background: ${props => props.theme['surface-container-lowest']};
     border: 0;
     padding: 1rem;
     border-radius: 8px;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
   }
 
   textarea {
     width: 100%;
-    background: ${props => props.theme['gray-900']};
+    background: ${props => props.theme['surface-container-lowest']};
     border: 0;
     resize: none;
     height: 6rem;
     padding: 1rem;
     border-radius: 8px;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
     line-height: 1.4;
   }
 

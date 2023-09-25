@@ -9,7 +9,7 @@ export const Container = styled.ul`
     color: #444;
     padding: 0.5rem 1rem;
     border-radius: 6px;
-    background-color: ${props => props.theme['gray-700']};
+    background-color: ${props => props.theme['surface-container-highest']};
 
     & + li {
       margin-top: 15px;
@@ -40,7 +40,7 @@ export const FileInfo = styled.div`
     }
 
     strong {
-      color: ${props => props.theme['gray-300']};
+      color: ${props => props.theme['on-surface-variant']};
     }
   }
 `;

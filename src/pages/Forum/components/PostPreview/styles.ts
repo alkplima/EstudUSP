@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PostPreviewContainer = styled.article`
-  background: ${props => props.theme['gray-800']};
+  background: ${props => props.theme['inverse-on-surface']};
   border-radius: 8px;
   padding: 2rem;
   position: relative;
@@ -14,7 +14,7 @@ export const PostPreviewContainer = styled.article`
   
     time {
       font-size: 0.875rem;
-      color: ${props => props.theme['gray-400']};
+      color: ${props => props.theme['neutral-40']};
       white-space: nowrap;
       align-self: flex-start;
     }
@@ -37,11 +37,11 @@ export const PostPreviewContainer = styled.article`
       height: 12px;
       width: 12px;
       transform: rotateY(0deg) rotate(45deg);
-      transition: 0.3s ease-in-out;
     }
 
     &:hover {
-      background: ${props => props.theme['gray-600']};
+      background: ${props => props.theme['surface-container-highest']};
+      border: 1px solid ${props => props.theme['primary']};
     }
   }
 
@@ -50,16 +50,16 @@ export const PostPreviewContainer = styled.article`
 
     > div {
       margin-top: -.3rem;
-      border-bottom: 2px solid ${props => props.theme['gray-300']};
-      border-right: 2px solid ${props => props.theme['gray-300']};
+      border-bottom: 2px solid ${props => props.theme['primary']};
+      border-right: 2px solid ${props => props.theme['primary']};
     }
   }
 
   .uparrow {
     > div {
       margin-bottom: -.3rem;
-      border-top: 2px solid ${props => props.theme['gray-300']};
-      border-left: 2px solid ${props => props.theme['gray-300']};
+      border-top: 2px solid ${props => props.theme['primary']};
+      border-left: 2px solid ${props => props.theme['primary']};
     }
   }
 
@@ -74,10 +74,11 @@ export const PostPreviewContent = styled.div`
   align-items: flex-start;
   gap: 1rem;
 
-  .authorInfo strong {
-    display: block;
-    color: ${props => props.theme['gray-100']};
-    font-family: "Segoe_UI_Bold", sans-serif;
-    line-height: 1.6;
+  .authorInfo {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-self: center;
   }
 `

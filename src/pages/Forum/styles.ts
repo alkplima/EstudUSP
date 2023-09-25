@@ -4,12 +4,12 @@ import styled from "styled-components";
 export const ForumContainer = styled.div`
 
   width: 100%;
-  max-width: 70rem;
+  max-width: 73.13rem;
   margin: 2rem auto;
   padding: 0 1rem;
   
   display: grid;
-  grid-template-columns: 256px 1fr;
+  grid-template-columns: 278px 1fr;
   gap: 2rem;
   align-items: flex-start;
   
@@ -19,25 +19,6 @@ export const ForumContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-    
-    h1 {
-      font-family: 'Segoe_UI_Bold';
-      color: ${props => props.theme['gray-100']};
-      align-self: center;
-      text-align: center;
-    }
-
-    .disciplineName {
-      color: ${props => props.theme['yellow-usp']};
-      align-self: center;
-      text-align: center;
-      margin-block: -.5rem 1rem;
-    }
-
-    h2 {
-      align-self: center;
-      margin-top: 2rem;
-    }
   }
 
   @media (max-width: 768px) {
@@ -51,34 +32,34 @@ export const NewQuestionCard = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  background: ${props => props.theme['gray-800']};
+  background: ${props => props.theme['inverse-on-surface']};
   padding: 0.5rem 2rem;
   border-radius: 8px;
 
   strong {
     display: block;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
     line-height: 1.6;
   }
 
   input[type="text"] {
     width: 100%;
-    background: ${props => props.theme['gray-900']};
+    background: ${props => props.theme['surface-container-lowest']};
     border: 0;
     padding: 1rem;
     border-radius: 8px;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
   }
 
   textarea {
     width: 100%;
-    background: ${props => props.theme['gray-900']};
+    background: ${props => props.theme['surface-container-lowest']};
     border: 0;
     resize: none;
     height: 6rem;
     padding: 1rem;
     border-radius: 8px;
-    color: ${props => props.theme['gray-100']};
+    color: ${props => props.theme['on-surface']};
     line-height: 1.4;
   }
 
@@ -121,7 +102,7 @@ export const MainBox = styled.div`
       border-radius: 8px;
 
       svg {
-        color: ${props => props.theme['gray-100']};
+        color: ${props => props.theme['on-surface']};
       }
     }
   }

@@ -1,4 +1,4 @@
-import { Heart, ThumbsDown, ThumbsUp, Trash } from 'phosphor-react'
+import { ThumbsDown, ThumbsUp/*, Trash*/ } from 'phosphor-react'
 import { CommentBox, CommentContainer } from './styles';
 import { Avatar } from '../../../../components/Avatar';
 import { useContextSelector } from 'use-context-selector';
@@ -11,11 +11,12 @@ interface CommentProps {
 
 export function Comment({ comment }: CommentProps) {
   const updateUpvote = useContextSelector(CommentsContext, comments => comments.updateUpvote);
-  const deleteComment = useContextSelector(CommentsContext, comments => comments.deleteComment);
+  const updateDownvote = useContextSelector(CommentsContext, comments => comments.updateDownvote);
+  // const deleteComment = useContextSelector(CommentsContext, comments => comments.deleteComment);
 
-  function handleDeleteComment() {
-    deleteComment(comment.id);
-  }
+  // function handleDeleteComment() {
+  //   deleteComment(comment.id);
+  // }
 
   function checkTextForLineBreak(text: string) {
     const textWithLinksAndLineBreaks = text.split('\n').map(paragraph => {
@@ -33,7 +34,7 @@ export function Comment({ comment }: CommentProps) {
 
   function handleDislikeComment() {
     if (comment.upvote === 0) return;
-    updateUpvote(comment.id, { upvote: comment.upvote - 1 });
+    updateDownvote(comment.id, { downvote: comment.downvote + 1 });
   }
 
   const publishedDateFormatted = format(new Date(comment.publishedAt), "d 'de' LLLL 'às' HH:mm", {
@@ -72,17 +73,12 @@ export function Comment({ comment }: CommentProps) {
         </div>
 
         <footer>
-          <div>
-            <Heart size={20} className='heartIcon' />
-            : {comment.upvote}
-          </div>
           <button onClick={handleLikeComment} className='likeButton' >
-            <ThumbsUp size={20} />
-            Curtir
+            <ThumbsUp size={20} /> {comment.upvote}
           </button>
+          <div className="verticalSeparator"></div>
           <button onClick={handleDislikeComment} className='dislikeButton'>
             <ThumbsDown size={20} />
-            Descurtir
           </button>
         </footer>
       </CommentBox>

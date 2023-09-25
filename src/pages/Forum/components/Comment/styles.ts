@@ -68,10 +68,12 @@ export const CommentBox = styled.div`
     
     button {
       cursor: pointer;
-      
-      svg {
-        margin-right: 0.5rem;
-      }
+    }
+
+    .verticalSeparator {
+      width: 1px;
+      height: 1.5rem;
+      background: ${props => props.theme['gray-600']};
     }
   }
 
@@ -84,8 +86,9 @@ export const CommentBox = styled.div`
     border-radius: 2px;
   }
 
-  .heartIcon {
-    /* color: ${props => props.theme['red-500']}; */
+  footer .likeButton {
+    display: flex;
+    gap: 0.5rem;
   }
 
   footer .likeButton:hover {

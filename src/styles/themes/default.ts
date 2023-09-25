@@ -25,4 +25,25 @@ export const defaultTheme = {
   'yellow-500': '#FBA94C',
 
   'bg-dark': '#0D1117',
-} as const
+
+
+
+  'primary': '#64C4D2',
+  'secondary': '#FFFFFF',
+  'tertiary': '#FCB421',
+
+  'surface': '#111415',
+  'surface-dim': '#111415',
+
+  'neutral-40': '#5c5f60',
+  'on-surface': '#c4c7c8',
+  'on-primary': '#003640',
+  'inverse-on-surface': '#191c1d',
+  'outline': '#899295',
+  'inverse-surface': '#e1e3e4',
+  'surface-container-highest': '#323536',
+  'surface-container-lowest': '#0b0f10',
+  'on-surface-variant': '#bfc8cb',
+
+
+} as const;

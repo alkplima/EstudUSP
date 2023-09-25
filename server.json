@@ -10,7 +10,7 @@
       "id": 1,
       "name": "Sistemas Operacionais",
       "semester": 4,
-      "previewImg": "https://cdn.pixabay.com/photo/2020/01/24/06/46/ball-4789466_960_720.jpg"
+      "previewImg": "https://cdn.pixabay.com/photo/2016/10/15/15/17/digital-1742679_960_720.jpg"
     },
     {
       "id": 2,
@@ -148,7 +148,8 @@
       "upvote": 0,
       "disciplineId": 0,
       "userId": 0,
-      "id": 12
+      "id": 12,
+      "sameQuestionCount": 1
     },
     {
       "name": "Anônimo",
@@ -165,23 +166,91 @@
       "postTitle": "Btatão",
       "content": "batatinha123 (aqui vai quebra de linha)\naqui vai um link: https://www.euax.com.br/2018/12/eap-estrutura-analitica-projeto/",
       "publishedAt": "2023-09-22T19:41:51.958Z",
-      "upvote": 3,
+      "upvote": 6,
       "disciplineId": 0,
       "userId": 0,
       "id": 14
     },
     {
-      "name": "seila",
-      "postTitle": "Alguma pergunta pra testar",
-      "content": "seila",
-      "publishedAt": "2023-09-22T21:28:38.377Z",
-      "upvote": 1,
-      "disciplineId": 4,
+      "name": "Anônimo",
+      "postTitle": "jrgivjinbs",
+      "content": "dabvfdbdsfb vreqb\nrgwegbwreb\nhttps://trello.com/b/BO4kPCg4/rp2-esi1",
+      "publishedAt": "2023-09-23T01:02:57.261Z",
+      "upvote": 0,
+      "disciplineId": 0,
       "userId": 0,
       "id": 15
+    },
+    {
+      "name": "euseilaoque",
+      "postTitle": "um título aí pra testar",
+      "content": "Salve rapaziada, tá ficando topzera isso aqui hein...",
+      "publishedAt": "2023-09-25T18:08:45.894Z",
+      "upvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 16
+    },
+    {
+      "name": "Anônimo",
+      "postTitle": "testando novo esquema de perguntas",
+      "content": "seila",
+      "publishedAt": "2023-09-25T18:45:48.248Z",
+      "sameQuestionCount": 1,
+      "upvote": 2,
+      "downvote": 2,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 17
+    },
+    {
+      "name": "Anônimo",
+      "postTitle": "Primeira pergunta de BD",
+      "content": "Algo sobre SQL",
+      "publishedAt": "2023-09-25T18:47:26.440Z",
+      "sameQuestionCount": 0,
+      "upvote": 0,
+      "downvote": 0,
+      "disciplineId": 2,
+      "userId": 0,
+      "id": 18
+    },
+    {
+      "name": "çdsdsvadfv",
+      "postTitle": "dsavcadsv",
+      "content": "erfv",
+      "publishedAt": "2023-09-25T18:48:38.427Z",
+      "sameQuestionCount": 0,
+      "upvote": 0,
+      "downvote": 0,
+      "disciplineId": 2,
+      "userId": 0,
+      "id": 19
+    },
+    {
+      "name": "123fde",
+      "postTitle": "fewfdc",
+      "content": "ewcwe",
+      "publishedAt": "2023-09-25T18:49:29.609Z",
+      "sameQuestionCount": 2,
+      "upvote": 1,
+      "downvote": 0,
+      "disciplineId": 2,
+      "userId": 0,
+      "id": 20
     }
   ],
-  "images": [],
+  "images": [
+    {
+      "preview": "blob:http://localhost:5173/c09ab61f-637f-4d85-ae4c-1bd71e2e22cc",
+      "error": false,
+      "uploaded": true,
+      "name": "Group 1.png",
+      "size": 9967,
+      "url": "blob:http://localhost:5173/c09ab61f-637f-4d85-ae4c-1bd71e2e22cc",
+      "id": 1
+    }
+  ],
   "comments": [
     {
       "name": "simsimsim",
@@ -217,7 +286,7 @@
       "name": "outra pessoa de novo",
       "content": "Outra resposta",
       "publishedAt": "2023-09-22T17:44:57.027Z",
-      "upvote": 0,
+      "upvote": 1,
       "disciplineId": 1,
       "userId": 0,
       "postId": 7,
@@ -262,6 +331,27 @@
       "userId": 0,
       "postId": 14,
       "id": 8
+    },
+    {
+      "name": "nome_qualquer",
+      "content": "resposta qualquer",
+      "publishedAt": "2023-09-23T00:58:59.325Z",
+      "upvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 14,
+      "id": 9
+    },
+    {
+      "name": "Anônimo",
+      "content": "tá ficando show esse site hein",
+      "publishedAt": "2023-09-25T18:46:51.018Z",
+      "upvote": 1,
+      "downvote": 4,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 17,
+      "id": 10
     }
   ]
 }
