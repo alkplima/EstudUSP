@@ -40,4 +40,10 @@ export const UploadMessage = styled.p<ITypeMessageColor>`
   justify-content: center;
   align-items: center;
   padding: 15px 0;
+  gap: 0.5rem;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `;

@@ -7,9 +7,8 @@ import Upload from '../../../../components/Upload';
 import FileList from '../../../../components/FileList';
 import { useContextSelector } from 'use-context-selector';
 import { PostsContext } from '../../../../contexts/PostsContext';
-import { CommentsContext } from '../../../../contexts/CommentsContext';
+import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
-import { ThumbsDown, ThumbsUp } from 'phosphor-react';
 import { useFiles } from '../../../../contexts/files';
 
 export interface PostType {
@@ -27,6 +26,7 @@ export interface PostType {
 
 interface PostProps {
   post: PostType;
+  comments: CommentType[];
 }
 
 export interface UploadedFile {
@@ -41,16 +41,13 @@ export interface UploadedFile {
   url: string | null;
 }
 
-export function Post({ post }: PostProps) {
+export function Post({ post, comments }: PostProps) {
   // const [comments, setComments] = useState<string[]>([]);
 
   const { uploadedFiles } = useFiles();
 
-  const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
   const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
-  const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
-  const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
@@ -70,15 +67,6 @@ export function Post({ post }: PostProps) {
 
   function handleHaveSameQuestion() {
     updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount + 1 });
-  }
-
-  function handleLikePost() {
-    updateUpvote(post.id, { upvote: post.upvote + 1 });
-  }
-
-  function handleDislikePost() {
-    if (post.upvote === 0) return;
-    updateDownvote(post.id, { downvote: post.downvote + 1 });
   }
 
   function handleOpenAnswerBox() {
@@ -146,15 +134,6 @@ export function Post({ post }: PostProps) {
             </button>
           </div>
 
-          <div className="likeDislikeButtons">
-            <button onClick={handleLikePost} className='likeButton' >
-              <ThumbsUp size={20} /> {post.upvote}
-            </button>
-            <div className="verticalSeparator"></div>
-            <button onClick={handleDislikePost} className='dislikeButton'>
-              <ThumbsDown size={20} />
-            </button>
-          </div>
         </div>
       </div>
 
@@ -198,13 +177,11 @@ export function Post({ post }: PostProps) {
       <div className='commentList'>
         <>
           <h6>Respostas</h6>
-          {
-            commentsFiltered.length > 0 && (
+          {commentsFiltered.length > 0 && (
               <p style={{marginTop: '1rem'}}>{commentsFiltered.length} resposta(s)</p>
             )
           }
-          {
-            commentsFiltered.length === 0 && (
+          {commentsFiltered.length === 0 && (
               <p style={{marginTop: '1rem'}}>Seja o primeiro a responder!</p>
             )
           }

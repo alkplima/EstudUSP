@@ -72,6 +72,10 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(state => [response.data, ...state])
   }, []);
 
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
   const updateSameQuestionCount = useCallback(async (id: number, data: Partial<Post>) => {
     await api.patch(`/posts/${id}`, data);
     const response = await api.get('/posts', {
@@ -110,10 +114,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(response.data);
   }
   , []);
-
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
 
   return (
     <PostsContext.Provider value={{

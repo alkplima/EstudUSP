@@ -5,18 +5,65 @@ export const PostPreviewContainer = styled.article`
   border-radius: 8px;
   padding: 2rem;
   position: relative;
-
+  
   .header {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-  
+    
     time {
       font-size: 0.875rem;
       color: ${props => props.theme['neutral-40']};
       white-space: nowrap;
-      align-self: flex-start;
+      align-self: flex-end;
+    }
+
+    .timeNlikes {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+  
+      .likeDislikeButtons {
+          display: flex;
+          gap: 0.5rem;
+  
+          .likeButton, .dislikeButton {
+            background: transparent;
+            color: ${props => props.theme['on-surface']};
+            display: flex;
+            align-items: center;
+            border-radius: 2px;
+            border: 0;
+          }
+          button {
+            cursor: pointer;
+          }
+  
+          .likeButton {
+            display: flex;
+            gap: 0.5rem;
+          }
+  
+          .likeButton:hover {
+            color: ${props => props.theme['green-300']};
+          }
+  
+          .dislikeButton:hover {
+            color: ${props => props.theme['red-500']};
+          }
+  
+          .verticalSeparator {
+            width: 1px;
+            height: 1.5rem;
+            background: ${props => props.theme['gray-600']};
+          }
+  
+        }
     }
   }
 
@@ -28,10 +75,18 @@ export const PostPreviewContainer = styled.article`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: calc(12px + 1.5rem);
-    width: calc(12px + 1.5rem);
+    gap: 1rem;
+    height: fit-content;
+    width: fit-content;
+    padding: 0.5rem 1rem;
     bottom: .5rem;
-    left: 50%;
+    left: 43%;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+
+    p {
+      color: ${props => props.theme['primary']};
+    }
 
     > div {
       height: 12px;
@@ -40,13 +95,15 @@ export const PostPreviewContainer = styled.article`
     }
 
     &:hover {
-      background: ${props => props.theme['surface-container-highest']};
+      /* background: ${props => props.theme['surface-container-highest']}; */
       border: 1px solid ${props => props.theme['primary']};
+      cursor: pointer;
     }
   }
 
   .downarrow {
     visibility: hidden;
+    left: 40%;
 
     > div {
       margin-top: -.3rem;

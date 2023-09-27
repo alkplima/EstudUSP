@@ -45,43 +45,6 @@ export const PostContainer = styled.div`
         display: flex;
         gap: 1rem;
       }
-
-      .likeDislikeButtons {
-        display: flex;
-        gap: 0.5rem;
-
-        .likeButton, .dislikeButton {
-          background: transparent;
-          color: ${props => props.theme['gray-400']};
-          display: flex;
-          align-items: center;
-          border-radius: 2px;
-          border: 0;
-        }
-        button {
-          cursor: pointer;
-        }
-
-        .likeButton {
-          display: flex;
-          gap: 0.5rem;
-        }
-
-        .likeButton:hover {
-          color: ${props => props.theme['green-300']};
-        }
-
-        .dislikeButton:hover {
-          color: ${props => props.theme['red-500']};
-        }
-
-        .verticalSeparator {
-          width: 1px;
-          height: 1.5rem;
-          background: ${props => props.theme['gray-600']};
-        }
-
-      }
     }
 
     .sameQuestionButton {
@@ -106,7 +69,7 @@ export const PostContainer = styled.div`
     width: 100%;
     height: 1px;
     background-color: ${props => props.theme['gray-600']};
-    margin-block: 1.5rem;
+    margin-block: 2rem 1.5rem;
   }
 
   .commentList {

@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 
-  padding: 0.4rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 8px;
   width: fit-content;
   margin-top: 1.5rem;
+
+  font-weight: 700;
   color: ${props => props.theme['on-primary']};
   background: ${props => props.theme['primary']};
   border: 1px solid transparent;

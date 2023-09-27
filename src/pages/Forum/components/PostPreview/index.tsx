@@ -6,8 +6,11 @@ import ptBr from 'date-fns/locale/pt-BR'
 import { PostPreviewContainer, PostPreviewContent } from './styles';
 import { Avatar } from '../../../../components/Avatar';
 import { Post } from '../Post';
-import { CommentsProvider } from '../../../../contexts/CommentsContext';
+import { CommentsContext } from '../../../../contexts/CommentsContext';
 import { Subtitle } from '../../../../styles/global';
+import { useContextSelector } from 'use-context-selector';
+import { ThumbsDown, ThumbsUp } from 'phosphor-react';
+import { PostsContext } from '../../../../contexts/PostsContext';
 
 
 // interface Content {
@@ -33,7 +36,10 @@ interface PostProps {
 
 export function PostPreview({ post }: PostProps) {
 
+  const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const [isCardOpen, setIsCardOpen] = useState(false);
+  const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
+  const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
   const publishedDateFormatted = format(new Date(post.publishedAt), "d 'de' LLLL 'às' HH:mm", {
     locale: ptBr 
@@ -48,6 +54,17 @@ export function PostPreview({ post }: PostProps) {
     setIsCardOpen(!isCardOpen);
   }
 
+  function handleLikePost() {
+    updateUpvote(post.id, { upvote: post.upvote + 1 });
+  }
+
+  function handleDislikePost() {
+    if (post.upvote === 0) return;
+    updateDownvote(post.id, { downvote: post.downvote + 1 });
+  }
+
+  const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
+
 
   return (
     <PostPreviewContainer>
@@ -60,22 +77,38 @@ export function PostPreview({ post }: PostProps) {
             <h6>{post.postTitle}</h6>
             <Subtitle>{post.name}</Subtitle>
             {!isCardOpen &&
-              <div className='downarrow' onClick={handleOpenCard}><div></div></div>
+              <div className='downarrow' onClick={handleOpenCard}>
+                <p>{commentsFiltered.length} resposta(s)</p>
+                <div></div>
+              </div>
             }
           </div>
         </PostPreviewContent>
 
-        <time title={publishedDateFormatted} dateTime={new Date(post.publishedAt).toISOString()}>
-          {publishedDateRelativeToNow}
-        </time>
+        <div className="timeNlikes">
+          <time title={publishedDateFormatted} dateTime={new Date(post.publishedAt).toISOString()}>
+            {publishedDateRelativeToNow}
+          </time>
+
+          <div className="likeDislikeButtons">
+            <button onClick={handleLikePost} className='likeButton' >
+              <ThumbsUp size={20} /> {post.upvote}
+            </button>
+            <div className="verticalSeparator"></div>
+            <button onClick={handleDislikePost} className='dislikeButton'>
+              <ThumbsDown size={20} />
+            </button>
+          </div>
+        </div>
       </div>
 
       {isCardOpen &&
         <>
-        <CommentsProvider>
-          <Post key={post.id} post={post} />
-          <div className='uparrow' onClick={handleOpenCard}><div></div></div>
-        </CommentsProvider>
+          <Post key={post.id} post={post} comments={comments} />
+          <div className='uparrow' onClick={handleOpenCard}>
+            <p>Ocultar</p>
+            <div></div>
+          </div>
         </>
       }
     </PostPreviewContainer>

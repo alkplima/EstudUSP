@@ -12,17 +12,24 @@ export const DisciplinePreviewContainer = styled.article`
     align-items: center;
     justify-content: space-between;
     padding: 2rem;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: 8px;
-    transition: background-color 0.2s, border 0.2s;
+    transition: border 0.2s;
+
+    h6 {
+      transition: color 0.2s;
+    }
     
     background: ${props => props.theme['inverse-on-surface']};
     
     
     &:hover {
-      background: ${props => props.theme['surface-container-highest']};
-      border: 2px solid ${props => props.theme['primary']};
+      border: 1px solid ${props => props.theme['primary']};
       cursor: pointer;
+
+      h6 {
+        color: ${props => props.theme['primary']};
+      }
     }
   }
 `

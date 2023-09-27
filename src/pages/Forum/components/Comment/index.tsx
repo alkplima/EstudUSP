@@ -2,11 +2,11 @@ import { ThumbsDown, ThumbsUp/*, Trash*/ } from 'phosphor-react'
 import { CommentBox, CommentContainer } from './styles';
 import { Avatar } from '../../../../components/Avatar';
 import { useContextSelector } from 'use-context-selector';
-import { Comment, CommentsContext } from '../../../../contexts/CommentsContext';
+import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR'
 interface CommentProps {
-  comment: Comment;
+  comment: CommentType;
 }
 
 export function Comment({ comment }: CommentProps) {
@@ -76,17 +76,17 @@ export function Comment({ comment }: CommentProps) {
               <img key={image} src={image} alt='' className='commentImgs' />
             ))}
           </div>
-        </div>
 
-        <footer>
-          <button onClick={handleLikeComment} className='likeButton' >
-            <ThumbsUp size={20} /> {comment.upvote}
-          </button>
-          <div className="verticalSeparator"></div>
-          <button onClick={handleDislikeComment} className='dislikeButton'>
-            <ThumbsDown size={20} />
-          </button>
-        </footer>
+          <footer>
+            <button onClick={handleLikeComment} className='likeButton' >
+              <ThumbsUp size={20} /> {comment.upvote}
+            </button>
+            <div className="verticalSeparator"></div>
+            <button onClick={handleDislikeComment} className='dislikeButton'>
+              <ThumbsDown size={20} />
+            </button>
+          </footer>
+        </div>
       </CommentBox>
     </CommentContainer>
   )

@@ -17,7 +17,7 @@ export const CommentBox = styled.div`
   flex: 1;
 
   .commentContent {
-    background: ${props => props.theme['gray-700']};
+    background: ${props => props.theme['surface-container-high']};
     border-radius: 8px;
     padding: 0.5rem 1rem;
     
@@ -30,7 +30,7 @@ export const CommentBox = styled.div`
         background: transparent;
         border: 0;
         cursor: pointer;
-        color: ${props => props.theme['gray-400']};
+        color: ${props => props.theme['on-surface']};
         
         line-height: 0;
         border-radius: 2px;
@@ -68,51 +68,52 @@ export const CommentBox = styled.div`
 
     a {
       font-weight: bold;
-      color: ${props => props.theme['blue-secondary']};
+      color: ${props => props.theme['yellow-usp']};
       text-decoration: none;
       
       :hover {
-        color: ${props => props.theme['blue-primary']};
+        opacity: 0.8;
       }
     }
-  }
-  
-  footer {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
     
-    button {
-      cursor: pointer;
+    footer {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: flex-end;
+      
+      button {
+        cursor: pointer;
+      }
+  
+      .verticalSeparator {
+        width: 1px;
+        height: 1.5rem;
+        background: ${props => props.theme['gray-600']};
+      }
     }
-
-    .verticalSeparator {
-      width: 1px;
-      height: 1.5rem;
-      background: ${props => props.theme['gray-600']};
+  
+    footer button, footer div {
+      background: transparent;
+      border: 0;
+      color: ${props => props.theme['on-surface']};
+      display: flex;
+      align-items: center;
+      border-radius: 2px;
     }
-  }
-
-  footer button, footer div {
-    background: transparent;
-    border: 0;
-    color: ${props => props.theme['gray-400']};
-    display: flex;
-    align-items: center;
-    border-radius: 2px;
-  }
-
-  footer .likeButton {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  footer .likeButton:hover {
-    color: ${props => props.theme['green-300']};
-  }
-
-  footer .dislikeButton:hover {
-    color: ${props => props.theme['red-500']};
+  
+    footer .likeButton {
+      display: flex;
+      gap: 0.5rem;
+    }
+  
+    footer .likeButton:hover {
+      color: ${props => props.theme['green-300']};
+    }
+  
+    footer .dislikeButton:hover {
+      color: ${props => props.theme['red-500']};
+    }
   }
 
   .authorAndTime {

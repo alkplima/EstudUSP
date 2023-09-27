@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
 
-export interface Comment {
+export interface CommentType {
   id: number;
   name?: string;
   content: string;
@@ -24,12 +24,12 @@ interface CreateCommentInput {
 }
 
 interface CommentsContextType {
-  comments: Comment[];
+  comments: CommentType[];
   fetchComments: (query?: string) => Promise<void>;
   createComment: (data: CreateCommentInput) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
-  updateUpvote: (id: number, data: Partial<Comment>) => Promise<void>;
-  updateDownvote: (id: number, data: Partial<Comment>) => Promise<void>;
+  updateUpvote: (id: number, data: Partial<CommentType>) => Promise<void>;
+  updateDownvote: (id: number, data: Partial<CommentType>) => Promise<void>;
 }
 
 export const CommentsContext = createContext({} as CommentsContextType);
@@ -39,7 +39,7 @@ interface CommentsProviderProps {
 }
 
 export function CommentsProvider({ children }: CommentsProviderProps) {
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<CommentType[]>([]);
   
   const fetchComments = useCallback(async (query?: string) => {
     const response = await api.get('/comments', {
@@ -78,7 +78,7 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }
   , []);
 
-  const updateUpvote = useCallback(async (id: number, data: Partial<Comment>) => {
+  const updateUpvote = useCallback(async (id: number, data: Partial<CommentType>) => {
     await api.patch(`/comments/${id}`, data);
     const response = await api.get('/comments', {
       params: {
@@ -90,7 +90,7 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
     setComments(response.data);
   }, []);
 
-  const updateDownvote = useCallback(async (id: number, data: Partial<Comment>) => {
+  const updateDownvote = useCallback(async (id: number, data: Partial<CommentType>) => {
     await api.patch(`/comments/${id}`, data);
     const response = await api.get('/comments', {
       params: {

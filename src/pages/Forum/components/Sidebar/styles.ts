@@ -7,7 +7,7 @@ export const SidebarContainer = styled.aside`
   left: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   width: fit-content;
 
   .returnMenu {
@@ -15,13 +15,14 @@ export const SidebarContainer = styled.aside`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 1rem;
+    gap: 0.5rem;
     color: ${props => props.theme['on-surface']};
     text-decoration: none;
     font-family: 'Segoe_UI_Bold';
 
     &:hover {
       text-decoration: underline;
+      color: ${props => props.theme['primary']};
     }
   }
 `

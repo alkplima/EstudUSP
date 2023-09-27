@@ -3,7 +3,7 @@ import { SidebarContainer, SidebarItem } from './styles'
 import { DisciplinesContext } from '../../../../contexts/DisciplinesContext';
 import { useContextSelector } from 'use-context-selector';
 import { Subtitle } from '../../../../styles/global';
-import { ArrowLeft } from 'phosphor-react';
+import { CaretLeft } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 // import { Avatar } from '../../../../components/Avatar'
 
@@ -26,7 +26,7 @@ export function Sidebar () {
   return (
     <SidebarContainer>
       <Link to='/' className='returnMenu'>
-        <ArrowLeft size={24} />
+        <CaretLeft size={24} />
         Voltar ao Menu
       </Link>
       {currentActiveDiscipline &&        <SidebarItem>

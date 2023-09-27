@@ -33,17 +33,23 @@ export const defaultTheme = {
   'tertiary': '#FCB421',
 
   'surface': '#111415',
+  'surface-container': '#1d2021',
+  'surface-variant': '#3f484b',
   'surface-dim': '#111415',
 
   'neutral-40': '#5c5f60',
   'on-surface': '#c4c7c8',
+  'on-surface-variant': '#bfc8cb',
   'on-primary': '#003640',
-  'inverse-on-surface': '#191c1d',
+
   'outline': '#899295',
   'inverse-surface': '#e1e3e4',
+  'inverse-on-surface': '#191c1d',
+
+  'surface-bright': '#363a3b',
+  'surface-container-high': '#272a2b',
   'surface-container-highest': '#323536',
   'surface-container-lowest': '#0b0f10',
-  'on-surface-variant': '#bfc8cb',
 
 
 } as const;

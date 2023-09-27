@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 
 import { DropContainer, UploadMessage } from "./styles";
 import { useFiles } from "../../contexts/files";
+import { UploadSimple } from "phosphor-react";
 
 
 function Upload() {
@@ -27,7 +28,7 @@ function Upload() {
 
   const renderDragMessage = useCallback(() => {
     if (!isDragActive) {
-      return <UploadMessage>Arraste imagens aqui...</UploadMessage>;
+      return <UploadMessage>Adicione/arraste imagens aqui <UploadSimple/></UploadMessage>;
     }
 
     if (isDragReject) {
