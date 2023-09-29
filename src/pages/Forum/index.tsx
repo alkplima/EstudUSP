@@ -1,5 +1,5 @@
 // import { Button } from "@primer/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ForumContainer } from "./styles";
 import { Sidebar } from "./components/Sidebar";
 import { PostPreview } from './components/PostPreview'
@@ -28,6 +28,14 @@ export function Forum() {
   }
 
   const [isQuestionCardOpen, setIsQuestionCardOpen] = useState(false);
+
+  const fetchPosts = useContextSelector(PostsContext, (context) => {
+    return context.fetchPosts;
+  });
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
   const filteredPosts = posts.filter(post => post.disciplineId === activeDisciplineId);
 
