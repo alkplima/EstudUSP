@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState, useCallback } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
 
@@ -71,10 +71,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
 
     setPosts(state => [response.data, ...state])
   }, []);
-
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
 
   const updateSameQuestionCount = useCallback(async (id: number, data: Partial<Post>) => {
     await api.patch(`/posts/${id}`, data);

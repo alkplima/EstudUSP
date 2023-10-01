@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState, useCallback } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
 import { Post } from "./PostsContext";
@@ -58,10 +58,6 @@ export function SubjectsProvider({ children }: SubjectsProviderProps) {
 
     setSubjects(state => [response.data, ...state])
   }, []);
-
-  useEffect(() => {
-    fetchSubjects();
-  }, [fetchSubjects]);
 
   return (
     <SubjectsContext.Provider value={{
