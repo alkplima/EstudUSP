@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DisciplinePreviewContainer = styled.article`
+export const SubjectPreviewContainer = styled.article`
   width: 100%;
 
   a {
@@ -34,7 +34,7 @@ export const DisciplinePreviewContainer = styled.article`
   }
 `
 
-export const DisciplinePreviewContent = styled.div`
+export const SubjectPreviewContent = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 3rem;
@@ -66,7 +66,7 @@ export const DisciplinePreviewContent = styled.div`
   }
 `
 
-export const DisciplineLastQuestions = styled.div`
+export const SubjectLastQuestions = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;

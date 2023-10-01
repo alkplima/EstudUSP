@@ -1,27 +1,27 @@
 // import { Button } from "@primer/react";
 import { useEffect } from "react";
 import { ForumContainer } from "./styles";
-import { DisciplinePreview } from './components/DisciplinePreview'
-import { DisciplinesContext } from "../../contexts/DisciplinesContext";
+import { SubjectPreview } from './components/SubjectsPreview'
+import { SubjectsContext } from "../../contexts/SubjectsContext";
 import { useContextSelector } from "use-context-selector";
 import { SearchForm } from "./components/SearchForm";
 export function Menu() {
-  const disciplines = useContextSelector(DisciplinesContext, (context) => context.disciplines);
+  const disciplines = useContextSelector(SubjectsContext, (context) => context.disciplines);
 
-  const fetchDisciplines = useContextSelector(DisciplinesContext, (context) => {
-    return context.fetchDisciplines;
+  const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
+    return context.fetchSubjects;
   });
 
   useEffect(() => {
-    fetchDisciplines('');
-  }, [fetchDisciplines]);
+    fetchSubjects('');
+  }, [fetchSubjects]);
 
   return (
     <ForumContainer>
       <SearchForm />
       {disciplines.flatMap(discipline => {
         return (
-          <DisciplinePreview key={discipline.id} discipline={discipline} />
+          <SubjectPreview key={discipline.id} discipline={discipline} />
         )
       })}
     </ForumContainer>

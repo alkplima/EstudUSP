@@ -2,10 +2,10 @@ import { ReactNode, useEffect, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
 
-interface Post {
+export interface Post {
   id: number;
   name?: string;
-  postTitle: string;
+  title: string;
   content: string;
   publishedAt: Date;
   sameQuestionCount: number;

@@ -1,6 +1,6 @@
 // import { PencilLine } from 'phosphor-react'
 import { SidebarContainer, SidebarItem } from './styles'
-import { DisciplinesContext } from '../../../../contexts/DisciplinesContext';
+import { SubjectsContext } from '../../../../contexts/SubjectsContext';
 import { useContextSelector } from 'use-context-selector';
 import { Subtitle } from '../../../../styles/global';
 import { CaretLeft } from 'phosphor-react';
@@ -10,17 +10,17 @@ import { Link } from 'react-router-dom';
 
 export function Sidebar () {
 
-  const { disciplines, activeDisciplineId } = useContextSelector(DisciplinesContext, (context) => {
+  const { disciplines, activeSubjectId } = useContextSelector(SubjectsContext, (context) => {
     return {
       disciplines: context.disciplines,
-      activeDisciplineId: context.activeDisciplineId,
+      activeSubjectId: context.activeSubjectId,
     }
   });
   
-  let currentActiveDiscipline = disciplines.find(discipline => discipline.id === activeDisciplineId);
+  let currentActiveSubject = disciplines.find(discipline => discipline.id === activeSubjectId);
 
-  if (!currentActiveDiscipline) {
-    currentActiveDiscipline = disciplines.find(discipline => discipline.id === parseInt(localStorage.getItem('activeDisciplineId') || "-1", 10));
+  if (!currentActiveSubject) {
+    currentActiveSubject = disciplines.find(discipline => discipline.id === parseInt(localStorage.getItem('activeSubjectId') || "-1", 10));
   }
   
   return (
@@ -29,14 +29,14 @@ export function Sidebar () {
         <CaretLeft size={24} />
         Voltar ao Menu
       </Link>
-      {currentActiveDiscipline &&        <SidebarItem>
+      {currentActiveSubject &&        <SidebarItem>
           <img 
             className='cover' 
-            src={currentActiveDiscipline.previewImg}
+            src={currentActiveSubject.previewImg}
           />
           <div className='profile'>
-            <h6>{currentActiveDiscipline.name}</h6>
-            <Subtitle>Semestre {currentActiveDiscipline.semester}</Subtitle>
+            <h6>{currentActiveSubject.name}</h6>
+            <Subtitle>Semestre {currentActiveSubject.semester}</Subtitle>
           </div>
         </SidebarItem>
       }

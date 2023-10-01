@@ -9,11 +9,11 @@ import Upload from '../../../../components/Upload';
 import { X } from 'phosphor-react';
 
 interface NewQuestionModalProps {
-  activeDisciplineId: number;
+  activeSubjectId: number;
   setIsQuestionCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function NewQuestionModal({ activeDisciplineId, setIsQuestionCardOpen }: NewQuestionModalProps) {
+export function NewQuestionModal({ activeSubjectId, setIsQuestionCardOpen }: NewQuestionModalProps) {
   
   const createPost = useContextSelector(PostsContext, (context) => context.createPost);
   
@@ -52,7 +52,7 @@ export function NewQuestionModal({ activeDisciplineId, setIsQuestionCardOpen }: 
       name: newQuestionAuthor,
       postTitle: newQuestionTitle,
       content: newQuestionText,
-      disciplineId: activeDisciplineId,
+      disciplineId: activeSubjectId,
     }
 
     await createPost(newPost);

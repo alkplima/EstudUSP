@@ -8,7 +8,7 @@ import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../contexts/PostsContext";
 import { Button } from "../../components/Button/styles";
 import { SearchForm } from "./components/SearchForm";
-import { DisciplinesContext } from "../../contexts/DisciplinesContext";
+import { SubjectsContext } from "../../contexts/SubjectsContext";
 import * as Dialog from '@radix-ui/react-dialog'
 import { NewQuestionModal } from "./components/NewQuestionModal";
 import { Plus } from "phosphor-react";
@@ -19,12 +19,12 @@ export function Forum() {
 
   const posts = useContextSelector(PostsContext, (context) => context.posts);
   // const createPost = useContextSelector(PostsContext, (context) => context.createPost);
-  let activeDisciplineId = useContextSelector(DisciplinesContext, (context) => context.activeDisciplineId);
+  let activeSubjectId = useContextSelector(SubjectsContext, (context) => context.activeSubjectId);
 
-  if (activeDisciplineId === -1) {
-    activeDisciplineId = parseInt(localStorage.getItem('activeDisciplineId') || "-1", 10);
+  if (activeSubjectId === -1) {
+    activeSubjectId = parseInt(localStorage.getItem('activeSubjectId') || "-1", 10);
   } else {
-    localStorage.setItem('activeDisciplineId', activeDisciplineId.toString());
+    localStorage.setItem('activeSubjectId', activeSubjectId.toString());
   }
 
   const [isQuestionCardOpen, setIsQuestionCardOpen] = useState(false);
@@ -37,24 +37,24 @@ export function Forum() {
     fetchPosts();
   }, [fetchPosts]);
 
-  const filteredPosts = posts.filter(post => post.disciplineId === activeDisciplineId);
+  const filteredPosts = posts.filter(post => post.disciplineId === activeSubjectId);
 
   return (
 
     <ForumContainer>
       <Sidebar />
       <main>
-        {activeDisciplineId === -1 && <h6>Selecione uma disciplina para começar a estudar!</h6>}
+        {activeSubjectId === -1 && <h6>Selecione uma disciplina para começar a estudar!</h6>}
         <FileProvider>
         <CommentsProvider>
 
-          {activeDisciplineId !== -1 &&
+          {activeSubjectId !== -1 &&
           <>
             <Dialog.Root open={isQuestionCardOpen} onOpenChange={setIsQuestionCardOpen}>
               <Dialog.Trigger asChild>
                 <Button onClick={() => setIsQuestionCardOpen(true)} className="newQuestionBtn"> Adicionar pergunta <Plus/></Button>
               </Dialog.Trigger>
-              <NewQuestionModal activeDisciplineId={activeDisciplineId} setIsQuestionCardOpen={setIsQuestionCardOpen} />
+              <NewQuestionModal activeSubjectId={activeSubjectId} setIsQuestionCardOpen={setIsQuestionCardOpen} />
             </Dialog.Root>
 
             <SearchForm />
