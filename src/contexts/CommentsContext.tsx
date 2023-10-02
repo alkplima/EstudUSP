@@ -1,35 +1,32 @@
-import { ReactNode, useEffect, useState, useCallback } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
 
-export interface CommentType {
+export interface IComment {
   id: number;
-  name?: string;
   content: string;
-  images?: string[];
+  attachments?: string[];
   publishedAt: Date;
-  upvote: number;
-  downvote: number;
-  disciplineId: number;
-  userId: number;
-  postId: number;
+  upvotes: number;
+  downvotes: number;
+  username: string;
+  questionId: number;
 }
 
 interface CreateCommentInput {
   name?: string;
   content: string;
   images?: string[];
-  disciplineId: number;
-  postId: number;
+  questionId: number;
 }
 
 interface CommentsContextType {
-  comments: CommentType[];
-  fetchComments: (query?: string) => Promise<void>;
+  comments: IComment[];
+  fetchComments: (questionId: number, query?: string) => Promise<void>;
   createComment: (data: CreateCommentInput) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
-  updateUpvote: (id: number, data: Partial<CommentType>) => Promise<void>;
-  updateDownvote: (id: number, data: Partial<CommentType>) => Promise<void>;
+  updateUpvote: (id: number, data: Partial<IComment>) => Promise<void>;
+  updateDownvote: (id: number, data: Partial<IComment>) => Promise<void>;
 }
 
 export const CommentsContext = createContext({} as CommentsContextType);
@@ -39,10 +36,10 @@ interface CommentsProviderProps {
 }
 
 export function CommentsProvider({ children }: CommentsProviderProps) {
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const [comments, setComments] = useState<IComment[]>([]);
   
-  const fetchComments = useCallback(async (query?: string) => {
-    const response = await api.get('/comments', {
+  const fetchComments = useCallback(async (questionId: number, query?: string) => {
+    const response = await api.get(`/question/${questionId}/replies`, {
       params: {
         _sort: 'publishedAt',
         _order: 'desc',
@@ -54,18 +51,13 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }, []);
 
   const createComment = useCallback(async (data: CreateCommentInput) => {
-    const { name, content, images, disciplineId, postId } = data;
+    const { name, content, images, questionId } = data;
 
     const response = await api.post('/comments', {
       name: name || 'Anônimo',
       content,
       images,
-      publishedAt: new Date(),
-      upvote: 0,
-      downvote: 0,
-      disciplineId,
-      userId: 0,
-      postId
+      questionId,
     });
 
     setComments(state => [response.data, ...state])
@@ -78,7 +70,7 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }
   , []);
 
-  const updateUpvote = useCallback(async (id: number, data: Partial<CommentType>) => {
+  const updateUpvote = useCallback(async (id: number, data: Partial<IComment>) => {
     await api.patch(`/comments/${id}`, data);
     const response = await api.get('/comments', {
       params: {
@@ -90,7 +82,7 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
     setComments(response.data);
   }, []);
 
-  const updateDownvote = useCallback(async (id: number, data: Partial<CommentType>) => {
+  const updateDownvote = useCallback(async (id: number, data: Partial<IComment>) => {
     await api.patch(`/comments/${id}`, data);
     const response = await api.get('/comments', {
       params: {
@@ -101,10 +93,6 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
     
     setComments(response.data);
   }, []);
-
-  useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
 
   return (
     <CommentsContext.Provider value={{

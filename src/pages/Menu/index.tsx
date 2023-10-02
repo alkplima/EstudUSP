@@ -6,7 +6,7 @@ import { SubjectsContext } from "../../contexts/SubjectsContext";
 import { useContextSelector } from "use-context-selector";
 import { SearchForm } from "./components/SearchForm";
 export function Menu() {
-  const disciplines = useContextSelector(SubjectsContext, (context) => context.disciplines);
+  const subjects = useContextSelector(SubjectsContext, (context) => context.subjects);
 
   const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
     return context.fetchSubjects;
@@ -19,7 +19,7 @@ export function Menu() {
   return (
     <ForumContainer>
       <SearchForm />
-      {disciplines.flatMap(discipline => {
+      {subjects.flatMap(discipline => {
         return (
           <SubjectPreview key={discipline.id} discipline={discipline} />
         )

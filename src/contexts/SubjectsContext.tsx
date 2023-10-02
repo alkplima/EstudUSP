@@ -4,7 +4,7 @@ import { createContext } from "use-context-selector";
 import { Post } from "./PostsContext";
 
 export interface Subject {
-  id: number;
+  id: string;
   title: string;
   semester: number;
   previewImg: string;
@@ -18,9 +18,7 @@ interface CreateSubjectInput {
 }
 
 interface SubjectsContextType {
-  disciplines: Subject[];
-  activeSubjectId: number;
-  setActiveSubjectId: (id: number) => void;
+  subjects: Subject[];
   fetchSubjects: (query?: string) => Promise<void>;
   createSubject: (data: CreateSubjectInput) => Promise<void>;
 }
@@ -32,8 +30,7 @@ interface SubjectsProviderProps {
 }
 
 export function SubjectsProvider({ children }: SubjectsProviderProps) {
-  const [disciplines, setSubjects] = useState<Subject[]>([]);
-  const [activeSubjectId, setActiveSubjectId] = useState(-1);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
   
   const fetchSubjects = useCallback(async (query?: string) => {
     const response = await api.get('/subjects', {
@@ -61,9 +58,7 @@ export function SubjectsProvider({ children }: SubjectsProviderProps) {
 
   return (
     <SubjectsContext.Provider value={{
-      disciplines,
-      activeSubjectId,
-      setActiveSubjectId,
+      subjects,
       fetchSubjects,
       createSubject,
     }}>

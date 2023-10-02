@@ -8,7 +8,7 @@ export function Router() {
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<Menu />} />
-        <Route path="/forum" element={<Forum />} />
+        <Route path="/forum/:subjectId" element={<Forum />} />
       </Route>
 
       {/* Para definir layou comum a todas as páginas que iniciam em /admin */}

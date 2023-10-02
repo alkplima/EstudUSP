@@ -47,25 +47,25 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
 
   useEffect(() => {
-    api.get<IPost[]>("/images").then((response) => {
-      const postFormatted: IFile[] = response.data.map((post) => {
-        return {
-          ...post,
-          id: post.id,
-          preview: post.url,
-          readableSize: filesize(post.size),
-          file: null,
-          error: false,
-          uploaded: true,
-          name: post.name,
-          size: post.size,
-          url: post.url,
-          postId: post.postId,
-        };
-      });
+    // api.get<IPost[]>("/images").then((response) => {
+    //   const postFormatted: IFile[] = response.data.map((post) => {
+    //     return {
+    //       ...post,
+    //       id: post.id,
+    //       preview: post.url,
+    //       readableSize: filesize(post.size),
+    //       file: null,
+    //       error: false,
+    //       uploaded: true,
+    //       name: post.name,
+    //       size: post.size,
+    //       url: post.url,
+    //       postId: post.postId,
+    //     };
+    //   });
 
-      setUploadedFiles(postFormatted);
-    });
+    //   setUploadedFiles(postFormatted);
+    // });
   }, []);
 
   useEffect(() => {

@@ -6,27 +6,14 @@ import { CommentForm, PostContainer } from './styles';
 import Upload from '../../../../components/Upload';
 import FileList from '../../../../components/FileList';
 import { useContextSelector } from 'use-context-selector';
-import { PostsContext } from '../../../../contexts/PostsContext';
-import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
+import { Post } from '../../../../contexts/PostsContext';
+import { IComment, CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
 
-export interface PostType {
-  id: number;
-  name?: string;
-  postTitle: string;
-  content: string;
-  images?: string[];
-  sameQuestionCount: number;
-  upvote: number;
-  downvote: number;
-  publishedAt: Date;
-  disciplineId: number;
-}
-
 interface PostProps {
-  post: PostType;
-  comments: CommentType[];
+  post: Post;
+  comments: IComment[];
 }
 
 export interface UploadedFile {
@@ -41,13 +28,13 @@ export interface UploadedFile {
   url: string | null;
 }
 
-export function Post({ post, comments }: PostProps) {
+export function Comments({ post, comments }: PostProps) {
   // const [comments, setComments] = useState<string[]>([]);
 
   const { uploadedFiles } = useFiles();
 
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
-  const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
+  // const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
@@ -66,7 +53,7 @@ export function Post({ post, comments }: PostProps) {
   } 
 
   function handleHaveSameQuestion() {
-    updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount + 1 });
+    // updateSameQuestionCount(post.id, { upvotes: post.sameQuestionCount + 1 });
   }
 
   function handleOpenAnswerBox() {
@@ -87,8 +74,7 @@ export function Post({ post, comments }: PostProps) {
       name: newCommentAuthor,
       content: newCommentText,
       images: imagesURLs,
-      postId: post.id,
-      disciplineId: post.disciplineId,
+      questionId: post.id,
     });
 
     setNewCommentAuthor('');
@@ -107,8 +93,6 @@ export function Post({ post, comments }: PostProps) {
 
   const isNewCommentEmpty = newCommentText.length === 0;
 
-  const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
-
   return (
     <PostContainer>
 
@@ -116,7 +100,7 @@ export function Post({ post, comments }: PostProps) {
         {checkTextForLineBreak(post.content)}
 
         <div className='postImgsWrapper'>
-          {post.images && post.images.map(image => (
+          {post.attachments && post.attachments.map(image => (
             <img key={image} src={image} alt='' className='postImgs' />
           ))}
         </div>
@@ -130,7 +114,7 @@ export function Post({ post, comments }: PostProps) {
             }
 
             <button onClick={handleHaveSameQuestion} className='sameQuestionButton' >
-              Tenho a mesma pergunta ({post.sameQuestionCount})
+              Tenho a mesma pergunta ({post.sameQuestion})
             </button>
           </div>
 
@@ -177,15 +161,15 @@ export function Post({ post, comments }: PostProps) {
       <div className='commentList'>
         <>
           <h6>Respostas</h6>
-          {commentsFiltered.length > 0 && (
-              <p style={{marginTop: '1rem'}}>{commentsFiltered.length} resposta(s)</p>
+          {comments.length > 0 && (
+              <p style={{marginTop: '1rem'}}>{comments.length} resposta(s)</p>
             )
           }
-          {commentsFiltered.length === 0 && (
+          {comments.length === 0 && (
               <p style={{marginTop: '1rem'}}>Seja o primeiro a responder!</p>
             )
           }
-          {commentsFiltered.map(comment => {
+          {comments.map(comment => {
             return (
               <Comment 
                 key={comment.id}

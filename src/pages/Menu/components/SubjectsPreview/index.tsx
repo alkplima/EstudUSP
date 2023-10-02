@@ -3,24 +3,16 @@ import ptBr from 'date-fns/locale/pt-BR'
 
 import { SubjectLastQuestions, SubjectPreviewContainer, SubjectPreviewContent } from './styles';
 import { Subtitle } from '../../../../styles/global';
-import { useContextSelector } from 'use-context-selector';
 import { Link } from 'react-router-dom';
-import { SubjectsContext, Subject } from '../../../../contexts/SubjectsContext';
+import { Subject } from '../../../../contexts/SubjectsContext';
 
 interface SubjectProps {
   discipline: Subject;
 }
 
-export function SubjectPreview({ discipline }: SubjectProps) {
-  const setActiveSubjectId = useContextSelector(SubjectsContext, (context) => context.setActiveSubjectId);
-
-  function handleSetActiveSubjectId() {
-    setActiveSubjectId(discipline.id);
-  }
-
-  return (    
+export function SubjectPreview({ discipline }: SubjectProps) {  return (    
     <SubjectPreviewContainer>
-      <Link to={`/forum`} onClick={handleSetActiveSubjectId}>
+      <Link to={`/forum/${discipline.id}`}>
         <SubjectPreviewContent>
           <div className="disciplineImg">
             <img src={discipline.previewImg} alt="" />

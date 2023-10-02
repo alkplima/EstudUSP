@@ -4,24 +4,22 @@ import { SubjectsContext } from '../../../../contexts/SubjectsContext';
 import { useContextSelector } from 'use-context-selector';
 import { Subtitle } from '../../../../styles/global';
 import { CaretLeft } from 'phosphor-react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 // import { Avatar } from '../../../../components/Avatar'
 
 
 export function Sidebar () {
 
-  const { disciplines, activeSubjectId } = useContextSelector(SubjectsContext, (context) => {
+  const { subjects } = useContextSelector(SubjectsContext, (context) => {
     return {
-      disciplines: context.disciplines,
-      activeSubjectId: context.activeSubjectId,
+      subjects: context.subjects,
     }
   });
-  
-  let currentActiveSubject = disciplines.find(discipline => discipline.id === activeSubjectId);
 
-  if (!currentActiveSubject) {
-    currentActiveSubject = disciplines.find(discipline => discipline.id === parseInt(localStorage.getItem('activeSubjectId') || "-1", 10));
-  }
+  const { subjectId } = useParams();
+  const currentActiveSubject = subjects.find(discipline => discipline.id === subjectId);
+
+  console.log({ subjectId, subjects });
   
   return (
     <SidebarContainer>
@@ -35,7 +33,7 @@ export function Sidebar () {
             src={currentActiveSubject.previewImg}
           />
           <div className='profile'>
-            <h6>{currentActiveSubject.name}</h6>
+            <h6>{currentActiveSubject.title}</h6>
             <Subtitle>Semestre {currentActiveSubject.semester}</Subtitle>
           </div>
         </SidebarItem>
