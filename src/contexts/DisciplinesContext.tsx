@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
+import { AxiosResponse } from "axios";
 
 interface Discipline {
   id: number;
@@ -19,7 +20,7 @@ interface DisciplinesContextType {
   disciplines: Discipline[];
   activeDisciplineId: number;
   setActiveDisciplineId: (id: number) => void;
-  fetchDisciplines: (query?: string) => Promise<void>;
+  fetchDisciplines: (query?: string) => Promise<void | AxiosResponse<Discipline[]>>;
   createDiscipline: (data: CreateDisciplineInput) => Promise<void>;
 }
 
@@ -43,6 +44,7 @@ export function DisciplinesProvider({ children }: DisciplinesProviderProps) {
     });
     
     setDisciplines(response.data);
+    return response;
   }, []);
 
   const createDiscipline = useCallback(async (data: CreateDisciplineInput) => {

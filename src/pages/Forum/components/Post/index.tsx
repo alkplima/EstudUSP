@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useEffect, useState } from 'react';
 
 import { Comment } from '../Comment';
 // import { Button } from '@primer/react'
@@ -53,6 +53,7 @@ export function Post({ post, comments }: PostProps) {
   
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
   const [newCommentText, setNewCommentText] = useState('');
+  const [hasSameQuestion, setHasSameQuestion] = useState(false);
   
 
   function checkTextForLineBreak(text: string) {
@@ -66,7 +67,15 @@ export function Post({ post, comments }: PostProps) {
   } 
 
   function handleHaveSameQuestion() {
+    if (hasSameQuestion) {
+      updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount - 1 });
+      localStorage.removeItem(`hasSameQuestionForPost-${post.id}`);
+      setHasSameQuestion(false);
+      return;
+    }
     updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount + 1 });
+    localStorage.setItem(`hasSameQuestionForPost-${post.id}`, 'true');
+    setHasSameQuestion(true);
   }
 
   function handleOpenAnswerBox() {
@@ -109,8 +118,12 @@ export function Post({ post, comments }: PostProps) {
 
   const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
 
+  useEffect(() => {
+    setHasSameQuestion(JSON.parse(String(localStorage.getItem(`hasSameQuestionForPost-${post.id}`))) ?? false);
+  }, [post.id]);
+  
   return (
-    <PostContainer>
+    <PostContainer variant={hasSameQuestion}>
 
       <div className='content'>
         {checkTextForLineBreak(post.content)}
@@ -129,7 +142,7 @@ export function Post({ post, comments }: PostProps) {
               </Button>
             }
 
-            <button onClick={handleHaveSameQuestion} className='sameQuestionButton' >
+            <button onClick={handleHaveSameQuestion} className='sameQuestionButton'>
               Tenho a mesma pergunta ({post.sameQuestionCount})
             </button>
           </div>

@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const PostContainer = styled.div`
+interface PostContainerProps {
+  variant: true | false;
+}
+
+export const PostContainer = styled.div<PostContainerProps>`
   display: flex;
   flex-direction: column;
 
@@ -56,10 +60,20 @@ export const PostContainer = styled.div`
       background: transparent;
       border: 1px solid ${props => props.theme['primary']};
 
-      &:hover {
+      ${props => props.variant && `
+        opacity: 0.7;
+      `}
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      &:not(:disabled):hover {
         border: 1px solid transparent;
         background: ${props => props.theme['primary']};
         color: ${props => props.theme['on-primary']};
+        cursor: pointer;
       }
     }
   }

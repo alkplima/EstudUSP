@@ -585,6 +585,30 @@
       "disciplineId": 0,
       "userId": 0,
       "id": 48
+    },
+    {
+      "name": "Anônimo",
+      "postTitle": "blablabla",
+      "content": "kenvfiknaso;lv",
+      "publishedAt": "2023-10-02T14:58:03.660Z",
+      "sameQuestionCount": 0,
+      "upvote": 3,
+      "downvote": 3,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 49
+    },
+    {
+      "name": "Anônimo",
+      "postTitle": "sryn",
+      "content": "wrytjnrwytn",
+      "publishedAt": "2023-10-02T15:00:11.529Z",
+      "sameQuestionCount": 3,
+      "upvote": 5,
+      "downvote": 3,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 50
     }
   ],
   "images": [],
@@ -643,11 +667,12 @@
       "name": "Anônimo",
       "content": "Que coisa....\nSerá que vai funfar?\n\nSIMMMMM kkkkk eba\n\n\n\n\nblabla",
       "publishedAt": "2023-09-22T19:11:48.522Z",
-      "upvote": 0,
+      "upvote": 1,
       "disciplineId": 0,
       "userId": 0,
       "postId": 1,
-      "id": 6
+      "id": 6,
+      "downvote": null
     },
     {
       "name": "Anônimo",

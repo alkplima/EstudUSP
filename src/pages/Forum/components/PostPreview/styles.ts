@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const PostPreviewContainer = styled.article`
+export interface PostPreviewContainerProps {
+  variant: 'like' | 'dislike' | '';
+}
+
+export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
   background: ${props => props.theme['inverse-on-surface']};
   border-radius: 8px;
   padding: 2rem;
@@ -29,41 +33,50 @@ export const PostPreviewContainer = styled.article`
       gap: 1rem;
   
       .likeDislikeButtons {
+        display: flex;
+        gap: 0.5rem;
+
+        .likeButton, .dislikeButton {
+          background: transparent;
+          color: ${props => props.theme['on-surface']};
+          display: flex;
+          align-items: center;
+          border-radius: 2px;
+          border: 0;
+        }
+        
+        button {
+          cursor: pointer;
+        }
+
+        .likeButton {
           display: flex;
           gap: 0.5rem;
-  
-          .likeButton, .dislikeButton {
-            background: transparent;
-            color: ${props => props.theme['on-surface']};
-            display: flex;
-            align-items: center;
-            border-radius: 2px;
-            border: 0;
+
+          svg {
+            color: ${props => props.variant && props.variant === 'like' && props.theme['green-300']};
           }
-          button {
-            cursor: pointer;
-          }
-  
-          .likeButton {
-            display: flex;
-            gap: 0.5rem;
-          }
-  
-          .likeButton:hover {
-            color: ${props => props.theme['green-300']};
-          }
-  
-          .dislikeButton:hover {
-            color: ${props => props.theme['red-500']};
-          }
-  
-          .verticalSeparator {
-            width: 1px;
-            height: 1.5rem;
-            background: ${props => props.theme['gray-600']};
-          }
-  
         }
+
+        .dislikeButton {
+          color: ${props => props.variant && props.variant === 'dislike' &&  props.theme['red-500']};
+        }
+
+        .likeButton:hover svg {
+          color: ${props => props.theme['green-300']};
+        }
+
+        .dislikeButton:hover {
+          color: ${props => props.theme['red-500']};
+        }
+
+        .verticalSeparator {
+          width: 1px;
+          height: 1.5rem;
+          background: ${props => props.theme['gray-600']};
+        }
+
+      }
     }
   }
 

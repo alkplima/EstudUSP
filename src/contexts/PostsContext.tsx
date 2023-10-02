@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
+import { AxiosResponse } from "axios";
 
 interface Post {
   id: number;
@@ -25,7 +26,7 @@ interface CreatePostInput {
 
 interface PostsContextType {
   posts: Post[];
-  fetchPosts: (query?: string) => Promise<void>;
+  fetchPosts: (query?: string) => Promise<void | AxiosResponse<Post[]>>;
   createPost: (data: CreatePostInput) => Promise<void>;
   updateSameQuestionCount: (id: number, data: Partial<Post>) => Promise<void>;
   updateUpvote: (id: number, data: Partial<Post>) => Promise<void>;
@@ -51,6 +52,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
     });
     
     setPosts(response.data);
+    return response;
   }, []);
 
   const createPost = useCallback(async (data: CreatePostInput) => {

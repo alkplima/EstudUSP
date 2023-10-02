@@ -5,11 +5,13 @@ import { useContextSelector } from 'use-context-selector';
 import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR'
+import { useEffect, useState } from 'react';
 interface CommentProps {
   comment: CommentType;
 }
 
 export function Comment({ comment }: CommentProps) {
+  const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(CommentsContext, comments => comments.updateUpvote);
   const updateDownvote = useContextSelector(CommentsContext, comments => comments.updateDownvote);
   // const deleteComment = useContextSelector(CommentsContext, comments => comments.deleteComment);
@@ -29,12 +31,39 @@ export function Comment({ comment }: CommentProps) {
   } 
 
   function handleLikeComment() {
+    if (likeState === 'like') {
+      updateUpvote(comment.id, { upvote: comment.upvote - 1 });
+      localStorage.removeItem(`likeStateForComment-${comment.id}`);
+      setLikeState('');
+      return;
+    }
+    if (likeState === 'dislike') {
+      updateDownvote(comment.id, { downvote: comment.downvote - 1 });
+    }
     updateUpvote(comment.id, { upvote: comment.upvote + 1 });
+    localStorage.setItem(`likeStateForComment-${comment.id}`, 'like');
+    setLikeState('like');
   }
 
   function handleDislikeComment() {
-    if (comment.upvote === 0) return;
+    if (likeState === 'dislike') {
+      updateDownvote(comment.id, { downvote: comment.downvote - 1 });
+      localStorage.removeItem(`likeStateForComment-${comment.id}`);
+      setLikeState('');
+      return;
+    }
+    if (likeState === 'like') {
+      updateUpvote(comment.id, { upvote: comment.upvote - 1 });
+    }
     updateDownvote(comment.id, { downvote: comment.downvote + 1 });
+    localStorage.setItem(`likeStateForComment-${comment.id}`, 'dislike');
+    setLikeState('dislike');
+  }
+
+  function getLikeState() {
+    if (likeState === 'like') return 'like';
+    if (likeState === 'dislike') return 'dislike';
+    return '';
   }
 
   const publishedDateFormatted = format(new Date(comment.publishedAt), "d 'de' LLLL 'às' HH:mm", {
@@ -46,6 +75,9 @@ export function Comment({ comment }: CommentProps) {
     addSuffix: true
   })
 
+  useEffect(() => {
+    setLikeState(localStorage.getItem(`likeStateForComment-${comment.id}`) ?? '');
+  }, [comment.id]);
 
   return (
     <CommentContainer>
@@ -54,7 +86,7 @@ export function Comment({ comment }: CommentProps) {
         content = {comment.content}
       />
 
-      <CommentBox>
+      <CommentBox variant={getLikeState()}>
         <div className='commentContent'>
           <header>
             <div className='authorAndTime'>

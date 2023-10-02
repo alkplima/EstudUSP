@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
@@ -38,6 +38,7 @@ export function PostPreview({ post }: PostProps) {
 
   const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const [isCardOpen, setIsCardOpen] = useState(false);
+  const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
   const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
@@ -55,19 +56,49 @@ export function PostPreview({ post }: PostProps) {
   }
 
   function handleLikePost() {
+    if (likeState === 'like') {
+      updateUpvote(post.id, { upvote: post.upvote - 1 });
+      localStorage.removeItem(`likeStateForPost-${post.id}`);
+      setLikeState('');
+      return;
+    }
+    if (likeState === 'dislike') {
+      updateDownvote(post.id, { downvote: post.downvote - 1 });
+    }
     updateUpvote(post.id, { upvote: post.upvote + 1 });
+    localStorage.setItem(`likeStateForPost-${post.id}`, 'like');
+    setLikeState('like');
   }
 
   function handleDislikePost() {
-    if (post.upvote === 0) return;
+    if (likeState === 'dislike') {
+      updateDownvote(post.id, { downvote: post.downvote - 1 });
+      localStorage.removeItem(`likeStateForPost-${post.id}`);
+      setLikeState('');
+      return;
+    }
+    if (likeState === 'like') {
+      updateUpvote(post.id, { upvote: post.upvote - 1 });
+    }
     updateDownvote(post.id, { downvote: post.downvote + 1 });
+    localStorage.setItem(`likeStateForPost-${post.id}`, 'dislike');
+    setLikeState('dislike');
+  }
+
+  function getLikeState() {
+    if (likeState === 'like') return 'like';
+    if (likeState === 'dislike') return 'dislike';
+    return '';
   }
 
   const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
 
+  useEffect(() => {
+    setLikeState(localStorage.getItem(`likeStateForPost-${post.id}`) ?? '');
+  }, [post.id]);
 
   return (
-    <PostPreviewContainer>
+    <PostPreviewContainer variant={getLikeState()}>
       <div className='header'>
         <PostPreviewContent>
           <Avatar 
@@ -91,7 +122,7 @@ export function PostPreview({ post }: PostProps) {
           </time>
 
           <div className="likeDislikeButtons">
-            <button onClick={handleLikePost} className='likeButton' >
+            <button onClick={handleLikePost} className='likeButton'>
               <ThumbsUp size={20} /> {post.upvote}
             </button>
             <div className="verticalSeparator"></div>

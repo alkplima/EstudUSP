@@ -13,9 +13,11 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { NewQuestionModal } from "./components/NewQuestionModal";
 import { Plus } from "phosphor-react";
 import { CommentsProvider } from "../../contexts/CommentsContext";
+import { Loading } from "../../components/Loading/styles";
 
 
 export function Forum() {
+  const [isLoading, setIsLoading] = useState(false);
 
   const posts = useContextSelector(PostsContext, (context) => context.posts);
   // const createPost = useContextSelector(PostsContext, (context) => context.createPost);
@@ -34,7 +36,14 @@ export function Forum() {
   });
 
   useEffect(() => {
-    fetchPosts();
+    setIsLoading(true);
+    fetchPosts()
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }, [fetchPosts]);
 
   const filteredPosts = posts.filter(post => post.disciplineId === activeDisciplineId);
@@ -67,6 +76,12 @@ export function Forum() {
                   <PostPreview key={post.id} post={post} />
                 )
             })}
+            
+            {isLoading &&
+              <Loading size={15}>
+                  <img src='./loading.svg' alt='EstudUSP - Loading' />
+              </Loading>
+            }
           </>
           }
           
