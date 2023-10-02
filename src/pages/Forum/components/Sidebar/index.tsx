@@ -18,9 +18,9 @@ export function Sidebar () {
     }
   });
 
-  // useEffect(() => {
-  //   if (!subjects.length) fetchSubjects();
-  // });
+  useEffect(() => {
+    if (!subjects.length) fetchSubjects();
+  });
 
   const { subjectId } = useParams();
   const currentActiveSubject = subjects.find(discipline => discipline.id === subjectId);
