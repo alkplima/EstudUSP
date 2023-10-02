@@ -65,11 +65,11 @@ export function PostPreview({ post }: PostProps) {
       <div className='header'>
         <PostPreviewContent>
           <Avatar 
-            content={post.username || 'Anônimo'}
+            content={post.anonymous ? 'Anônimo' : post.username}
           />
           <div className='authorInfo'>
             <h6>{post.title}</h6>
-            <Subtitle>{post.username}</Subtitle>
+            <Subtitle>{post.anonymous ? 'Anônimo' : post.username}</Subtitle>
             {!isCardOpen &&
               <div className='downarrow' onClick={handleOpenCard}>
                 <p>{comments.length} resposta(s)</p>

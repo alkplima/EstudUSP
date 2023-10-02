@@ -5,21 +5,25 @@ import { useContextSelector } from 'use-context-selector';
 import { Subtitle } from '../../../../styles/global';
 import { CaretLeft } from 'phosphor-react';
 import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 // import { Avatar } from '../../../../components/Avatar'
 
 
 export function Sidebar () {
 
-  const { subjects } = useContextSelector(SubjectsContext, (context) => {
+  const { subjects, fetchSubjects } = useContextSelector(SubjectsContext, (context) => {
     return {
       subjects: context.subjects,
+      fetchSubjects: context.fetchSubjects,
     }
   });
 
+  // useEffect(() => {
+  //   if (!subjects.length) fetchSubjects();
+  // });
+
   const { subjectId } = useParams();
   const currentActiveSubject = subjects.find(discipline => discipline.id === subjectId);
-
-  console.log({ subjectId, subjects });
   
   return (
     <SidebarContainer>

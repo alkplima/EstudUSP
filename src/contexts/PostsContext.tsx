@@ -4,21 +4,22 @@ import { createContext } from "use-context-selector";
 
 export interface Post {
   id: number;
-  username?: string;
+  username: string;
   title: string;
   content: string;
   publishedAt: Date;
   attachments: string[];
   sameQuestion: number;
   upvotes: number;
+  anonymous: boolean;
   // downvotes: number;
   // disciplineId: number;
   // userId: number;
 }
 
 interface CreatePostInput {
-  name?: string;
-  postTitle: string;
+  title: string;
+  username?: string;
   content: string;
   attachments?: string[];
   subjectId: string;
@@ -55,19 +56,14 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }, []);
 
   const createPost = useCallback(async (data: CreatePostInput) => {
-    const { name, postTitle, content, attachments, subjectId } = data;
+    const { username, title, content, attachments, subjectId } = data;
 
-    const response = await api.post('/posts', {
-      name: name || 'Anônimo',
-      postTitle,
+    const response = await api.post(`/${subjectId}/question`, {
+      anonymous: !username,
+      username: username  || 'Anônimo',
+      title,
       content,
-      attachments,
-      publishedAt: new Date(),
-      sameQuestionCount: 0,
-      upvote: 0,
-      downvote: 0,
-      subjectId,
-      userId: 0
+      attachments: attachments || [],
     });
 
     setPosts(state => [response.data, ...state])

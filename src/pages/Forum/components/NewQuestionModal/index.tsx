@@ -50,8 +50,8 @@ export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProp
     event.preventDefault();
 
     const newPost = {
-      name: newQuestionAuthor,
-      postTitle: newQuestionTitle,
+      username: newQuestionAuthor,
+      title: newQuestionTitle,
       content: newQuestionText,
       subjectId: subjectId || '',
     }
