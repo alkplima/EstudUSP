@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { ForumContainer } from "./styles";
 import { Sidebar } from "./components/Sidebar";
 import { PostPreview } from './components/PostPreview'
-import { FileProvider, useFiles } from "../../contexts/files";
+import { useFiles } from "../../contexts/files";
 import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../contexts/PostsContext";
 import { Button } from "../../components/Button/styles";
@@ -41,7 +41,6 @@ export function Forum() {
     <ForumContainer>
       <Sidebar />
       <main>
-        <FileProvider>
         <CommentsProvider>
 
         <Dialog.Root open={isQuestionCardOpen} onOpenChange={setIsQuestionCardOpen}>
@@ -58,7 +57,6 @@ export function Forum() {
         {posts.map(post => <PostPreview key={post.id} post={post} /> )}
           
         </CommentsProvider>
-        </FileProvider>
       </main>
     </ForumContainer>
   )

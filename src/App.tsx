@@ -9,6 +9,7 @@ import { defaultTheme } from './styles/themes/default';
 import { PostsProvider } from './contexts/PostsContext';
 import { ThemeProvider } from "styled-components";
 import { SubjectsProvider } from "./contexts/SubjectsContext";
+import { FileProvider } from "./contexts/files";
 
 // const customTheme = deepmerge(theme, {
 //   fonts: {
@@ -29,7 +30,10 @@ function App() {
 
         <SubjectsProvider>
         <PostsProvider>
+        <FileProvider>
+
           <Router />
+        </FileProvider>
         </PostsProvider>
         </SubjectsProvider>
 
