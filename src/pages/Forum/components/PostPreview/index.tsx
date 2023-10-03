@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
@@ -9,9 +9,8 @@ import { Comments } from '../Comments';
 import { CommentsContext } from '../../../../contexts/CommentsContext';
 import { Subtitle } from '../../../../styles/global';
 import { useContextSelector } from 'use-context-selector';
-import { ThumbsDown, ThumbsUp } from 'phosphor-react';
+import { ThumbsUp } from 'phosphor-react';
 import { Post as PostType, PostsContext } from '../../../../contexts/PostsContext';
-
 
 // interface Content {
 //   type: 'paragraph' | 'link';
@@ -26,6 +25,7 @@ export function PostPreview({ post }: PostProps) {
 
   const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const [isCardOpen, setIsCardOpen] = useState(false);
+  const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
   const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
@@ -52,16 +52,29 @@ export function PostPreview({ post }: PostProps) {
   }
 
   function handleLikePost() {
+    if (likeState === 'like' && post.upvotes > 0) {
+      updateDownvote(post.id);
+      localStorage.removeItem(`likeStateForPost-${post.id}`);
+      setLikeState('');
+      return;
+    }
+
     updateUpvote(post.id);
+    localStorage.setItem(`likeStateForPost-${post.id}`, 'like');
+    setLikeState('like');
   }
 
-  function handleDislikePost() {
-    if (post.upvotes === 0) return;
-    updateDownvote(post.id);
+  function getLikeState() {
+    if (likeState === 'like') return 'like';
+    return '';
   }
+
+  useEffect(() => {
+    setLikeState(localStorage.getItem(`likeStateForPost-${post.id}`) ?? '');
+  }, [post.id]);
 
   return (
-    <PostPreviewContainer>
+    <PostPreviewContainer variant={getLikeState()}>
       <div className='header'>
         <PostPreviewContent>
           <Avatar 
@@ -84,15 +97,9 @@ export function PostPreview({ post }: PostProps) {
             {publishedDateRelativeToNow}
           </time>
 
-          <div className="likeDislikeButtons">
-            <button onClick={handleLikePost} className='likeButton' >
-              <ThumbsUp size={20} /> {post.upvotes}
-            </button>
-            <div className="verticalSeparator"></div>
-            <button onClick={handleDislikePost} className='dislikeButton'>
-              <ThumbsDown size={20} />
-            </button>
-          </div>
+          <button onClick={handleLikePost} className='likeButton' >
+            <ThumbsUp size={20} /> {post.upvotes}
+          </button>
         </div>
       </div>
 

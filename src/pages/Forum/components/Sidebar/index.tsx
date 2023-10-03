@@ -1,13 +1,13 @@
 // import { PencilLine } from 'phosphor-react'
-import { SidebarContainer, SidebarItem } from './styles'
+import { ComplaintInfoContainer, SidebarContainer, SidebarItem } from './styles'
 import { SubjectsContext } from '../../../../contexts/SubjectsContext';
 import { useContextSelector } from 'use-context-selector';
 import { Subtitle } from '../../../../styles/global';
-import { CaretLeft } from 'phosphor-react';
+import { CaretLeft, Info } from 'phosphor-react';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
 // import { Avatar } from '../../../../components/Avatar'
-
 
 export function Sidebar () {
 
@@ -27,9 +27,11 @@ export function Sidebar () {
   
   return (
     <SidebarContainer>
-      <Link to='/' className='returnMenu'>
-        <CaretLeft size={24} />
-        Voltar ao Menu
+      <Link to='/'>
+        <SecondaryButton variant={false} >
+          <CaretLeft size={20} />
+          Voltar
+        </SecondaryButton>
       </Link>
       {currentActiveSubject &&        <SidebarItem>
           <img 
@@ -42,6 +44,10 @@ export function Sidebar () {
           </div>
         </SidebarItem>
       }
+      <ComplaintInfoContainer>
+        
+        <p><Info size={20} /> Caso encontre algum erro ou deseje denunciar alguma pergunta ou resposta, envie um email para <a href="mailto:atendimento@estudusp.com.br">atendimento@estudusp.com.br</a>. Você pode anexar prints para nos ajudar a identificar os problemas.</p>
+      </ComplaintInfoContainer>
     </SidebarContainer>
   )
 }

@@ -1,19 +1,26 @@
 // import { Button } from "@primer/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ForumContainer } from "./styles";
 import { SubjectPreview } from './components/SubjectsPreview'
 import { SubjectsContext } from "../../contexts/SubjectsContext";
 import { useContextSelector } from "use-context-selector";
 import { SearchForm } from "./components/SearchForm";
+import { Loading } from "../../components/Loading/styles";
+
 export function Menu() {
-  const subjects = useContextSelector(SubjectsContext, (context) => context.subjects);
+const [isLoading, setIsLoading] = useState(false);
+const subjects = useContextSelector(SubjectsContext, (context) => context.subjects);
 
   const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
     return context.fetchSubjects;
   });
 
   useEffect(() => {
-    fetchSubjects('');
+    setIsLoading(true);
+    fetchSubjects('')
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [fetchSubjects]);
 
   return (
@@ -24,6 +31,11 @@ export function Menu() {
           <SubjectPreview key={discipline.id} discipline={discipline} />
         )
       })}
+      {isLoading &&
+        <Loading size={25}>
+            <img src='./loading.svg' alt='EstudUSP - Loading' />
+        </Loading>
+      }
     </ForumContainer>
   )
 }

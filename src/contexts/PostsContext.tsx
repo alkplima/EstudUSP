@@ -51,7 +51,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
         q: query,
       }
     });
-    
+
     setPosts(response.data);
   }, []);
 

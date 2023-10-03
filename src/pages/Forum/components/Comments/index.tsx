@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useEffect, useState } from 'react';
 
 import { Comment } from '../Comment';
 // import { Button } from '@primer/react'
@@ -10,6 +10,7 @@ import { Post, PostsContext } from '../../../../contexts/PostsContext';
 import { IComment, CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
+import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
 
 interface PostProps {
   post: Post;
@@ -40,6 +41,7 @@ export function Comments({ post, comments }: PostProps) {
   
   const [newCommentAuthor, setNewCommentAuthor] = useState('');
   const [newCommentText, setNewCommentText] = useState('');
+  const [hasSameQuestion, setHasSameQuestion] = useState(false);
   
 
   function checkTextForLineBreak(text: string) {
@@ -53,7 +55,17 @@ export function Comments({ post, comments }: PostProps) {
   } 
 
   function handleHaveSameQuestion() {
+    if (hasSameQuestion) {
+      updateSameQuestion(post.id);
+      localStorage.removeItem(`hasSameQuestionForPost-${post.id}`);
+      setHasSameQuestion(false);
+      return;
+    }
+
+    // @todo: handle remove same question
     updateSameQuestion(post.id);
+    localStorage.setItem(`hasSameQuestionForPost-${post.id}`, 'true');
+    setHasSameQuestion(true);
   }
 
   function handleOpenAnswerBox() {
@@ -91,6 +103,10 @@ export function Comments({ post, comments }: PostProps) {
   const isNewCommentEmpty = newCommentText.length === 0;
   const postComments = comments.filter(comment => comment.questionId === post.id);
 
+  useEffect(() => {
+    setHasSameQuestion(JSON.parse(String(localStorage.getItem(`hasSameQuestionForPost-${post.id}`))) ?? false);
+  }, [post.id]);
+  
   return (
     <PostContainer>
 
@@ -104,18 +120,15 @@ export function Comments({ post, comments }: PostProps) {
         </div>
 
         <div className='buttons'>
-          <div className="bigButtons">
-            {!isAnswerBoxOpen &&
-              <Button onClick={handleOpenAnswerBox} className='answerButton' >
-                Responder
-              </Button>
-            }
+          {!isAnswerBoxOpen &&
+            <Button onClick={handleOpenAnswerBox} className='answerButton' >
+              Responder
+            </Button>
+          }
 
-            <button onClick={handleHaveSameQuestion} className='sameQuestionButton' >
-              Tenho a mesma pergunta ({post.sameQuestion})
-            </button>
-          </div>
-
+          <SecondaryButton onClick={handleHaveSameQuestion} variant={hasSameQuestion}>
+            Tenho a mesma pergunta ({post.sameQuestion})
+          </SecondaryButton>
         </div>
       </div>
 

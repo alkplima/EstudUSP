@@ -116,7 +116,7 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
       createComment,
       deleteComment,
       updateUpvote,
-      updateDownvote,
+      updateDownvote
     }}>
       {children}
     </CommentsContext.Provider>

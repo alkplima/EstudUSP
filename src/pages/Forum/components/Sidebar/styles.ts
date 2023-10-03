@@ -7,23 +7,20 @@ export const SidebarContainer = styled.aside`
   left: 0;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   width: fit-content;
 
-  .returnMenu {
+  a {
+    text-decoration: none;
+  }
+
+  button {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: 0.5rem;
-    color: ${props => props.theme['on-surface']};
-    text-decoration: none;
-    font-family: 'Segoe_UI_Bold';
-
-    &:hover {
-      text-decoration: underline;
-      color: ${props => props.theme['primary']};
-    }
+    padding-left: 0.875rem;
   }
 `
 
@@ -59,3 +56,32 @@ export const SidebarItem = styled.div`
     position: initial;
   }  */
 `;
+
+export const ComplaintInfoContainer = styled.div`
+  width: 100%;
+  display: inline-flex;
+  padding: 1.5rem 1rem;
+  border: 1px solid ${props => props.theme['outline']};
+  border-radius: 8px;
+
+  
+  p {
+    color: ${props => props.theme['on-surface']};
+
+    svg {
+      color: ${props => props.theme['surface-variant']};
+      align-self: center;
+      justify-self: center;
+    }
+
+    a {
+      text-decoration: none;
+      color: ${props => props.theme['primary']};
+      transition: all 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+`

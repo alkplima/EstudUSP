@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const CommentContainer = styled.div`
 
   margin-top: 1.5rem;
@@ -12,8 +13,11 @@ export const CommentContainer = styled.div`
     border-radius: 8px;
   }
 `
+export interface CommentBoxProps {
+  variant: 'like' | '';
+}
 
-export const CommentBox = styled.div`
+export const CommentBox = styled.div<CommentBoxProps>`
   flex: 1;
 
   .commentContent {
@@ -105,14 +109,16 @@ export const CommentBox = styled.div`
     footer .likeButton {
       display: flex;
       gap: 0.5rem;
-    }
-  
-    footer .likeButton:hover {
-      color: ${props => props.theme['green-300']};
-    }
-  
-    footer .dislikeButton:hover {
-      color: ${props => props.theme['red-500']};
+      font-family: 'Segoe_UI_Bold';
+
+      svg {
+        color: ${props => props.variant && props.variant === 'like' && props.theme['primary']};
+        transition: all 0.2s;
+      }
+      
+      &:hover svg {
+        opacity: 0.8;
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,29 +39,10 @@ export const PostContainer = styled.div`
 
     .buttons {
       display: flex;
+      flex-direction: row;
       align-items: center;
-      justify-content: space-between;
-
-      .bigButtons {
-        display: flex;
-        gap: 1rem;
-      }
-    }
-
-    .sameQuestionButton {
-      padding: 0.4rem 1.25rem;
-      border-radius: 8px;
-      width: fit-content;
-      margin-top: 1.5rem;
-      color: ${props => props.theme['primary']};
-      background: transparent;
-      border: 1px solid ${props => props.theme['primary']};
-
-      &:hover {
-        border: 1px solid transparent;
-        background: ${props => props.theme['primary']};
-        color: ${props => props.theme['on-primary']};
-      }
+      justify-content: flex-start;
+      gap: 1rem;
     }
   }
 
