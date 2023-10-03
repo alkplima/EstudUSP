@@ -28,6 +28,10 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
   }
 
+  input, textarea {
+    caret-color: ${props => props.theme['primary']};
+  }
+
   h1 {
     font: 700 3.5rem/4.25rem 'Segoe_UI_Bold', sans-serif;
   }
