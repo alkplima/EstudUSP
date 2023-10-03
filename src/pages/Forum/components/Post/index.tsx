@@ -10,6 +10,7 @@ import { PostsContext } from '../../../../contexts/PostsContext';
 import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
+import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
 
 export interface PostType {
   id: number;
@@ -19,7 +20,6 @@ export interface PostType {
   images?: string[];
   sameQuestionCount: number;
   upvote: number;
-  downvote: number;
   publishedAt: Date;
   disciplineId: number;
 }
@@ -123,7 +123,7 @@ export function Post({ post, comments }: PostProps) {
   }, [post.id]);
   
   return (
-    <PostContainer variant={hasSameQuestion}>
+    <PostContainer>
 
       <div className='content'>
         {checkTextForLineBreak(post.content)}
@@ -135,18 +135,15 @@ export function Post({ post, comments }: PostProps) {
         </div>
 
         <div className='buttons'>
-          <div className="bigButtons">
-            {!isAnswerBoxOpen &&
-              <Button onClick={handleOpenAnswerBox} className='answerButton' >
-                Responder
-              </Button>
-            }
+          {!isAnswerBoxOpen &&
+            <Button onClick={handleOpenAnswerBox} className='answerButton' >
+              Responder
+            </Button>
+          }
 
-            <button onClick={handleHaveSameQuestion} className='sameQuestionButton'>
-              Tenho a mesma pergunta ({post.sameQuestionCount})
-            </button>
-          </div>
-
+          <SecondaryButton onClick={handleHaveSameQuestion} variant={hasSameQuestion}>
+            Tenho a mesma pergunta ({post.sameQuestionCount})
+          </SecondaryButton>
         </div>
       </div>
 

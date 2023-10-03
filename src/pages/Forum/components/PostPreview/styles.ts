@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export interface PostPreviewContainerProps {
-  variant: 'like' | 'dislike' | '';
+  variant: 'like' | '';
 }
 
 export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
@@ -31,51 +31,29 @@ export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
       align-items: flex-end;
       justify-content: space-between;
       gap: 1rem;
-  
-      .likeDislikeButtons {
-        display: flex;
-        gap: 0.5rem;
 
-        .likeButton, .dislikeButton {
-          background: transparent;
-          color: ${props => props.theme['on-surface']};
-          display: flex;
-          align-items: center;
-          border-radius: 2px;
-          border: 0;
+      .likeButton {
+        background: transparent;
+        color: ${props => props.theme['on-surface']};
+        font-family: 'Segoe_UI_Bold';
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 2px;
+        border: 0;
+
+        svg {
+          color: ${props => props.variant && props.variant === 'like' && props.theme['primary']};
+          transition: all 0.2s;
         }
         
-        button {
-          cursor: pointer;
+        &:hover svg {
+          opacity: 0.8;
         }
-
-        .likeButton {
-          display: flex;
-          gap: 0.5rem;
-
-          svg {
-            color: ${props => props.variant && props.variant === 'like' && props.theme['green-300']};
-          }
-        }
-
-        .dislikeButton {
-          color: ${props => props.variant && props.variant === 'dislike' &&  props.theme['red-500']};
-        }
-
-        .likeButton:hover svg {
-          color: ${props => props.theme['green-300']};
-        }
-
-        .dislikeButton:hover {
-          color: ${props => props.theme['red-500']};
-        }
-
-        .verticalSeparator {
-          width: 1px;
-          height: 1.5rem;
-          background: ${props => props.theme['gray-600']};
-        }
-
+      }
+      
+      button {
+        cursor: pointer;
       }
     }
   }
@@ -95,7 +73,7 @@ export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
     bottom: .5rem;
     left: 43%;
     border: 1px solid transparent;
-    transition: all 0.2s ease-in-out;
+    transition: border 0.2s;
 
     p {
       color: ${props => props.theme['primary']};

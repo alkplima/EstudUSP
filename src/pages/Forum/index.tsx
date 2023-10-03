@@ -61,7 +61,7 @@ export function Forum() {
           <>
             <Dialog.Root open={isQuestionCardOpen} onOpenChange={setIsQuestionCardOpen}>
               <Dialog.Trigger asChild>
-                <Button onClick={() => setIsQuestionCardOpen(true)} className="newQuestionBtn"> Adicionar pergunta <Plus/></Button>
+                <Button onClick={() => setIsQuestionCardOpen(true)} className="newQuestionBtn"> Adicionar pergunta <Plus weight="bold" /></Button>
               </Dialog.Trigger>
               <NewQuestionModal activeDisciplineId={activeDisciplineId} setIsQuestionCardOpen={setIsQuestionCardOpen} />
             </Dialog.Root>

@@ -11,7 +11,6 @@ interface Post {
   publishedAt: Date;
   sameQuestionCount: number;
   upvote: number;
-  downvote: number;
   disciplineId: number;
   userId: number;
 }
@@ -30,7 +29,6 @@ interface PostsContextType {
   createPost: (data: CreatePostInput) => Promise<void>;
   updateSameQuestionCount: (id: number, data: Partial<Post>) => Promise<void>;
   updateUpvote: (id: number, data: Partial<Post>) => Promise<void>;
-  updateDownvote: (id: number, data: Partial<Post>) => Promise<void>;
 }
 
 export const PostsContext = createContext({} as PostsContextType);
@@ -66,7 +64,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
       publishedAt: new Date(),
       sameQuestionCount: 0,
       upvote: 0,
-      downvote: 0,
       disciplineId,
       userId: 0
     });
@@ -104,19 +101,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }
   , []);
 
-  const updateDownvote = useCallback(async (id: number, data: Partial<Post>) => {
-    await api.patch(`/posts/${id}`, data);
-    const response = await api.get('/posts', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
-      }
-    });
-    
-    setPosts(response.data);
-  }
-  , []);
-
   return (
     <PostsContext.Provider value={{
       posts,
@@ -124,7 +108,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
       createPost,
       updateSameQuestionCount,
       updateUpvote,
-      updateDownvote,
     }}>
       {children}
     </PostsContext.Provider>

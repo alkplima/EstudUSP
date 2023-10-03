@@ -1,4 +1,4 @@
-import { ThumbsDown, ThumbsUp/*, Trash*/ } from 'phosphor-react'
+import { ThumbsUp/*, Trash*/ } from 'phosphor-react'
 import { CommentBox, CommentContainer } from './styles';
 import { Avatar } from '../../../../components/Avatar';
 import { useContextSelector } from 'use-context-selector';
@@ -13,7 +13,6 @@ interface CommentProps {
 export function Comment({ comment }: CommentProps) {
   const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(CommentsContext, comments => comments.updateUpvote);
-  const updateDownvote = useContextSelector(CommentsContext, comments => comments.updateDownvote);
   // const deleteComment = useContextSelector(CommentsContext, comments => comments.deleteComment);
 
   // function handleDeleteComment() {
@@ -37,32 +36,13 @@ export function Comment({ comment }: CommentProps) {
       setLikeState('');
       return;
     }
-    if (likeState === 'dislike') {
-      updateDownvote(comment.id, { downvote: comment.downvote - 1 });
-    }
     updateUpvote(comment.id, { upvote: comment.upvote + 1 });
     localStorage.setItem(`likeStateForComment-${comment.id}`, 'like');
     setLikeState('like');
   }
 
-  function handleDislikeComment() {
-    if (likeState === 'dislike') {
-      updateDownvote(comment.id, { downvote: comment.downvote - 1 });
-      localStorage.removeItem(`likeStateForComment-${comment.id}`);
-      setLikeState('');
-      return;
-    }
-    if (likeState === 'like') {
-      updateUpvote(comment.id, { upvote: comment.upvote - 1 });
-    }
-    updateDownvote(comment.id, { downvote: comment.downvote + 1 });
-    localStorage.setItem(`likeStateForComment-${comment.id}`, 'dislike');
-    setLikeState('dislike');
-  }
-
   function getLikeState() {
     if (likeState === 'like') return 'like';
-    if (likeState === 'dislike') return 'dislike';
     return '';
   }
 
@@ -111,11 +91,7 @@ export function Comment({ comment }: CommentProps) {
 
           <footer>
             <button onClick={handleLikeComment} className='likeButton' >
-              <ThumbsUp size={20} /> {comment.upvote}
-            </button>
-            <div className="verticalSeparator"></div>
-            <button onClick={handleDislikeComment} className='dislikeButton'>
-              <ThumbsDown size={20} />
+              <ThumbsUp size={20} weight='bold' /> {comment.upvote}
             </button>
           </footer>
         </div>

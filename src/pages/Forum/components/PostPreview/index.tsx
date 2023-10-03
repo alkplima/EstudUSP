@@ -9,7 +9,7 @@ import { Post } from '../Post';
 import { CommentsContext } from '../../../../contexts/CommentsContext';
 import { Subtitle } from '../../../../styles/global';
 import { useContextSelector } from 'use-context-selector';
-import { ThumbsDown, ThumbsUp } from 'phosphor-react';
+import { ThumbsUp } from 'phosphor-react';
 import { PostsContext } from '../../../../contexts/PostsContext';
 
 
@@ -25,7 +25,6 @@ export interface PostType {
   content: string;
   sameQuestionCount: number;
   upvote: number;
-  downvote: number;
   publishedAt: Date;
   disciplineId: number;
 }
@@ -40,7 +39,6 @@ export function PostPreview({ post }: PostProps) {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
-  const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
   const publishedDateFormatted = format(new Date(post.publishedAt), "d 'de' LLLL 'às' HH:mm", {
     locale: ptBr 
@@ -62,32 +60,13 @@ export function PostPreview({ post }: PostProps) {
       setLikeState('');
       return;
     }
-    if (likeState === 'dislike') {
-      updateDownvote(post.id, { downvote: post.downvote - 1 });
-    }
     updateUpvote(post.id, { upvote: post.upvote + 1 });
     localStorage.setItem(`likeStateForPost-${post.id}`, 'like');
     setLikeState('like');
   }
 
-  function handleDislikePost() {
-    if (likeState === 'dislike') {
-      updateDownvote(post.id, { downvote: post.downvote - 1 });
-      localStorage.removeItem(`likeStateForPost-${post.id}`);
-      setLikeState('');
-      return;
-    }
-    if (likeState === 'like') {
-      updateUpvote(post.id, { upvote: post.upvote - 1 });
-    }
-    updateDownvote(post.id, { downvote: post.downvote + 1 });
-    localStorage.setItem(`likeStateForPost-${post.id}`, 'dislike');
-    setLikeState('dislike');
-  }
-
   function getLikeState() {
     if (likeState === 'like') return 'like';
-    if (likeState === 'dislike') return 'dislike';
     return '';
   }
 
@@ -121,15 +100,9 @@ export function PostPreview({ post }: PostProps) {
             {publishedDateRelativeToNow}
           </time>
 
-          <div className="likeDislikeButtons">
-            <button onClick={handleLikePost} className='likeButton'>
-              <ThumbsUp size={20} /> {post.upvote}
-            </button>
-            <div className="verticalSeparator"></div>
-            <button onClick={handleDislikePost} className='dislikeButton'>
-              <ThumbsDown size={20} />
-            </button>
-          </div>
+          <button onClick={handleLikePost} className='likeButton'>
+            <ThumbsUp size={20} weight='bold' /> {post.upvote}
+          </button>
         </div>
       </div>
 

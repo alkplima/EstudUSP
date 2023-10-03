@@ -78,7 +78,8 @@
       "upvote": 11,
       "disciplineId": 0,
       "userId": 0,
-      "id": 4
+      "id": 4,
+      "sameQuestionCount": 0
     },
     {
       "name": "banana_split123",
@@ -580,8 +581,8 @@
       "content": "fervc",
       "publishedAt": "2023-09-27T04:23:45.169Z",
       "sameQuestionCount": 0,
-      "upvote": 0,
-      "downvote": 0,
+      "upvote": 1,
+      "downvote": -2,
       "disciplineId": 0,
       "userId": 0,
       "id": 48
@@ -603,12 +604,24 @@
       "postTitle": "sryn",
       "content": "wrytjnrwytn",
       "publishedAt": "2023-10-02T15:00:11.529Z",
-      "sameQuestionCount": 3,
-      "upvote": 5,
-      "downvote": 3,
+      "sameQuestionCount": 2,
+      "upvote": 4,
+      "downvote": 4,
       "disciplineId": 0,
       "userId": 0,
       "id": 50
+    },
+    {
+      "name": "Anônimo",
+      "postTitle": "seGFRADSB",
+      "content": "ARGERAGAER",
+      "publishedAt": "2023-10-02T23:34:35.344Z",
+      "sameQuestionCount": 0,
+      "upvote": 1,
+      "downvote": -1,
+      "disciplineId": 0,
+      "userId": 0,
+      "id": 51
     }
   ],
   "images": [],
@@ -657,11 +670,12 @@
       "name": "anonimato_total",
       "content": "Eu também, mano...osso",
       "publishedAt": "2023-09-22T18:03:40.332Z",
-      "upvote": 3,
+      "upvote": 2,
       "disciplineId": 0,
       "userId": 0,
       "postId": 4,
-      "id": 5
+      "id": 5,
+      "downvote": -1
     },
     {
       "name": "Anônimo",
@@ -770,6 +784,30 @@
       "userId": 0,
       "postId": 46,
       "id": 14
+    },
+    {
+      "name": "freqfr",
+      "content": "ferqfreq",
+      "images": [],
+      "publishedAt": "2023-10-02T23:34:46.342Z",
+      "upvote": 1,
+      "downvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 51,
+      "id": 15
+    },
+    {
+      "name": "dafb",
+      "content": "adfb",
+      "images": [],
+      "publishedAt": "2023-10-02T23:35:25.168Z",
+      "upvote": 0,
+      "downvote": 0,
+      "disciplineId": 0,
+      "userId": 0,
+      "postId": 51,
+      "id": 16
     }
   ]
 }

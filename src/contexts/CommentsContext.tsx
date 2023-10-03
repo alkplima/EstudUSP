@@ -9,7 +9,6 @@ export interface CommentType {
   images?: string[];
   publishedAt: Date;
   upvote: number;
-  downvote: number;
   disciplineId: number;
   userId: number;
   postId: number;
@@ -29,7 +28,6 @@ interface CommentsContextType {
   createComment: (data: CreateCommentInput) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
   updateUpvote: (id: number, data: Partial<CommentType>) => Promise<void>;
-  updateDownvote: (id: number, data: Partial<CommentType>) => Promise<void>;
 }
 
 export const CommentsContext = createContext({} as CommentsContextType);
@@ -62,7 +60,6 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
       images,
       publishedAt: new Date(),
       upvote: 0,
-      downvote: 0,
       disciplineId,
       userId: 0,
       postId
@@ -90,18 +87,6 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
     setComments(response.data);
   }, []);
 
-  const updateDownvote = useCallback(async (id: number, data: Partial<CommentType>) => {
-    await api.patch(`/comments/${id}`, data);
-    const response = await api.get('/comments', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
-      }
-    });
-    
-    setComments(response.data);
-  }, []);
-
   useEffect(() => {
     fetchComments();
   }, [fetchComments]);
@@ -113,7 +98,6 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
       createComment,
       deleteComment,
       updateUpvote,
-      updateDownvote,
     }}>
       {children}
     </CommentsContext.Provider>

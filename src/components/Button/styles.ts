@@ -10,21 +10,18 @@ export const Button = styled.button`
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   width: fit-content;
-  margin-top: 1.5rem;
 
   font-weight: 700;
   color: ${props => props.theme['on-primary']};
   background: ${props => props.theme['primary']};
   border: 1px solid transparent;
-  opacity: 0.9;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+  /* transition: background-color 0.2s, border-color 0.2s, opacity 0.2s; */
   
   &:not(:disabled):hover {
     color: ${props => props.theme['primary']};
     background: transparent;
     border: 1px solid ${props => props.theme['primary']};
-    opacity: 1;
   }
 
   &:disabled {
