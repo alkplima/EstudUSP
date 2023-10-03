@@ -1,6 +1,7 @@
 import { ReactNode, useState, useCallback } from "react";
 import { api } from "../lib/axios";
-import { createContext } from "use-context-selector";
+import { createContext, useContextSelector } from "use-context-selector";
+import { PostsContext } from "./PostsContext";
 
 export interface IComment {
   id: number;
@@ -14,7 +15,7 @@ export interface IComment {
 }
 
 interface CreateCommentInput {
-  name?: string;
+  username?: string;
   content: string;
   images?: string[];
   questionId: number;
@@ -37,6 +38,8 @@ interface CommentsProviderProps {
 
 export function CommentsProvider({ children }: CommentsProviderProps) {
   const [comments, setComments] = useState<IComment[]>([]);
+
+  const addComment = useContextSelector(PostsContext, posts => posts.addComment);
   
   const fetchComments = useCallback(async (questionId: number, query?: string) => {
     const response = await api.get(`/question/${questionId}/replies`, {
@@ -50,18 +53,18 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
     setComments(response.data);
   }, []);
 
-  const createComment = useCallback(async (data: CreateCommentInput) => {
-    const { name, content, images, questionId } = data;
+  const createComment = async (data: CreateCommentInput) => {
+    const { username, content, questionId } = data;
 
-    const response = await api.post('/comments', {
-      name: name || 'Anônimo',
+    const response = await api.post(`question/${questionId}/reply`, {
+      username,
       content,
-      images,
-      questionId,
     });
 
-    setComments(state => [response.data, ...state])
-  }, []);
+    setComments(state => [response.data, ...state]);
+
+    addComment(questionId);
+  };
 
   const deleteComment = useCallback(async (id: number) => {
     await api.delete(`/comments/${id}`);

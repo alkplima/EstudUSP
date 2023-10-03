@@ -72,7 +72,7 @@ export function PostPreview({ post }: PostProps) {
             <Subtitle>{post.anonymous ? 'Anônimo' : post.username}</Subtitle>
             {!isCardOpen &&
               <div className='downarrow' onClick={handleOpenCard}>
-                <p>{comments.length} resposta(s)</p>
+                <p>{post.repliesQuantity} resposta{post.repliesQuantity ? 's' : ''}</p>
                 <div></div>
               </div>
             }

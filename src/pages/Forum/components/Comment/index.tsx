@@ -58,7 +58,7 @@ export function Comment({ comment }: CommentProps) {
         <div className='commentContent'>
           <header>
             <div className='authorAndTime'>
-              <strong>{comment.name}</strong>
+              <strong>{comment.username}</strong>
               <time title={publishedDateFormatted} dateTime={new Date(comment.publishedAt).toISOString()}>
                 {publishedDateRelativeToNow}
               </time>

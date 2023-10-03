@@ -71,7 +71,7 @@ export function Comments({ post, comments }: PostProps) {
 
     // setComments([...comments, newCommentText]);
     createComment({
-      name: newCommentAuthor,
+      username: newCommentAuthor,
       content: newCommentText,
       images: imagesURLs,
       questionId: post.id,
@@ -92,6 +92,7 @@ export function Comments({ post, comments }: PostProps) {
   }
 
   const isNewCommentEmpty = newCommentText.length === 0;
+  const postComments = comments.filter(comment => comment.questionId === post.id);
 
   return (
     <PostContainer>
@@ -161,15 +162,15 @@ export function Comments({ post, comments }: PostProps) {
       <div className='commentList'>
         <>
           <h6>Respostas</h6>
-          {comments.length > 0 && (
-              <p style={{marginTop: '1rem'}}>{comments.length} resposta(s)</p>
+          {post.repliesQuantity > 0 && (
+              <p style={{marginTop: '1rem'}}>{post.repliesQuantity} resposta{post.repliesQuantity ? 's' : ''}</p>
             )
           }
-          {comments.length === 0 && (
+          {post.repliesQuantity === 0 && (
               <p style={{marginTop: '1rem'}}>Seja o primeiro a responder!</p>
             )
           }
-          {comments.map(comment => {
+          {postComments.map(comment => {
             return (
               <Comment 
                 key={comment.id}

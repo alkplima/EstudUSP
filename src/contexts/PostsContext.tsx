@@ -12,6 +12,7 @@ export interface Post {
   sameQuestion: number;
   upvotes: number;
   anonymous: boolean;
+  repliesQuantity: number;
 }
 
 interface CreatePostInput {
@@ -29,6 +30,7 @@ interface PostsContextType {
   updateSameQuestion: (id: number) => Promise<void>;
   updateUpvote: (id: number) => Promise<void>;
   updateDownvote: (id: number) => Promise<void>;
+  addComment: (id: number) => void;
 }
 
 export const PostsContext = createContext({} as PostsContextType);
@@ -108,6 +110,18 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(updatedPosts);
   }
 
+  const addComment = (id: number) => {
+    const updatedPosts = posts.map((post) => {
+      if (post.id === id) {
+        post.repliesQuantity++;
+      }
+
+      return post;
+    });
+
+    setPosts(updatedPosts);
+  }
+
   return (
     <PostsContext.Provider value={{
       posts,
@@ -116,6 +130,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
       updateSameQuestion,
       updateUpvote,
       updateDownvote,
+      addComment,
     }}>
       {children}
     </PostsContext.Provider>
