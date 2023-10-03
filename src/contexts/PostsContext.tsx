@@ -79,7 +79,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }
   , []);
 
-  const updateUpvote = useCallback(async (id: number) => {
+  const updateUpvote = async (id: number) => {
     await api.patch(`/question/${id}/upvote`);
 
     const updatedPosts = posts.map((post) => {
@@ -91,9 +91,9 @@ export function PostsProvider({ children }: PostsProviderProps) {
     });
 
     setPosts(updatedPosts);
-  }, []);
+  };
 
-  const updateDownvote = useCallback(async (id: number) => {
+  const updateDownvote = async (id: number) => {
     await api.patch(`/question/${id}/downvote`);
 
     const updatedPosts = posts.map((post) => {
@@ -106,7 +106,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
 
     setPosts(updatedPosts);
   }
-  , []);
 
   return (
     <PostsContext.Provider value={{
