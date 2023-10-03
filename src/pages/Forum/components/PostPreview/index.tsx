@@ -27,7 +27,7 @@ export function PostPreview({ post }: PostProps) {
   const comments = useContextSelector(CommentsContext, (context) => context.comments);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
-  // const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
+  const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
   const publishedDateFormatted = format(new Date(post.publishedAt), "d 'de' LLLL 'às' HH:mm", {
     locale: ptBr 
@@ -52,12 +52,12 @@ export function PostPreview({ post }: PostProps) {
   }
 
   function handleLikePost() {
-    updateUpvote(post.id, { upvotes: post.upvotes + 1 });
+    updateUpvote(post.id);
   }
 
   function handleDislikePost() {
     if (post.upvotes === 0) return;
-    // updateDownvote(post.id, { downvote: post.downvote + 1 });
+    updateDownvote(post.id);
   }
 
   return (

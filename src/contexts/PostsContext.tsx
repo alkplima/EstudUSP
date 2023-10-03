@@ -12,9 +12,6 @@ export interface Post {
   sameQuestion: number;
   upvotes: number;
   anonymous: boolean;
-  // downvotes: number;
-  // disciplineId: number;
-  // userId: number;
 }
 
 interface CreatePostInput {
@@ -30,8 +27,8 @@ interface PostsContextType {
   fetchPosts: (subjectId: string, query?: string) => Promise<void>;
   createPost: (data: CreatePostInput) => Promise<void>;
   updateSameQuestionCount: (id: number, data: Partial<Post>) => Promise<void>;
-  updateUpvote: (id: number, data: Partial<Post>) => Promise<void>;
-  updateDownvote: (id: number, data: Partial<Post>) => Promise<void>;
+  updateUpvote: (id: number) => Promise<void>;
+  updateDownvote: (id: number) => Promise<void>;
 }
 
 export const PostsContext = createContext({} as PostsContextType);
@@ -82,29 +79,32 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }
   , []);
 
-  const updateUpvote = useCallback(async (id: number, data: Partial<Post>) => {
-    await api.patch(`/posts/${id}`, data);
-    const response = await api.get('/posts', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
-      }
-    });
-    
-    setPosts(response.data);
-  }
-  , []);
+  const updateUpvote = useCallback(async (id: number) => {
+    await api.patch(`/question/${id}/upvote`);
 
-  const updateDownvote = useCallback(async (id: number, data: Partial<Post>) => {
-    await api.patch(`/posts/${id}`, data);
-    const response = await api.get('/posts', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
+    const updatedPosts = posts.map((post) => {
+      if (post.id === id) {
+        post.upvotes++;
       }
+
+      return post;
     });
-    
-    setPosts(response.data);
+
+    setPosts(updatedPosts);
+  }, []);
+
+  const updateDownvote = useCallback(async (id: number) => {
+    await api.patch(`/question/${id}/downvote`);
+
+    const updatedPosts = posts.map((post) => {
+      if (post.id === id) {
+        post.upvotes--;
+      }
+
+      return post;
+    });
+
+    setPosts(updatedPosts);
   }
   , []);
 
