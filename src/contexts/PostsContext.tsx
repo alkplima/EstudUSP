@@ -26,7 +26,7 @@ interface PostsContextType {
   posts: Post[];
   fetchPosts: (subjectId: string, query?: string) => Promise<void>;
   createPost: (data: CreatePostInput) => Promise<void>;
-  updateSameQuestionCount: (id: number, data: Partial<Post>) => Promise<void>;
+  updateSameQuestion: (id: number) => Promise<void>;
   updateUpvote: (id: number) => Promise<void>;
   updateDownvote: (id: number) => Promise<void>;
 }
@@ -66,18 +66,19 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(state => [response.data, ...state])
   }, []);
 
-  const updateSameQuestionCount = useCallback(async (id: number, data: Partial<Post>) => {
-    await api.patch(`/posts/${id}`, data);
-    const response = await api.get('/posts', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
+  const updateSameQuestion = async (id: number) => {
+    await api.patch(`/question/${id}/sameQuestion`);
+
+    const updatedPosts = posts.map((post) => {
+      if (post.id === id) {
+        post.sameQuestion++;
       }
+
+      return post;
     });
-    
-    setPosts(response.data);
+
+    setPosts(updatedPosts);
   }
-  , []);
 
   const updateUpvote = async (id: number) => {
     await api.patch(`/question/${id}/upvote`);
@@ -112,7 +113,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
       posts,
       fetchPosts,
       createPost,
-      updateSameQuestionCount,
+      updateSameQuestion,
       updateUpvote,
       updateDownvote,
     }}>

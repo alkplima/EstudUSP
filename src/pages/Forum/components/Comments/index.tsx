@@ -6,7 +6,7 @@ import { CommentForm, PostContainer } from './styles';
 import Upload from '../../../../components/Upload';
 import FileList from '../../../../components/FileList';
 import { useContextSelector } from 'use-context-selector';
-import { Post } from '../../../../contexts/PostsContext';
+import { Post, PostsContext } from '../../../../contexts/PostsContext';
 import { IComment, CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
@@ -34,7 +34,7 @@ export function Comments({ post, comments }: PostProps) {
   const { uploadedFiles } = useFiles();
 
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
-  // const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
+  const updateSameQuestion = useContextSelector(PostsContext, posts => posts.updateSameQuestion);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
@@ -53,7 +53,7 @@ export function Comments({ post, comments }: PostProps) {
   } 
 
   function handleHaveSameQuestion() {
-    // updateSameQuestionCount(post.id, { upvotes: post.sameQuestionCount + 1 });
+    updateSameQuestion(post.id);
   }
 
   function handleOpenAnswerBox() {
