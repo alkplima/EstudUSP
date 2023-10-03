@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { ForumContainer } from "./styles";
 import { Sidebar } from "./components/Sidebar";
 import { PostPreview } from './components/PostPreview'
-import { FileProvider } from "../../contexts/files";
+import { FileProvider, useFiles } from "../../contexts/files";
 import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../contexts/PostsContext";
 import { Button } from "../../components/Button/styles";
@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 
 
 export function Forum() {
-
+  const { clearUploads } = useFiles();
   const posts = useContextSelector(PostsContext, (context) => context.posts);
 
   const { subjectId } = useParams();
@@ -26,6 +26,11 @@ export function Forum() {
   const fetchPosts = useContextSelector(PostsContext, (context) => {
     return context.fetchPosts;
   });
+
+  function handleOpenQuestionCard() {
+    clearUploads();
+    setIsQuestionCardOpen(true);
+  }
 
   useEffect(() => {
     fetchPosts(subjectId || '');
@@ -41,7 +46,7 @@ export function Forum() {
 
         <Dialog.Root open={isQuestionCardOpen} onOpenChange={setIsQuestionCardOpen}>
           <Dialog.Trigger asChild>
-            <Button onClick={() => setIsQuestionCardOpen(true)} className="newQuestionBtn"> Adicionar pergunta <Plus/></Button>
+            <Button onClick={handleOpenQuestionCard} className="newQuestionBtn"> Adicionar pergunta <Plus/></Button>
           </Dialog.Trigger>
           <NewQuestionModal setIsQuestionCardOpen={setIsQuestionCardOpen} />
         </Dialog.Root>

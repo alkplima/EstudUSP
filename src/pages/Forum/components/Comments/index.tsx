@@ -31,7 +31,7 @@ export interface UploadedFile {
 export function Comments({ post, comments }: PostProps) {
   // const [comments, setComments] = useState<string[]>([]);
 
-  const { uploadedFiles } = useFiles();
+  const { uploadedFiles, clearUploads } = useFiles();
 
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
   const updateSameQuestion = useContextSelector(PostsContext, posts => posts.updateSameQuestion);
@@ -57,6 +57,7 @@ export function Comments({ post, comments }: PostProps) {
   }
 
   function handleOpenAnswerBox() {
+    clearUploads();
     setIsAnswerBoxOpen(true);
   }
 
@@ -64,16 +65,13 @@ export function Comments({ post, comments }: PostProps) {
     setNewCommentAuthor(event.target.value);
   }
 
-  const imagesURLs = uploadedFiles.map(file => file.url);
-
   function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
-    // setComments([...comments, newCommentText]);
     createComment({
       username: newCommentAuthor,
       content: newCommentText,
-      images: imagesURLs,
+      attachments: uploadedFiles.map(file => file.file),
       questionId: post.id,
     });
 

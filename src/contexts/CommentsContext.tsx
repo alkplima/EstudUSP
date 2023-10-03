@@ -17,7 +17,7 @@ export interface IComment {
 interface CreateCommentInput {
   username?: string;
   content: string;
-  images?: string[];
+  attachments?: File[];
   questionId: number;
 }
 
@@ -54,12 +54,18 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }, []);
 
   const createComment = async (data: CreateCommentInput) => {
-    const { username, content, questionId } = data;
+    const { username, content, questionId, attachments } = data;
 
-    const response = await api.post(`question/${questionId}/reply`, {
-      username,
-      content,
+    const formData = new FormData();
+
+    formData.append('username', username || '');
+    formData.append('content', content);
+
+    attachments?.forEach(attachment => {
+      formData.append('attachments', attachment);
     });
+
+    const response = await api.post(`question/${questionId}/reply`, formData);
 
     setComments(state => [response.data, ...state]);
 

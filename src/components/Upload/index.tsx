@@ -22,7 +22,7 @@ function Upload() {
     isDragActive,
     isDragReject,
   } = useDropzone({
-    accept: {types: ["image/jpeg", "image/pjpeg", "image/png", "image/gif"]},
+    // accept: {types: ["image/jpeg", "image/pjpeg", "image/png", "image/gif"]},
     onDrop,
   });
 
