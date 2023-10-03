@@ -2,11 +2,11 @@ import { ThumbsDown, ThumbsUp/*, Trash*/ } from 'phosphor-react'
 import { CommentBox, CommentContainer } from './styles';
 import { Avatar } from '../../../../components/Avatar';
 import { useContextSelector } from 'use-context-selector';
-import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
+import { IComment, CommentsContext } from '../../../../contexts/CommentsContext';
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR'
 interface CommentProps {
-  comment: CommentType;
+  comment: IComment;
 }
 
 export function Comment({ comment }: CommentProps) {
@@ -29,12 +29,12 @@ export function Comment({ comment }: CommentProps) {
   } 
 
   function handleLikeComment() {
-    updateUpvote(comment.id, { upvote: comment.upvote + 1 });
+    updateUpvote(comment.id);
   }
 
   function handleDislikeComment() {
-    if (comment.upvote === 0) return;
-    updateDownvote(comment.id, { downvote: comment.downvote + 1 });
+    if (comment.upvotes === 0) return;
+    updateDownvote(comment.id);
   }
 
   const publishedDateFormatted = format(new Date(comment.publishedAt), "d 'de' LLLL 'às' HH:mm", {
@@ -72,14 +72,14 @@ export function Comment({ comment }: CommentProps) {
           {checkTextForLineBreak(comment.content)}
 
           <div className='commentImgsWrapper'>
-            {comment.images && comment.images.map(image => (
+            {comment.attachments && comment.attachments.map(image => (
               <img key={image} src={image} alt='' className='commentImgs' />
             ))}
           </div>
 
           <footer>
             <button onClick={handleLikeComment} className='likeButton' >
-              <ThumbsUp size={20} /> {comment.upvote}
+              <ThumbsUp size={20} /> {comment.upvotes}
             </button>
             <div className="verticalSeparator"></div>
             <button onClick={handleDislikeComment} className='dislikeButton'>

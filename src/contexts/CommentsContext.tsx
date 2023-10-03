@@ -26,8 +26,8 @@ interface CommentsContextType {
   fetchComments: (questionId: number, query?: string) => Promise<void>;
   createComment: (data: CreateCommentInput) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
-  updateUpvote: (id: number, data: Partial<IComment>) => Promise<void>;
-  updateDownvote: (id: number, data: Partial<IComment>) => Promise<void>;
+  updateUpvote: (id: number) => Promise<void>;
+  updateDownvote: (id: number) => Promise<void>;
 }
 
 export const CommentsContext = createContext({} as CommentsContextType);
@@ -73,29 +73,33 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }
   , []);
 
-  const updateUpvote = useCallback(async (id: number, data: Partial<IComment>) => {
-    await api.patch(`/comments/${id}`, data);
-    const response = await api.get('/comments', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
-      }
-    });
-    
-    setComments(response.data);
-  }, []);
+  const updateUpvote = async (id: number) => {
+    await api.patch(`/reply/${id}/upvote`);
 
-  const updateDownvote = useCallback(async (id: number, data: Partial<IComment>) => {
-    await api.patch(`/comments/${id}`, data);
-    const response = await api.get('/comments', {
-      params: {
-        _sort: 'publishedAt',
-        _order: 'desc',
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === id) {
+        comment.upvotes++;
       }
+
+      return comment;
     });
-    
-    setComments(response.data);
-  }, []);
+
+    setComments(updatedComments);
+  };
+
+  const updateDownvote = async (id: number) => {
+    await api.patch(`/reply/${id}/downvote`);
+
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === id) {
+        comment.upvotes--;
+      }
+
+      return comment;
+    });
+
+    setComments(updatedComments);
+  }
 
   return (
     <CommentsContext.Provider value={{
