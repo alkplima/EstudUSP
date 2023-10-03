@@ -29,12 +29,12 @@ function App() {
         {/* <BaseStyles> */}
 
         <SubjectsProvider>
-        <PostsProvider>
         <FileProvider>
+        <PostsProvider>
 
           <Router />
-        </FileProvider>
         </PostsProvider>
+        </FileProvider>
         </SubjectsProvider>
 
         {/* </BaseStyles> */}

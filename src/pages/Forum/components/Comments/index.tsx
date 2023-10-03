@@ -31,7 +31,7 @@ export interface UploadedFile {
 export function Comments({ post, comments }: PostProps) {
   // const [comments, setComments] = useState<string[]>([]);
 
-  const { uploadedFiles, clearUploads } = useFiles();
+  const { clearUploads } = useFiles();
 
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
   const updateSameQuestion = useContextSelector(PostsContext, posts => posts.updateSameQuestion);
@@ -71,7 +71,6 @@ export function Comments({ post, comments }: PostProps) {
     createComment({
       username: newCommentAuthor,
       content: newCommentText,
-      attachments: uploadedFiles.map(file => file.file),
       questionId: post.id,
     });
 

@@ -2,6 +2,7 @@ import { ReactNode, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext, useContextSelector } from "use-context-selector";
 import { PostsContext } from "./PostsContext";
+import { useFiles } from "./files";
 
 export interface IComment {
   id: number;
@@ -17,7 +18,6 @@ export interface IComment {
 interface CreateCommentInput {
   username?: string;
   content: string;
-  attachments?: File[];
   questionId: number;
 }
 
@@ -38,6 +38,7 @@ interface CommentsProviderProps {
 
 export function CommentsProvider({ children }: CommentsProviderProps) {
   const [comments, setComments] = useState<IComment[]>([]);
+  const { uploadedFiles } = useFiles();
 
   const addComment = useContextSelector(PostsContext, posts => posts.addComment);
   
@@ -54,7 +55,8 @@ export function CommentsProvider({ children }: CommentsProviderProps) {
   }, []);
 
   const createComment = async (data: CreateCommentInput) => {
-    const { username, content, questionId, attachments } = data;
+    const { username, content, questionId } = data;
+    const attachments = uploadedFiles.map(file => file.file);
 
     const formData = new FormData();
 

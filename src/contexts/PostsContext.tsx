@@ -1,6 +1,7 @@
 import { ReactNode, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 import { createContext } from "use-context-selector";
+import { useFiles } from "./files";
 
 export interface Post {
   id: number;
@@ -19,7 +20,6 @@ interface CreatePostInput {
   title: string;
   username?: string;
   content: string;
-  attachments?: string[];
   subjectId: string;
 }
 
@@ -41,6 +41,7 @@ interface PostsProviderProps {
 
 export function PostsProvider({ children }: PostsProviderProps) {
   const [posts, setPosts] = useState<Post[]>([]);
+  const { uploadedFiles } = useFiles();
   
   const fetchPosts = useCallback(async (subjectId: string, query?: string) => {
     const response = await api.get(`/${subjectId}/questions`, {
@@ -54,19 +55,27 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(response.data);
   }, []);
 
-  const createPost = useCallback(async (data: CreatePostInput) => {
-    const { username, title, content, attachments, subjectId } = data;
+  const createPost = async (data: CreatePostInput) => {
+    const { username, title, content, subjectId } = data;
+    const attachments = uploadedFiles.map(file => file.file);
 
-    const response = await api.post(`/${subjectId}/question`, {
-      anonymous: !username,
-      username: username  || 'Anônimo',
-      title,
-      content,
-      attachments: attachments || [],
+    const formData = new FormData();
+
+    formData.append('anonymous', String(!username));
+    formData.append('username', username || '');
+    formData.append('title', title);
+    formData.append('content', content);
+
+    console.log(attachments);
+
+    attachments?.forEach(attachment => {
+      formData.append('attachments', attachment);
     });
 
+    const response = await api.post(`/${subjectId}/question`, formData);
+
     setPosts(state => [response.data, ...state])
-  }, []);
+  };
 
   const updateSameQuestion = async (id: number) => {
     await api.patch(`/question/${id}/sameQuestion`);
