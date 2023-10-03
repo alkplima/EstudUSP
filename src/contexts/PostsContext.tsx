@@ -28,6 +28,7 @@ interface PostsContextType {
   fetchPosts: (subjectId: string, query?: string) => Promise<void>;
   createPost: (data: CreatePostInput) => Promise<void>;
   updateSameQuestion: (id: number) => Promise<void>;
+  removeSameQuestion: (id: number) => Promise<void>;
   updateUpvote: (id: number) => Promise<void>;
   updateDownvote: (id: number) => Promise<void>;
   addComment: (id: number) => void;
@@ -91,6 +92,20 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(updatedPosts);
   }
 
+  const removeSameQuestion = async (id: number) => {
+    await api.patch(`/question/${id}/removeSameQuestion`);
+
+    const updatedPosts = posts.map((post) => {
+      if (post.id === id) {
+        post.sameQuestion--;
+      }
+
+      return post;
+    });
+
+    setPosts(updatedPosts);
+  }
+
   const updateUpvote = async (id: number) => {
     await api.patch(`/question/${id}/upvote`);
 
@@ -137,6 +152,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
       fetchPosts,
       createPost,
       updateSameQuestion,
+      removeSameQuestion,
       updateUpvote,
       updateDownvote,
       addComment,

@@ -36,6 +36,7 @@ export function Comments({ post, comments }: PostProps) {
 
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
   const updateSameQuestion = useContextSelector(PostsContext, posts => posts.updateSameQuestion);
+  const removeSameQuestion = useContextSelector(PostsContext, posts => posts.removeSameQuestion);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
@@ -56,13 +57,12 @@ export function Comments({ post, comments }: PostProps) {
 
   function handleHaveSameQuestion() {
     if (hasSameQuestion) {
-      updateSameQuestion(post.id);
+      removeSameQuestion(post.id);
       localStorage.removeItem(`hasSameQuestionForPost-${post.id}`);
       setHasSameQuestion(false);
       return;
     }
 
-    // @todo: handle remove same question
     updateSameQuestion(post.id);
     localStorage.setItem(`hasSameQuestionForPost-${post.id}`, 'true');
     setHasSameQuestion(true);
