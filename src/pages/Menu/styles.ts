@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const ForumContainer = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 1.5rem;
 

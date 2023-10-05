@@ -33,7 +33,7 @@ const subjects = useContextSelector(SubjectsContext, (context) => context.subjec
       })}
       {isLoading &&
         <Loading size={25}>
-            <img src='./loading.svg' alt='EstudUSP - Loading' />
+            <img src='/loading.svg' alt='EstudUSP - Loading' />
         </Loading>
       }
     </ForumContainer>

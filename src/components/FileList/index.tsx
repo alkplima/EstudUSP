@@ -1,7 +1,8 @@
 import { CircularProgressbar } from "react-circular-progressbar";
 import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
-import { Container, FileInfo, Preview } from "./styles";
+import { Container, FileInfo } from "./styles";
 import { IFile, useFiles } from "../../contexts/files";
+import { PreviewImage } from "../PreviewImage";
 
 const FileList = () => {
   const { uploadedFiles: files, deleteFile } = useFiles();
@@ -22,7 +23,7 @@ const FileList = () => {
       {files.map((uploadedFile: IFile) => (
         <li key={uploadedFile.id}>
           <FileInfo>
-            <Preview src={uploadedFile.preview} />
+            <PreviewImage src={uploadedFile.preview} />
             <div>
               <strong>{uploadedFile.name}</strong>
               <span>

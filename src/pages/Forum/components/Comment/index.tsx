@@ -23,12 +23,15 @@ export function Comment({ comment }: CommentProps) {
   function checkTextForLineBreak(text: string) {
     const textWithLinksAndLineBreaks = text.split('\n').map(paragraph => {
       return paragraph
-        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>'); // Transforma em link
+        .replace(
+          /((https?:\/\/|www\.)[^\s]+)/g,
+          '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+        ); // Transforma em link
     })
     .join('<br>'); // Adiciona quebras de linha.
   
-    return <p dangerouslySetInnerHTML={{ __html: textWithLinksAndLineBreaks }} />
-  } 
+    return <p dangerouslySetInnerHTML={{ __html: textWithLinksAndLineBreaks }} />;
+  }
 
   function handleLikeComment() {
     if (likeState === 'like' && comment.upvotes > 0) {

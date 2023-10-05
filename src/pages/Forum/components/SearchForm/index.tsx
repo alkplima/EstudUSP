@@ -53,5 +53,3 @@ export function SearchForm() {
     </>
   )
 }
-
-// export const SearchForm = memo(SearchFormComponent);

@@ -68,7 +68,7 @@ export function Forum() {
             
             {isLoading &&
               <Loading size={15}>
-                  <img src='./loading.svg' alt='EstudUSP - Loading' />
+                  <img src='/loading.svg' alt='EstudUSP - Loading' />
               </Loading>
             }
           
