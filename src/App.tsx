@@ -8,7 +8,8 @@ import { GlobalStyle } from './styles/global';
 import { defaultTheme } from './styles/themes/default';
 import { PostsProvider } from './contexts/PostsContext';
 import { ThemeProvider } from "styled-components";
-import { DisciplinesProvider } from "./contexts/DisciplinesContext";
+import { SubjectsProvider } from "./contexts/SubjectsContext";
+import { FileProvider } from "./contexts/files";
 
 // const customTheme = deepmerge(theme, {
 //   fonts: {
@@ -27,11 +28,14 @@ function App() {
         <GlobalStyle />
         {/* <BaseStyles> */}
 
-        <DisciplinesProvider>
+        <SubjectsProvider>
+        <FileProvider>
         <PostsProvider>
+
           <Router />
         </PostsProvider>
-        </DisciplinesProvider>
+        </FileProvider>
+        </SubjectsProvider>
 
         {/* </BaseStyles> */}
       </ThemeProvider>

@@ -1,28 +1,29 @@
 // import { PencilLine } from 'phosphor-react'
 import { ComplaintInfoContainer, SidebarContainer, SidebarItem } from './styles'
-import { DisciplinesContext } from '../../../../contexts/DisciplinesContext';
+import { SubjectsContext } from '../../../../contexts/SubjectsContext';
 import { useContextSelector } from 'use-context-selector';
 import { Subtitle } from '../../../../styles/global';
 import { CaretLeft, Info } from 'phosphor-react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
 // import { Avatar } from '../../../../components/Avatar'
 
-
 export function Sidebar () {
 
-  const { disciplines, activeDisciplineId } = useContextSelector(DisciplinesContext, (context) => {
+  const { subjects, fetchSubjects } = useContextSelector(SubjectsContext, (context) => {
     return {
-      disciplines: context.disciplines,
-      activeDisciplineId: context.activeDisciplineId,
+      subjects: context.subjects,
+      fetchSubjects: context.fetchSubjects,
     }
   });
-  
-  let currentActiveDiscipline = disciplines.find(discipline => discipline.id === activeDisciplineId);
 
-  if (!currentActiveDiscipline) {
-    currentActiveDiscipline = disciplines.find(discipline => discipline.id === parseInt(localStorage.getItem('activeDisciplineId') || "-1", 10));
-  }
+  useEffect(() => {
+    if (!subjects.length) fetchSubjects();
+  });
+
+  const { subjectId } = useParams();
+  const currentActiveSubject = subjects.find(discipline => discipline.id === subjectId);
   
   return (
     <SidebarContainer>
@@ -32,15 +33,14 @@ export function Sidebar () {
           Voltar
         </SecondaryButton>
       </Link>
-      {currentActiveDiscipline && 
-        <SidebarItem>
+      {currentActiveSubject &&        <SidebarItem>
           <img 
             className='cover' 
-            src={currentActiveDiscipline.previewImg}
+            src={currentActiveSubject.previewImg}
           />
           <div className='profile'>
-            <h6>{currentActiveDiscipline.name}</h6>
-            <Subtitle>Semestre {currentActiveDiscipline.semester}</Subtitle>
+            <h6>{currentActiveSubject.title}</h6>
+            <Subtitle>Semestre {currentActiveSubject.semester}</Subtitle>
           </div>
         </SidebarItem>
       }

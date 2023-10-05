@@ -7,14 +7,15 @@ import { PostsContext } from '../../../../contexts/PostsContext';
 import FileList from '../../../../components/FileList';
 import Upload from '../../../../components/Upload';
 import { X } from 'phosphor-react';
+import { useParams } from 'react-router-dom';
 
 interface NewQuestionModalProps {
-  activeDisciplineId: number;
   setIsQuestionCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function NewQuestionModal({ activeDisciplineId, setIsQuestionCardOpen }: NewQuestionModalProps) {
-  
+export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProps) {
+  const { subjectId } = useParams();
+
   const createPost = useContextSelector(PostsContext, (context) => context.createPost);
   
   const [newQuestionAuthor, setNewQuestionAuthor] = useState('');
@@ -49,10 +50,10 @@ export function NewQuestionModal({ activeDisciplineId, setIsQuestionCardOpen }: 
     event.preventDefault();
 
     const newPost = {
-      name: newQuestionAuthor,
-      postTitle: newQuestionTitle,
+      username: newQuestionAuthor,
+      title: newQuestionTitle,
       content: newQuestionText,
-      disciplineId: activeDisciplineId,
+      subjectId: subjectId || '',
     }
 
     await createPost(newPost);
@@ -63,7 +64,6 @@ export function NewQuestionModal({ activeDisciplineId, setIsQuestionCardOpen }: 
 
     setIsQuestionCardOpen(false);
   }
-
 
   return (
     <Dialog.Portal>

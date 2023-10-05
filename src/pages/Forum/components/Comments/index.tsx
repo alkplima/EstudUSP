@@ -6,27 +6,15 @@ import { CommentForm, PostContainer } from './styles';
 import Upload from '../../../../components/Upload';
 import FileList from '../../../../components/FileList';
 import { useContextSelector } from 'use-context-selector';
-import { PostsContext } from '../../../../contexts/PostsContext';
-import { CommentType, CommentsContext } from '../../../../contexts/CommentsContext';
+import { Post, PostsContext } from '../../../../contexts/PostsContext';
+import { IComment, CommentsContext } from '../../../../contexts/CommentsContext';
 import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
 import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
 
-export interface PostType {
-  id: number;
-  name?: string;
-  postTitle: string;
-  content: string;
-  images?: string[];
-  sameQuestionCount: number;
-  upvote: number;
-  publishedAt: Date;
-  disciplineId: number;
-}
-
 interface PostProps {
-  post: PostType;
-  comments: CommentType[];
+  post: Post;
+  comments: IComment[];
 }
 
 export interface UploadedFile {
@@ -41,13 +29,14 @@ export interface UploadedFile {
   url: string | null;
 }
 
-export function Post({ post, comments }: PostProps) {
+export function Comments({ post, comments }: PostProps) {
   // const [comments, setComments] = useState<string[]>([]);
 
-  const { uploadedFiles } = useFiles();
+  const { clearUploads } = useFiles();
 
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
-  const updateSameQuestionCount = useContextSelector(PostsContext, posts => posts.updateSameQuestionCount);
+  const updateSameQuestion = useContextSelector(PostsContext, posts => posts.updateSameQuestion);
+  const removeSameQuestion = useContextSelector(PostsContext, posts => posts.removeSameQuestion);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
@@ -68,17 +57,19 @@ export function Post({ post, comments }: PostProps) {
 
   function handleHaveSameQuestion() {
     if (hasSameQuestion) {
-      updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount - 1 });
+      removeSameQuestion(post.id);
       localStorage.removeItem(`hasSameQuestionForPost-${post.id}`);
       setHasSameQuestion(false);
       return;
     }
-    updateSameQuestionCount(post.id, { sameQuestionCount: post.sameQuestionCount + 1 });
+
+    updateSameQuestion(post.id);
     localStorage.setItem(`hasSameQuestionForPost-${post.id}`, 'true');
     setHasSameQuestion(true);
   }
 
   function handleOpenAnswerBox() {
+    clearUploads();
     setIsAnswerBoxOpen(true);
   }
 
@@ -86,18 +77,13 @@ export function Post({ post, comments }: PostProps) {
     setNewCommentAuthor(event.target.value);
   }
 
-  const imagesURLs = uploadedFiles.map(file => file.url);
-
   function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
-    // setComments([...comments, newCommentText]);
     createComment({
-      name: newCommentAuthor,
+      username: newCommentAuthor,
       content: newCommentText,
-      images: imagesURLs,
-      postId: post.id,
-      disciplineId: post.disciplineId,
+      questionId: post.id,
     });
 
     setNewCommentAuthor('');
@@ -115,8 +101,7 @@ export function Post({ post, comments }: PostProps) {
   }
 
   const isNewCommentEmpty = newCommentText.length === 0;
-
-  const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
+  const postComments = comments.filter(comment => comment.questionId === post.id);
 
   useEffect(() => {
     setHasSameQuestion(JSON.parse(String(localStorage.getItem(`hasSameQuestionForPost-${post.id}`))) ?? false);
@@ -129,7 +114,7 @@ export function Post({ post, comments }: PostProps) {
         {checkTextForLineBreak(post.content)}
 
         <div className='postImgsWrapper'>
-          {post.images && post.images.map(image => (
+          {post.attachments && post.attachments.map(image => (
             <img key={image} src={image} alt='' className='postImgs' />
           ))}
         </div>
@@ -142,7 +127,7 @@ export function Post({ post, comments }: PostProps) {
           }
 
           <SecondaryButton onClick={handleHaveSameQuestion} variant={hasSameQuestion}>
-            Tenho a mesma pergunta ({post.sameQuestionCount})
+            Tenho a mesma pergunta ({post.sameQuestion})
           </SecondaryButton>
         </div>
       </div>
@@ -187,15 +172,15 @@ export function Post({ post, comments }: PostProps) {
       <div className='commentList'>
         <>
           <h6>Respostas</h6>
-          {commentsFiltered.length > 0 && (
-              <p style={{marginTop: '1rem'}}>{commentsFiltered.length} resposta(s)</p>
+          {post.repliesQuantity > 0 && (
+              <p style={{marginTop: '1rem'}}>{post.repliesQuantity} resposta{post.repliesQuantity ? 's' : ''}</p>
             )
           }
-          {commentsFiltered.length === 0 && (
+          {post.repliesQuantity === 0 && (
               <p style={{marginTop: '1rem'}}>Seja o primeiro a responder!</p>
             )
           }
-          {commentsFiltered.map(comment => {
+          {postComments.map(comment => {
             return (
               <Comment 
                 key={comment.id}

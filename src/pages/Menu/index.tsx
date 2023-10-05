@@ -1,36 +1,34 @@
 // import { Button } from "@primer/react";
 import { useEffect, useState } from "react";
 import { ForumContainer } from "./styles";
-import { DisciplinePreview } from './components/DisciplinePreview'
-import { DisciplinesContext } from "../../contexts/DisciplinesContext";
+import { SubjectPreview } from './components/SubjectsPreview'
+import { SubjectsContext } from "../../contexts/SubjectsContext";
 import { useContextSelector } from "use-context-selector";
 import { SearchForm } from "./components/SearchForm";
 import { Loading } from "../../components/Loading/styles";
-export function Menu() {
-  const [isLoading, setIsLoading] = useState(false);
-  const disciplines = useContextSelector(DisciplinesContext, (context) => context.disciplines);
 
-  const fetchDisciplines = useContextSelector(DisciplinesContext, (context) => {
-    return context.fetchDisciplines;
+export function Menu() {
+const [isLoading, setIsLoading] = useState(false);
+const subjects = useContextSelector(SubjectsContext, (context) => context.subjects);
+
+  const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
+    return context.fetchSubjects;
   });
 
   useEffect(() => {
     setIsLoading(true);
-    fetchDisciplines('')
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
+    fetchSubjects('')
+      .finally(() => {
         setIsLoading(false);
       });
-  }, [fetchDisciplines]);
+  }, [fetchSubjects]);
 
   return (
     <ForumContainer>
       <SearchForm />
-      {disciplines.flatMap(discipline => {
+      {subjects.flatMap(discipline => {
         return (
-          <DisciplinePreview key={discipline.id} discipline={discipline} />
+          <SubjectPreview key={discipline.id} discipline={discipline} />
         )
       })}
       {isLoading &&

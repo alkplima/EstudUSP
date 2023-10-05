@@ -25,7 +25,7 @@ export interface IFile {
   readableSize: string;
   uploaded?: boolean;
   preview: string;
-  file: File | null;
+  file: File;
   progress?: number;
   error?: boolean;
   url: string;
@@ -35,6 +35,7 @@ interface IFileContextData {
   uploadedFiles: IFile[];
   deleteFile(id: string): void;
   handleUpload(file: File[]): void;
+  clearUploads: () => void;
 }
 
 const FileContext = createContext<IFileContextData>({} as IFileContextData);
@@ -47,93 +48,10 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
 
   useEffect(() => {
-    api.get<IPost[]>("/images").then((response) => {
-      const postFormatted: IFile[] = response.data.map((post) => {
-        return {
-          ...post,
-          id: post.id,
-          preview: post.url,
-          readableSize: filesize(post.size),
-          file: null,
-          error: false,
-          uploaded: true,
-          name: post.name,
-          size: post.size,
-          url: post.url,
-          postId: post.postId,
-        };
-      });
-
-      setUploadedFiles(postFormatted);
-    });
-  }, []);
-
-  useEffect(() => {
     return () => {
       uploadedFiles.forEach((file) => URL.revokeObjectURL(file.preview));
     };
   });
-
-  const updateFile = useCallback((id: string, data: Partial<IFile>) => {
-    setUploadedFiles((state) =>
-      state.map((file) => (file.id === id ? { ...file, ...data } : file))
-    );
-  }, []);
-
-  const processUpload = useCallback(
-    (uploadedFile: IFile) => {
-      // const data = new FormData();
-      // if (uploadedFile.file) {
-      //   data.append("file", uploadedFile.file, uploadedFile.name);
-      // }
-      const data = {
-        preview: uploadedFile.preview,
-        file: updateFile,
-        error: false,
-        uploaded: true,
-        name: uploadedFile.name,
-        size: uploadedFile.file?.size,
-        url: uploadedFile.preview,
-      };
-
-      api
-        .post("/images", data, {
-          onUploadProgress: (progressEvent) => {
-            const progress: number = Math.round(
-              (progressEvent.loaded * 100) / (progressEvent.total ?? 1)
-            );
-
-            console.log(
-              `A imagem ${uploadedFile.name} está ${progress}% carregada... `
-            );
-
-            updateFile(uploadedFile.id, { progress });
-          },
-        })
-        .then((response) => {
-          console.log(
-            `A imagem ${uploadedFile.name} já foi enviada para o servidor!`
-          );
-
-          updateFile(uploadedFile.id, {
-            uploaded: true,
-            id: response.data.id,
-            url: response.data.url,
-          });
-        })
-        .catch((err) => {
-          console.error(
-            `Houve um problema para fazer upload da imagem ${uploadedFile.name} no servidor AWS`
-          );
-          console.log(err);
-
-          updateFile(uploadedFile.id, {
-            error: true,
-          });
-        });
-    },
-    [updateFile]
-  );
 
   const handleUpload = useCallback(
     (files: File[]) => {
@@ -143,19 +61,20 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
         name: file.name,
         readableSize: filesize(file.size),
         preview: URL.createObjectURL(file),
-        progress: 0,
-        uploaded: false,
+        progress: 100,
+        uploaded: true,
         error: false,
         url: "",
       }));
 
-      // concat é mais performático que ...spread
-      // https://www.malgol.com/how-to-merge-two-arrays-in-javascript/
       setUploadedFiles((state) => state.concat(newUploadedFiles));
-      newUploadedFiles.forEach(processUpload);
     },
-    [processUpload]
+    []
   );
+
+  const clearUploads = () => {
+    setUploadedFiles([]);
+  }
 
   const deleteFile = useCallback((id: string) => {
     api.delete(`/images/${id}`);
@@ -163,7 +82,7 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload }}>
+    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload, clearUploads }}>
       {children}
     </FileContext.Provider>
   );

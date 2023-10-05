@@ -5,29 +5,17 @@ import ptBr from 'date-fns/locale/pt-BR'
 
 import { PostPreviewContainer, PostPreviewContent } from './styles';
 import { Avatar } from '../../../../components/Avatar';
-import { Post } from '../Post';
+import { Comments } from '../Comments';
 import { CommentsContext } from '../../../../contexts/CommentsContext';
 import { Subtitle } from '../../../../styles/global';
 import { useContextSelector } from 'use-context-selector';
 import { ThumbsUp } from 'phosphor-react';
-import { PostsContext } from '../../../../contexts/PostsContext';
-
+import { Post as PostType, PostsContext } from '../../../../contexts/PostsContext';
 
 // interface Content {
 //   type: 'paragraph' | 'link';
 //   content: string;
 // }
-
-export interface PostType {
-  id: number;
-  name?: string;
-  postTitle: string;
-  content: string;
-  sameQuestionCount: number;
-  upvote: number;
-  publishedAt: Date;
-  disciplineId: number;
-}
 
 interface PostProps {
   post: PostType;
@@ -39,6 +27,7 @@ export function PostPreview({ post }: PostProps) {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
+  const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
 
   const publishedDateFormatted = format(new Date(post.publishedAt), "d 'de' LLLL 'às' HH:mm", {
     locale: ptBr 
@@ -49,18 +38,28 @@ export function PostPreview({ post }: PostProps) {
     addSuffix: true
   })
 
+  const fetchComments = useContextSelector(CommentsContext, (context) => {
+    return context.fetchComments;
+  });
+
   function handleOpenCard() {
-    setIsCardOpen(!isCardOpen);
+    const newState = !isCardOpen;
+    setIsCardOpen(newState);
+
+    if (newState) {
+      fetchComments(post.id);
+    }
   }
 
   function handleLikePost() {
-    if (likeState === 'like') {
-      updateUpvote(post.id, { upvote: post.upvote - 1 });
+    if (likeState === 'like' && post.upvotes > 0) {
+      updateDownvote(post.id);
       localStorage.removeItem(`likeStateForPost-${post.id}`);
       setLikeState('');
       return;
     }
-    updateUpvote(post.id, { upvote: post.upvote + 1 });
+
+    updateUpvote(post.id);
     localStorage.setItem(`likeStateForPost-${post.id}`, 'like');
     setLikeState('like');
   }
@@ -69,8 +68,6 @@ export function PostPreview({ post }: PostProps) {
     if (likeState === 'like') return 'like';
     return '';
   }
-
-  const commentsFiltered = comments.filter(comment => comment.postId === post.id).filter(comment => comment.disciplineId === post.disciplineId);
 
   useEffect(() => {
     setLikeState(localStorage.getItem(`likeStateForPost-${post.id}`) ?? '');
@@ -81,14 +78,14 @@ export function PostPreview({ post }: PostProps) {
       <div className='header'>
         <PostPreviewContent>
           <Avatar 
-            content={post.name || 'Anônimo'}
+            content={post.anonymous ? 'Anônimo' : post.username}
           />
           <div className='authorInfo'>
-            <h6>{post.postTitle}</h6>
-            <Subtitle>{post.name}</Subtitle>
+            <h6>{post.title}</h6>
+            <Subtitle>{post.anonymous ? 'Anônimo' : post.username}</Subtitle>
             {!isCardOpen &&
               <div className='downarrow' onClick={handleOpenCard}>
-                <p>{commentsFiltered.length} resposta(s)</p>
+                <p>{post.repliesQuantity} resposta{post.repliesQuantity ? 's' : ''}</p>
                 <div></div>
               </div>
             }
@@ -100,15 +97,15 @@ export function PostPreview({ post }: PostProps) {
             {publishedDateRelativeToNow}
           </time>
 
-          <button onClick={handleLikePost} className='likeButton'>
-            <ThumbsUp size={20} weight='bold' /> {post.upvote}
+          <button onClick={handleLikePost} className='likeButton' >
+            <ThumbsUp size={20} /> {post.upvotes}
           </button>
         </div>
       </div>
 
       {isCardOpen &&
         <>
-          <Post key={post.id} post={post} comments={comments} />
+          <Comments key={post.id} post={post} comments={comments} />
           <div className='uparrow' onClick={handleOpenCard}>
             <p>Ocultar</p>
             <div></div>
