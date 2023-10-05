@@ -41,7 +41,7 @@ export function Comments({ post, comments }: PostProps) {
 
   const { clearUploads } = useFiles();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateCommentInput>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateCommentInput>({
     defaultValues: {
       username: '',
       content: '',
@@ -97,6 +97,7 @@ export function Comments({ post, comments }: PostProps) {
     });
 
     setIsAnswerBoxOpen(false);
+    reset()
   }
 
   const postComments = comments.filter(comment => comment.questionId === post.id);

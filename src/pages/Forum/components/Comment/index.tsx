@@ -69,14 +69,14 @@ export function Comment({ comment }: CommentProps) {
     <CommentContainer>
       <Avatar 
         hasBorder={false} 
-        content = {comment.content}
+        content = {comment.username || 'Anônimo'}
       />
 
       <CommentBox variant={getLikeState()}>
         <div className='commentContent'>
           <header>
             <div className='authorAndTime'>
-              <strong>{comment.username}</strong>
+              <strong>{comment.username || 'Anônimo'}</strong>
               <time title={publishedDateFormatted} dateTime={new Date(comment.publishedAt).toISOString()}>
                 {publishedDateRelativeToNow}
               </time>
@@ -89,11 +89,11 @@ export function Comment({ comment }: CommentProps) {
 
           {checkTextForLineBreak(comment.content)}
 
-          <div className='commentAttachmentsWrapper'>
-            {comment.attachments &&
-              <AttachmentsList attachments={comment.attachments} />
-            }
-          </div>
+          {comment.attachments && comment.attachments.length !== 0 &&
+            <div className='commentAttachmentsWrapper'>
+                <AttachmentsList attachments={comment.attachments} />
+            </div>
+          }
 
           <footer>
             <button onClick={handleLikeComment} className='likeButton' >

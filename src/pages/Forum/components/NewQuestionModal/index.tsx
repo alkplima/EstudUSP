@@ -18,7 +18,7 @@ export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProp
 
   const createPost = useContextSelector(PostsContext, (context) => context.createPost);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CreatePostInput>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CreatePostInput>({
     defaultValues: {
       username: '',
       title: '',
@@ -36,6 +36,7 @@ export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProp
 
     await createPost(newPost);
     setIsQuestionCardOpen(false);
+    reset()
   }
 
   return (

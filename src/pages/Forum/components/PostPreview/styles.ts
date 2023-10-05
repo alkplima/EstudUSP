@@ -105,7 +105,7 @@ export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
 
   .uparrow {
     > div {
-      margin-bottom: -.3rem;
+      margin-bottom: -.5em;
       border-top: 2px solid ${props => props.theme['primary']};
       border-left: 2px solid ${props => props.theme['primary']};
     }
