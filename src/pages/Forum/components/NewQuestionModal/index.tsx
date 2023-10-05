@@ -51,9 +51,9 @@ export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProp
 
         <QuestionForm onSubmit={handleSubmit(handleCreateNewQuestion)}>
           <input 
-            name='author'
             type="text"
             placeholder='Nome (opcional)'
+            {...register("username")}
           />
 
           <input 

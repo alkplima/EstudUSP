@@ -135,9 +135,9 @@ export function Comments({ post, comments }: PostProps) {
           <strong>Sua resposta:</strong>
 
           <input 
-            name='author'
             type="text"
             placeholder='Nome (opcional)'
+            {...register("username")}
           />
 
           <textarea 
