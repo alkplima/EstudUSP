@@ -16,7 +16,7 @@ export interface Post {
   repliesQuantity: number;
 }
 
-interface CreatePostInput {
+export interface CreatePostInput {
   title: string;
   username?: string;
   content: string;

@@ -95,6 +95,12 @@ export const CommentForm = styled.form`
     line-height: 1.4;
   }
 
+  span {
+    text-decoration: underline;
+    margin-top: -1rem;
+    color: red;
+  }
+
   :focus-within footer {
     visibility: visible;
     max-height: none;

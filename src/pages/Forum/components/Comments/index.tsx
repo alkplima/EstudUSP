@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, InvalidEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Comment } from '../Comment';
 import { CommentForm, PostContainer } from './styles';
@@ -11,11 +11,18 @@ import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
 import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
 import AttachmentsList from '../AttachmentsList';
+import { useForm } from 'react-hook-form';
 
 interface PostProps {
   post: Post;
   comments: IComment[];
 }
+
+interface CreateCommentInput {
+  username?: string;
+  content: string;
+  questionId: number;
+} 
 
 export interface UploadedFile {
   file: File;
@@ -34,14 +41,19 @@ export function Comments({ post, comments }: PostProps) {
 
   const { clearUploads } = useFiles();
 
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateCommentInput>({
+    defaultValues: {
+      username: '',
+      content: '',
+    }
+  });
+
   const createComment = useContextSelector(CommentsContext, (context) => context.createComment);
   const updateSameQuestion = useContextSelector(PostsContext, posts => posts.updateSameQuestion);
   const removeSameQuestion = useContextSelector(PostsContext, posts => posts.removeSameQuestion);
 
   const [isAnswerBoxOpen, setIsAnswerBoxOpen] = useState(false);
   
-  const [newCommentAuthor, setNewCommentAuthor] = useState('');
-  const [newCommentText, setNewCommentText] = useState('');
   const [hasSameQuestion, setHasSameQuestion] = useState(false);
   
 
@@ -76,34 +88,17 @@ export function Comments({ post, comments }: PostProps) {
     setIsAnswerBoxOpen(true);
   }
 
-  function handleNewAuthorChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewCommentAuthor(event.target.value);
-  }
-
-  function handleCreateNewComment(event: FormEvent) {
-    event.preventDefault();
+  function handleCreateNewComment(data: CreateCommentInput) {
 
     createComment({
-      username: newCommentAuthor,
-      content: newCommentText,
+      username: data.username,
+      content: data.content,
       questionId: post.id,
     });
 
-    setNewCommentAuthor('');
-    setNewCommentText('');
     setIsAnswerBoxOpen(false);
   }
 
-  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity('');
-    setNewCommentText(event.target.value);
-  }
-
-  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity('O comentário não pode estar vazio');
-  }
-
-  const isNewCommentEmpty = newCommentText.length === 0;
   const postComments = comments.filter(comment => comment.questionId === post.id);
 
   useEffect(() => {
@@ -136,25 +131,20 @@ export function Comments({ post, comments }: PostProps) {
       </div>
 
       {isAnswerBoxOpen &&
-        <CommentForm onSubmit={handleCreateNewComment} >
+        <CommentForm onSubmit={handleSubmit(handleCreateNewComment)} >
           <strong>Sua resposta:</strong>
 
           <input 
             name='author'
             type="text"
             placeholder='Nome (opcional)'
-            value={newCommentAuthor}
-            onChange={handleNewAuthorChange}
           />
 
           <textarea 
-            name='comment'
             placeholder='Deixe a sua resposta'
-            value={newCommentText}
-            onChange={handleNewCommentChange}
-            onInvalid={handleNewCommentInvalid}
-            required
+            {...register("content", { required: true, minLength: 5, maxLength: 1000 })}
           />
+          {errors.content && <span>Comentário inválido!</span>}
 
           <Upload />
           <FileList />
@@ -163,7 +153,7 @@ export function Comments({ post, comments }: PostProps) {
             {/* <Button type='submit' disabled={isNewCommentEmpty} size='large'>
               Publicar
             </Button> */}
-            <Button type='submit' disabled={isNewCommentEmpty}>
+            <Button type='submit'>
               Publicar
             </Button>
           </footer>

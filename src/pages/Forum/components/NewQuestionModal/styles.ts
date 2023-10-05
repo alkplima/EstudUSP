@@ -48,11 +48,17 @@ export const QuestionForm = styled.form`
     background: ${props => props.theme['surface-container-lowest']};
     border: 0;
     resize: none;
-    height: 6rem;
+    height: 10rem;
     padding: 1rem;
     border-radius: 8px;
     color: ${props => props.theme['on-surface']};
     line-height: 1.4;
+  }
+
+  span {
+    text-decoration: underline;
+    margin-top: -1rem;
+    color: red;
   }
 
   button[type=submit] {

@@ -2,12 +2,12 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { CloseButton, Content, Overlay, QuestionForm } from './styles'
 import { useContextSelector } from 'use-context-selector';
 
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { PostsContext } from '../../../../contexts/PostsContext';
+import { CreatePostInput, PostsContext } from '../../../../contexts/PostsContext';
 import FileList from '../../../../components/FileList';
 import Upload from '../../../../components/Upload';
 import { X } from 'phosphor-react';
 import { useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 interface NewQuestionModalProps {
   setIsQuestionCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,51 +17,24 @@ export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProp
   const { subjectId } = useParams();
 
   const createPost = useContextSelector(PostsContext, (context) => context.createPost);
+
+  const { register, handleSubmit, formState: { errors } } = useForm<CreatePostInput>({
+    defaultValues: {
+      username: '',
+      title: '',
+      content: '',
+    }
+  });
   
-  const [newQuestionAuthor, setNewQuestionAuthor] = useState('');
-  const [newQuestionTitle, setNewQuestionTitle] = useState('');
-  const [newQuestionText, setNewQuestionText] = useState('');
-
-  function handleNewQuestionChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity('');
-    setNewQuestionText(event.target.value);
-  }
-  
-  function handleNewAuthorChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewQuestionAuthor(event.target.value);
-  }
-
-  function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
-    event.target.setCustomValidity('');
-    setNewQuestionTitle(event.target.value);
-  }
-  
-  function handleNewQuestionInvalid(event: ChangeEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity('Preencha este campo');
-  }
-  
-  const isNewQuestionEmpty = newQuestionText.length === 0;
-
-  const isNewQuestionTitleEmpty = newQuestionTitle.length === 0;
-
-
-
-  async function handleCreateNewQuestion(event: FormEvent) {
-    event.preventDefault();
-
+  async function handleCreateNewQuestion(data: CreatePostInput) {
     const newPost = {
-      username: newQuestionAuthor,
-      title: newQuestionTitle,
-      content: newQuestionText,
+      username: data.username,
+      title: data.title,
+      content: data.content,
       subjectId: subjectId || '',
     }
 
     await createPost(newPost);
-
-    setNewQuestionAuthor('');
-    setNewQuestionTitle('');
-    setNewQuestionText('');
-
     setIsQuestionCardOpen(false);
   }
 
@@ -76,37 +49,30 @@ export function NewQuestionModal({ setIsQuestionCardOpen }: NewQuestionModalProp
           <X size={24} />
         </CloseButton>
 
-        <QuestionForm onSubmit={handleCreateNewQuestion}>
+        <QuestionForm onSubmit={handleSubmit(handleCreateNewQuestion)}>
           <input 
             name='author'
             type="text"
             placeholder='Nome (opcional)'
-            value={newQuestionAuthor}
-            onChange={handleNewAuthorChange}
           />
 
           <input 
-            name='postTitle'
             type="text"
             placeholder='Título da pergunta'
-            value={newQuestionTitle}
-            onChange={handleTitleChange}
-            required
+            {...register("title", { required: true, minLength: 5, maxLength: 100 })}
           />
+          {errors.title && <span>Título inválido!</span>}
 
           <textarea 
-            name='comment'
             placeholder='Descreva a sua pergunta'
-            value={newQuestionText}
-            onChange={handleNewQuestionChange}
-            onInvalid={handleNewQuestionInvalid}
-            required
+            {...register("content", { required: true, minLength: 5, maxLength: 1000 })}
           />
+          {errors.content && <span>Campo inválido!</span>}
 
           <Upload />
           <FileList />
 
-          <button type='submit' disabled={isNewQuestionEmpty || isNewQuestionTitleEmpty}>Publicar</button>
+          <button type='submit'>Publicar</button>
         </QuestionForm>
         
       </Content>
