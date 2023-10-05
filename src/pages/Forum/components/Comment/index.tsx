@@ -6,6 +6,7 @@ import { IComment, CommentsContext } from '../../../../contexts/CommentsContext'
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR'
 import { useEffect, useState } from 'react';
+import AttachmentsList from '../AttachmentsList';
 interface CommentProps {
   comment: IComment;
 }
@@ -88,10 +89,10 @@ export function Comment({ comment }: CommentProps) {
 
           {checkTextForLineBreak(comment.content)}
 
-          <div className='commentImgsWrapper'>
-            {comment.attachments && comment.attachments.map(image => (
-              <img key={image} src={image} alt='' className='commentImgs' />
-            ))}
+          <div className='commentAttachmentsWrapper'>
+            {comment.attachments &&
+              <AttachmentsList attachments={comment.attachments} />
+            }
           </div>
 
           <footer>

@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 
 const dragActive = css`
-  border-color: #78e5d5;
+  /* border-color: #78e5d5; */
+  border-color: ${props => props.theme['primary']};
 `;
 
 const dragReject = css`
@@ -27,7 +28,8 @@ export const DropContainer = styled.div<IDropContainer>`
 const messageColors = {
   default: "#999",
   error: "red",
-  success: "#78e5d5",
+  // success: "#78e5d5",
+  success: "#64C4D2",
 };
 
 interface ITypeMessageColor {
@@ -45,5 +47,10 @@ export const UploadMessage = styled.p<ITypeMessageColor>`
   svg {
     width: 1.5rem;
     height: 1.5rem;
+    color: ${props => props.theme['primary']};
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 `;

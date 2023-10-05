@@ -10,6 +10,7 @@ import { IComment, CommentsContext } from '../../../../contexts/CommentsContext'
 import { Button } from '../../../../components/Button/styles';
 import { useFiles } from '../../../../contexts/files';
 import { SecondaryButton } from '../../../../components/SecondaryButton/styles';
+import AttachmentsList from '../AttachmentsList';
 
 interface PostProps {
   post: Post;
@@ -115,10 +116,10 @@ export function Comments({ post, comments }: PostProps) {
       <div className='content'>
         {checkTextForLineBreak(post.content)}
 
-        <div className='postImgsWrapper'>
-          {post.attachments && post.attachments.map(image => (
-            <img key={image} src={image} alt='' className='postImgs' />
-          ))}
+        <div className='postAttachmentsWrapper'>
+          {post.attachments && 
+            <AttachmentsList attachments={post.attachments} />
+          }
         </div>
 
         <div className='buttons'>

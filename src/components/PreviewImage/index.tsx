@@ -6,45 +6,51 @@ import textImg from "../../assets/ImgPreviewIcons/text.png";
 import audioImg from "../../assets/ImgPreviewIcons/audio.png";
 import zipImg from "../../assets/ImgPreviewIcons/zip.png";
 import spreadsheetImg from "../../assets/ImgPreviewIcons/spreadsheet.png";
+import { IFile } from "../../contexts/files";
 
 interface PreviewImageProps {
-  src: string;
+  file: IFile;
 }
 
-export function PreviewImage({ src }: PreviewImageProps) {
-  // Determinar a extensão do arquivo com base no nome do arquivo
-  const fileExtension = src.slice(((src.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
+function getPreviewSrc(file: IFile): string {
+  const fileType = file.file.type;
 
-  // Imagem referente à extensão do arquivo
-  let previewSrc
-
-  if (fileExtension === 'pdf') {
-    // Se for um PDF
-    previewSrc = pdfImg
-  } else if (['mp4', 'webm', 'ogg'].includes(fileExtension)) {
-    // Se for um vídeo
-    previewSrc = videoImg
-  } else if (['doc', 'docx', 'txt'].includes(fileExtension)) {
-    // Para documentos de texto
-    previewSrc = textImg
-  } else if (fileExtension === 'xlsx') {
-    // Para planilhas do Excel
-    previewSrc = spreadsheetImg
-  } else if (fileExtension === 'zip') {
-    // Para arquivos ZIP
-    previewSrc = zipImg
-  } else if (['mp3', 'ogg'].includes(fileExtension)) {
-    // Para arquivos de áudio
-    previewSrc = audioImg
-  } else if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'tif', 'tiff'].includes(fileExtension)) {
-    // Para imagens
-    previewSrc = src
+  // Arquivos de áudio
+  if (fileType.startsWith('audio/')) {
+    return audioImg;
+  
+    // Arquivos de vídeo ou ogg para vídeo
+  } else if (fileType.startsWith('video/') || fileType === 'application/ogg') {
+    return videoImg;
+  
+    // Arquivos de imagem
+  } else if (fileType.startsWith('image/')) {
+    return file.preview;
+  
+    // Arquivos PDF
+  } else if (fileType === 'application/pdf') {
+    return pdfImg;
+  
+    // Planilhas do Excel (xlsx)
+  } else if (fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    return spreadsheetImg;
+  
+    // Arquivos ZIP
+  } else if (fileType === 'application/zip') {
+    return zipImg;
+  
+    // Documentos de texto (txt, doc, docx)
+  } else if (fileType === 'text/plain' || fileType === 'application/msword' || fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    return textImg;
+  
+    // Outros tipos de arquivo
   } else {
-    // Para outros tipos de arquivo, exibir um ícone de proibido
-    previewSrc = src
+    return ''; // Retorne a imagem padrão ou '' para tipos desconhecidos
   }
+}
 
-  return (
-    <PreviewContainer src={previewSrc} />
-  );
-} 
+export function PreviewImage({ file }: PreviewImageProps) {
+  const previewSrc = getPreviewSrc(file);
+
+  return <PreviewContainer src={previewSrc} />;
+}

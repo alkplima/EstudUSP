@@ -28,7 +28,7 @@ function Upload() {
 
   const renderDragMessage = useCallback(() => {
     if (!isDragActive) {
-      return <UploadMessage>Adicione/arraste imagens aqui <UploadSimple/></UploadMessage>;
+      return <UploadMessage>Adicione/arraste arquivos aqui <UploadSimple/></UploadMessage>;
     }
 
     if (isDragReject) {
@@ -39,7 +39,7 @@ function Upload() {
       );
     }
 
-    return <UploadMessage type="success">Solte as imagens aqui</UploadMessage>;
+    return <UploadMessage type="success">Solte os arquivos aqui</UploadMessage>;
   }, [isDragActive, isDragReject]);
 
   return (

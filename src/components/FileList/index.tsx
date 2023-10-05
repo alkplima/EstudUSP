@@ -7,28 +7,17 @@ import { PreviewImage } from "../PreviewImage";
 const FileList = () => {
   const { uploadedFiles: files, deleteFile } = useFiles();
 
-  // if (!files.length)
-  //   return (
-  //     <span>
-  //       <MdMoodBad
-  //         style={{ marginLeft: "45%", marginTop: 10 }}
-  //         size={24}
-  //         color="#d5d2d2"
-  //       />
-  //     </span>
-  //   );
-
   return (
     <Container>
       {files.map((uploadedFile: IFile) => (
         <li key={uploadedFile.id}>
           <FileInfo>
-            <PreviewImage src={uploadedFile.preview} />
+            <PreviewImage file={uploadedFile} />
             <div>
               <strong>{uploadedFile.name}</strong>
               <span>
                 {uploadedFile.readableSize}{" "}
-                {!!uploadedFile.url && (
+                {!!uploadedFile && (
                   <button onClick={() => deleteFile(uploadedFile.id)}>
                     Excluir
                   </button>
@@ -50,9 +39,9 @@ const FileList = () => {
               />
             )}
 
-            {uploadedFile.url && (
+            {uploadedFile.preview && (
               <a
-                href={uploadedFile.url}
+                href={uploadedFile.preview}
                 target="_blank"
                 rel="noopener noreferrer"
               >
