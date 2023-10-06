@@ -63,7 +63,7 @@ export function Forum() {
 
         <SearchForm />
 
-            {posts.length === 0 && <h6>Ainda não há perguntas nesta disciplina :(</h6>}
+            {posts.length === 0 && !isLoading && <h6>Ainda não há perguntas nesta disciplina :(</h6>}
             {posts.map(post => <PostPreview key={post.id} post={post} />)}
             
             {isLoading &&
