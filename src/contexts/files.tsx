@@ -63,13 +63,14 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
       console.log(files)
       console.log(uploadedFiles)
       if (uploadedFiles.length + files.length > maxNumAttachments) {
+        // Número máximo de anexos
         alert(`Você pode fazer upload de no máximo ${maxNumAttachments} arquivos.`);
         return;
       } else {
         // Tamanho máximo de anexo
         const totalSize = files.reduce((total, file) => total + file.size, 0);
         if (totalSize > maxAttachmentSize) {
-          alert(`O tamanho total dos arquivos não pode exceder ${maxAttachmentSize} bytes.`);
+          alert(`O tamanho total dos arquivos não pode exceder ${filesize(maxAttachmentSize)}.`);
           return;
         } 
       }
