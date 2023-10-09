@@ -13,4 +13,8 @@ export const ForumContainer = styled.main`
   margin-block: 2rem 4rem;
   padding: 0 1rem;
   align-self: center;
+
+  @media (max-width: 768px) {
+    margin-block: 1rem 2rem;
+  }
 `;

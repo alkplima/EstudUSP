@@ -114,10 +114,48 @@ export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
   &:hover .downarrow {
     visibility: visible;
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+
+      .timeNlikes {
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+
+      .downarrow {
+        bottom: 0.5rem;
+        right: 0;
+        left: auto;
+        visibility: visible;
+
+        &:hover {
+          border: 1px solid transparent;
+        }
+      }
+    }
+
+    .uparrow {
+      bottom: 0.5rem;
+      left: 38%;
+      visibility: visible;
+
+      &:hover {
+        border: 1px solid transparent;
+      }
+    }
+  }
 `
 
 export const PostPreviewContent = styled.div`
-
   display: flex;
   align-items: flex-start;
   gap: 1rem;

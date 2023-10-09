@@ -27,5 +27,9 @@ export const ForumContainer = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+
+    main > button {
+      width: 100%;
+    }
   }
 `
