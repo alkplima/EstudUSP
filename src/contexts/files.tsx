@@ -47,6 +47,11 @@ interface IFileProviderProps {
 const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
 
+  // const maxNumAttachments = Number(process.env.REACT_APP_MAX_NUM_ATTACHMENTS);
+  // const maxAttachmentSize = Number(process.env.REACT_APP_MAX_ATTACHMENT_SIZE);
+  const maxNumAttachments = 5
+  const maxAttachmentSize = 500000
+
   useEffect(() => {
     return () => {
       uploadedFiles.forEach((file) => URL.revokeObjectURL(file.preview));
@@ -55,6 +60,20 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
 
   const handleUpload = useCallback(
     (files: File[]) => {
+      console.log(files)
+      console.log(uploadedFiles)
+      if (uploadedFiles.length + files.length > maxNumAttachments) {
+        // Número máximo de anexos
+        alert(`Você pode fazer upload de no máximo ${maxNumAttachments} arquivos.`);
+        return;
+      } else {
+        // Tamanho máximo de anexo
+        const totalSize = files.reduce((total, file) => total + file.size, 0);
+        if (totalSize > maxAttachmentSize) {
+          alert(`O tamanho total dos arquivos não pode exceder ${filesize(maxAttachmentSize)}.`);
+          return;
+        } 
+      }
       const newUploadedFiles: IFile[] = files.map((file: File) => ({
         file,
         id: uuidv4(),
@@ -69,7 +88,7 @@ const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
 
       setUploadedFiles((state) => state.concat(newUploadedFiles));
     },
-    []
+    [uploadedFiles]
   );
 
   const clearUploads = () => {
