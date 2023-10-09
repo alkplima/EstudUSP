@@ -33,7 +33,8 @@ export function Sidebar () {
           Voltar
         </SecondaryButton>
       </Link>
-      {currentActiveSubject &&        <SidebarItem>
+      {currentActiveSubject &&        
+        <SidebarItem>
           <img 
             className='cover' 
             src={currentActiveSubject.previewImg}

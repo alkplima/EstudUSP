@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.ul`
   max-height: 10rem;
-  overflow: scroll;
+  overflow-y: scroll;
 
   li {
     display: flex;
@@ -20,6 +20,16 @@ export const Container = styled.ul`
     & + li {
       margin-top: 15px;
     }
+
+    span {
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    li > div svg {
+      width: 1.5rem;
+    }
   }
 `;
 
@@ -27,7 +37,7 @@ export const FileInfo = styled.div`
   display: flex;
   align-items: center;
 
-  div {
+  > div {
     display: flex;
     flex-direction: column;
 
@@ -47,6 +57,16 @@ export const FileInfo = styled.div`
 
     strong {
       color: ${props => props.theme['on-surface-variant']};
+      flex: 1;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+  }
+
+  @media (max-width: 768px) {
+
+    > div { 
+      max-width: 80%;
     }
   }
 `;

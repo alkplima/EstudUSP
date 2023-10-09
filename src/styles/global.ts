@@ -74,6 +74,11 @@ export const GlobalStyle = createGlobalStyle`
     src: url('/fonts/segoe_ui_bold.ttf');
   }
 
+  @media(max-width: 1080px) {
+    html {
+      font-size: 82.5%;
+    }
+  }
 `;
 
 export const Subtitle = styled.p`
