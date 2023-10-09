@@ -7,7 +7,6 @@ import { useContextSelector } from "use-context-selector";
 import { SubjectsContext } from "../../../../contexts/SubjectsContext";
 import { useState } from "react";
 
-
 const searchFormSchema = z.object({
   query: z.string(),
 });
@@ -17,8 +16,8 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>;
 export function SearchForm() {
   const [currentSearchWord, setCurrentSearchWord] = useState('');
 
-  const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
-    return context.fetchSubjects;
+  const filterSubjects = useContextSelector(SubjectsContext, (context) => {
+    return context.filterSubjects;
   });
 
   const { 
@@ -30,7 +29,7 @@ export function SearchForm() {
   });
 
   async function handleSearchSubjects(data: SearchFormInputs) {
-    await fetchSubjects(data.query);
+    filterSubjects(data.query);
     setCurrentSearchWord(data.query);
   }
 
