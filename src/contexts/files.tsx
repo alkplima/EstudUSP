@@ -47,10 +47,8 @@ interface IFileProviderProps {
 const FileProvider: React.FC<IFileProviderProps> = ({ children }) => {
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
 
-  // const maxNumAttachments = Number(process.env.REACT_APP_MAX_NUM_ATTACHMENTS);
-  // const maxAttachmentSize = Number(process.env.REACT_APP_MAX_ATTACHMENT_SIZE);
-  const maxNumAttachments = 5
-  const maxAttachmentSize = 500000
+  const maxNumAttachments = Number(import.meta.env.VITE_FORUM_MAX_NUM_ATTACHMENTS);
+  const maxAttachmentSize = Number(import.meta.env.VITE_FORUM_MAX_ATTACHMENT_SIZE);
 
   useEffect(() => {
     return () => {
