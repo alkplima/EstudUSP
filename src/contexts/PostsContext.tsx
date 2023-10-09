@@ -25,13 +25,14 @@ export interface CreatePostInput {
 
 interface PostsContextType {
   posts: Post[];
-  fetchPosts: (subjectId: string, query?: string) => Promise<void>;
+  fetchPosts: (subjectId: string, query?: string) => Promise<Post[]>;
   createPost: (data: CreatePostInput) => Promise<void>;
   updateSameQuestion: (id: number) => Promise<void>;
   removeSameQuestion: (id: number) => Promise<void>;
   updateUpvote: (id: number) => Promise<void>;
   updateDownvote: (id: number) => Promise<void>;
   addComment: (id: number) => void;
+  filterPosts: (query: string) => void;
 }
 
 export const PostsContext = createContext({} as PostsContextType);
@@ -54,6 +55,8 @@ export function PostsProvider({ children }: PostsProviderProps) {
     });
 
     setPosts(response.data);
+
+    return response.data;
   }, []);
 
   const createPost = async (data: CreatePostInput) => {
@@ -146,6 +149,18 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts(updatedPosts);
   }
 
+  const filterPosts = async (query: string) => {
+    // @TODO: refetch posts before filtering
+    // const posts: Post[] = await fetchPosts('');
+
+    const filteredPosts = posts.filter((post) => {
+      return post.title.toLowerCase().includes(query.toLowerCase()) || 
+        (post.username || 'Anônimo').toLowerCase().includes(query.toLowerCase());
+    });
+
+    setPosts(filteredPosts);
+  }
+
   return (
     <PostsContext.Provider value={{
       posts,
@@ -156,6 +171,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
       updateUpvote,
       updateDownvote,
       addComment,
+      filterPosts,
     }}>
       {children}
     </PostsContext.Provider>

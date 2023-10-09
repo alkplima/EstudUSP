@@ -28,7 +28,7 @@ export function SearchForm() {
     resolver: zodResolver(searchFormSchema),
   });
 
-  async function handleSearchSubjects(data: SearchFormInputs) {
+  function handleSearchSubjects(data: SearchFormInputs) {
     filterSubjects(data.query);
     setCurrentSearchWord(data.query);
   }

@@ -17,8 +17,8 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>;
 export function SearchForm() {
   const [currentSearchWord, setCurrentSearchWord] = useState('');
 
-  const fetchPosts = useContextSelector(PostsContext, (context) => {
-    return context.fetchPosts;
+  const filterPosts = useContextSelector(PostsContext, (context) => {
+    return context.filterPosts;
   });
 
   const { 
@@ -29,8 +29,8 @@ export function SearchForm() {
     resolver: zodResolver(searchFormSchema),
   });
 
-  async function handleSearchPosts(data: SearchFormInputs) {
-    await fetchPosts(data.query);
+  function handleSearchPosts(data: SearchFormInputs) {
+    filterPosts(data.query);
     setCurrentSearchWord(data.query);
   }
 

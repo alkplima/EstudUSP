@@ -58,6 +58,7 @@ export function SubjectsProvider({ children }: SubjectsProviderProps) {
   }, []);
 
   const filterSubjects = (query: string) => {
+    // @TODO: refetch subjects before filtering
     const filteredSubjects = subjects.filter(subject => {
       return subject.title.toLowerCase().includes(query.toLowerCase());
     });
