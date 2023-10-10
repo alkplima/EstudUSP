@@ -50,7 +50,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
       params: {
         _sort: 'publishedAt',
         _order: 'desc',
-        q: query,
+        keyword: query,
       }
     });
 

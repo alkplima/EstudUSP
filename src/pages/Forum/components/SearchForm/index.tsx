@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContextSelector } from "use-context-selector";
 import { PostsContext } from "../../../../contexts/PostsContext";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 
 const searchFormSchema = z.object({
@@ -16,9 +17,10 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>;
 
 export function SearchForm() {
   const [currentSearchWord, setCurrentSearchWord] = useState('');
+  const { subjectId } = useParams();
 
-  const filterPosts = useContextSelector(PostsContext, (context) => {
-    return context.filterPosts;
+  const fetchPosts = useContextSelector(PostsContext, (context) => {
+    return context.fetchPosts;
   });
 
   const { 
@@ -29,8 +31,8 @@ export function SearchForm() {
     resolver: zodResolver(searchFormSchema),
   });
 
-  function handleSearchPosts(data: SearchFormInputs) {
-    filterPosts(data.query);
+  async function handleSearchPosts(data: SearchFormInputs) {
+    await fetchPosts(subjectId || '', data.query);
     setCurrentSearchWord(data.query);
   }
 
