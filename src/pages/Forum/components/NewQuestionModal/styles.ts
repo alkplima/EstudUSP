@@ -26,6 +26,11 @@ export const Content = styled(Dialog.Content)`
     margin-bottom: 1rem;
     text-align: center;
   }
+
+  @media (max-width: 1024px) {
+    min-width: 90vw;
+    padding: 1.5rem 1rem;
+  }
 `;
 
 export const QuestionForm = styled.form`

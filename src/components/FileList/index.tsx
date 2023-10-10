@@ -3,9 +3,11 @@ import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
 import { Container, FileInfo } from "./styles";
 import { IFile, useFiles } from "../../contexts/files";
 import { PreviewImage } from "../PreviewImage";
+import { useTheme } from "styled-components";
 
 const FileList = () => {
   const { uploadedFiles: files, deleteFile } = useFiles();
+  const theme = useTheme();
 
   return (
     <Container>
@@ -31,7 +33,7 @@ const FileList = () => {
               <CircularProgressbar
                 styles={{
                   root: { width: 24 },
-                  path: { stroke: "#7159c1" },
+                  path: { stroke: theme["yellow-usp"] },
                 }}
                 strokeWidth={10}
                 text={String(uploadedFile.progress)}
@@ -50,7 +52,7 @@ const FileList = () => {
             )}
 
             {uploadedFile.uploaded && (
-              <MdCheckCircle size={24} color="#78e5d5" />
+              <MdCheckCircle size={24} color={theme.primary} />
             )}
             {uploadedFile.error && <MdError size={24} color="#e57878" />}
           </div>

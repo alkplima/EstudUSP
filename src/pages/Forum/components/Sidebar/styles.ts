@@ -22,6 +22,11 @@ export const SidebarContainer = styled.aside`
     gap: 0.5rem;
     padding-left: 0.875rem;
   }
+
+  @media (max-width: 1024px) {
+    position: static;
+    width: 100%;
+  }
 `
 
 
@@ -52,9 +57,19 @@ export const SidebarItem = styled.div`
     gap: 0.25rem;
   }
 
-  /* @media (max-width: 768px) {
-    position: initial;
-  }  */
+  @media (max-width: 1024px) {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+
+    .cover {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  } 
 `;
 
 export const ComplaintInfoContainer = styled.div`

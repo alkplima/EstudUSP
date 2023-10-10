@@ -57,6 +57,20 @@ export const PostContainer = styled.div`
     line-height: 1.6;
     color: ${props => props.theme['on-surface']};
   }
+
+  @media (max-width: 1024px) {
+    .content .buttons {
+      flex-direction: column-reverse;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    .commentList {
+      margin-block: 0 2.5rem;
+    }
+  }
 `
 
 export const CommentForm = styled.form`

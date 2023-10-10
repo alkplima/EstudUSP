@@ -29,32 +29,40 @@ export const Container = styled.ul`
       }
     }
   }
+
+  @media (max-width: 1024px) {
+    li {
+      > div a svg {
+        width: 20px;
+      }
+    }
+  }
 `;
 
 export const FileInfo = styled.div`
   display: flex;
   align-items: center;
 
-  div {
+  > div {
     display: flex;
     flex-direction: column;
 
-    span {
-      font-size: 12px;
-      color: ${props => props.theme["outline"]};
-      margin-top: 5px;
-
-      button {
-        border: 0;
-        background: transparent;
-        color: #e57878;
-        margin-left: 5px;
-        cursor: pointer;
-      }
-    }
-
     strong {
       color: ${props => props.theme['on-surface-variant']};
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 1024px) {
+
+    > div { 
+      max-width: calc(100vw - 17rem);
+
+      strong {
+        font-size: 0.875rem;
+      }
     }
   }
 `;
@@ -65,6 +73,7 @@ interface PreviewContainerProps {
 
 export const PreviewContainer = styled.div<PreviewContainerProps>`
   width: 36px;
+  min-width: 36px;
   height: 36px;
   border-radius: 5px;
   background-image: url(${(props) => props.src});

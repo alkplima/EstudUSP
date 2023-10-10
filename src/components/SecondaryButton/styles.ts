@@ -27,4 +27,8 @@ export const SecondaryButton = styled.button<SecondaryButtonProps>`
     background: ${props => props.theme['surface-container-highest']};
     cursor: pointer;
   }
+
+  @media (max-width: 1024px) {
+    max-height: fit-content;
+  }
 `;

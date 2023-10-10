@@ -25,7 +25,11 @@ export const ForumContainer = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     grid-template-columns: 1fr;
+
+    main > button {
+      width: 100%;
+    }
   }
 `

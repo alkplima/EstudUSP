@@ -28,5 +28,4 @@ export const Button = styled.button`
     opacity: 0.7;
     cursor: not-allowed;
   }
-
 `;
