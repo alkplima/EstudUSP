@@ -16,8 +16,8 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>;
 export function SearchForm() {
   const [currentSearchWord, setCurrentSearchWord] = useState('');
 
-  const filterSubjects = useContextSelector(SubjectsContext, (context) => {
-    return context.filterSubjects;
+  const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
+    return context.fetchSubjects;
   });
 
   const { 
@@ -29,7 +29,7 @@ export function SearchForm() {
   });
 
   function handleSearchSubjects(data: SearchFormInputs) {
-    filterSubjects(data.query);
+    fetchSubjects(data.query);
     setCurrentSearchWord(data.query);
   }
 

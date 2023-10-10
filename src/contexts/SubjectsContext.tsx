@@ -21,7 +21,6 @@ interface SubjectsContextType {
   subjects: Subject[];
   fetchSubjects: (query?: string) => Promise<void>;
   createSubject: (data: CreateSubjectInput) => Promise<void>;
-  filterSubjects: (query: string) => void;
 }
 
 export const SubjectsContext = createContext({} as SubjectsContextType);
@@ -38,7 +37,7 @@ export function SubjectsProvider({ children }: SubjectsProviderProps) {
       params: {
         _sort: 'title', // pode ser 'semester' tbm, se tiverem mais disciplinas
         _order: 'z',
-        q: query,
+        keyword: query,
       }
     });
     
@@ -57,21 +56,11 @@ export function SubjectsProvider({ children }: SubjectsProviderProps) {
     setSubjects(state => [response.data, ...state])
   }, []);
 
-  const filterSubjects = (query: string) => {
-    // @TODO: refetch subjects before filtering
-    const filteredSubjects = subjects.filter(subject => {
-      return subject.title.toLowerCase().includes(query.toLowerCase());
-    });
-
-    setSubjects(filteredSubjects);
-  };
-
   return (
     <SubjectsContext.Provider value={{
       subjects,
       fetchSubjects,
       createSubject,
-      filterSubjects,
     }}>
       {children}
     </SubjectsContext.Provider>
