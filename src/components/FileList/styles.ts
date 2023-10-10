@@ -22,13 +22,16 @@ export const Container = styled.ul`
     }
 
     span {
+      max-width: fit-content;
       text-decoration: none;
     }
   }
 
   @media (max-width: 768px) {
-    li > div svg {
-      width: 1.5rem;
+    li {
+      > div svg {
+        width: 1.5rem;
+      }
     }
   }
 `;
@@ -57,16 +60,20 @@ export const FileInfo = styled.div`
 
     strong {
       color: ${props => props.theme['on-surface-variant']};
-      flex: 1;
-      word-wrap: break-word;
-      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
   @media (max-width: 768px) {
 
     > div { 
-      max-width: 80%;
+      max-width: calc(100vw - 17rem);
+
+      strong {
+        font-size: 0.875rem;
+      }
     }
   }
 `;

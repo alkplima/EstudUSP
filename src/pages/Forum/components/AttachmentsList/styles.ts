@@ -42,18 +42,20 @@ export const FileInfo = styled.div`
 
     strong {
       color: ${props => props.theme['on-surface-variant']};
-      flex: 1;
-      word-wrap: break-word;
-      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
-  @media (max-width: 768px) {
-    width: 100%;
-    max-width: 85%;
+  @media (max-width: 1024px) {
 
     > div { 
-      max-width: 80%;
+      max-width: calc(100vw - 17rem);
+
+      strong {
+        font-size: 0.875rem;
+      }
     }
   }
 `;
