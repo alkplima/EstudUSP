@@ -25,7 +25,7 @@ export const AvatarContainer = styled.div`
     padding: 0.3rem;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     margin-top: 0.25rem;
     
     .avatarWithBorder {

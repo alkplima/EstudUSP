@@ -27,7 +27,7 @@ export const Container = styled.ul`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     li {
       > div svg {
         width: 1.5rem;
@@ -66,7 +66,7 @@ export const FileInfo = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
 
     > div { 
       max-width: calc(100vw - 17rem);

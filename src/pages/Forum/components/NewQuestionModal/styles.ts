@@ -27,7 +27,7 @@ export const Content = styled(Dialog.Content)`
     text-align: center;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     min-width: 90vw;
     padding: 1.5rem 1rem;
   }

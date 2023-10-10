@@ -24,9 +24,16 @@ export const Container = styled.ul`
       display: flex;
 
       a svg {
-        width: 20px;
         margin: 0 !important;
         color: ${props => props.theme['primary']} !important;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    li {
+      > div a svg {
+        width: 20px;
       }
     }
   }

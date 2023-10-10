@@ -28,7 +28,7 @@ export const SecondaryButton = styled.button<SecondaryButtonProps>`
     cursor: pointer;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     max-height: fit-content;
   }
 `;

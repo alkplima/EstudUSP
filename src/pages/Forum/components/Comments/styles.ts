@@ -58,7 +58,7 @@ export const PostContainer = styled.div`
     color: ${props => props.theme['on-surface']};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .content .buttons {
       flex-direction: column-reverse;
 

@@ -23,7 +23,7 @@ export const SidebarContainer = styled.aside`
     padding-left: 0.875rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     position: static;
     width: 100%;
   }
@@ -57,7 +57,7 @@ export const SidebarItem = styled.div`
     gap: 0.25rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     width: 100%;
     flex-direction: row;
     align-items: center;

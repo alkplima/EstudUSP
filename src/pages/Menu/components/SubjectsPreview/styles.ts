@@ -33,7 +33,7 @@ export const SubjectPreviewContainer = styled.article`
     }
   }
 
-  @media(max-width: 768px) {
+  @media(max-width: 1024px) {
 
     a {
       padding: 1.5rem;
@@ -75,7 +75,7 @@ export const SubjectPreviewContent = styled.div`
     gap: 0.25rem;
   }
 
-  @media(max-width: 768px) {
+  @media(max-width: 1024px) {
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -141,7 +141,7 @@ export const SubjectLastQuestions = styled.div`
     text-align: right;
   }
 
-  @media(max-width: 768px) {
+  @media(max-width: 1024px) {
     width: 100%;
     min-width: 100%;
     height: fit-content;

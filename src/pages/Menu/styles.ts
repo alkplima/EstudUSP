@@ -14,7 +14,7 @@ export const ForumContainer = styled.main`
   padding: 0 1rem;
   align-self: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     margin-block: 1rem 2rem;
   }
 `;

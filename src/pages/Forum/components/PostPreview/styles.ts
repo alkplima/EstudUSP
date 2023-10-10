@@ -115,7 +115,7 @@ export const PostPreviewContainer = styled.article<PostPreviewContainerProps>`
     visibility: visible;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     padding: 1rem;
 
     .header {

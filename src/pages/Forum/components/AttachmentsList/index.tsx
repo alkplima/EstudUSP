@@ -99,7 +99,7 @@ const AttachmentsList = ({ attachments }: AttachmentsListProps) => {
                 href={download}
                 download
               >
-              <DownloadSimple size={24} />
+              <DownloadSimple size={24} weight="bold" />
               </a>
             </div>
           </li>
