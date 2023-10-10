@@ -18,7 +18,7 @@ import { Loading } from "../../components/Loading/styles";
 export function Forum() {
   const { clearUploads } = useFiles();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const posts = useContextSelector(PostsContext, (context) => context.posts);
 
@@ -36,12 +36,11 @@ export function Forum() {
   }
 
   useEffect(() => {
-    setIsLoading(true);
     fetchPosts(subjectId || '')
       .finally(() => {
         setIsLoading(false);
       });
-  }, [fetchPosts]);
+  }, [subjectId, fetchPosts]);
 
   useEffect(() => {
     fetchPosts(subjectId || '');

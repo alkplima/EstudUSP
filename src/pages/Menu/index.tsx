@@ -8,7 +8,7 @@ import { SearchForm } from "./components/SearchForm";
 import { Loading } from "../../components/Loading/styles";
 
 export function Menu() {
-const [isLoading, setIsLoading] = useState(false);
+const [isLoading, setIsLoading] = useState(true);
 const subjects = useContextSelector(SubjectsContext, (context) => context.subjects);
 
   const fetchSubjects = useContextSelector(SubjectsContext, (context) => {
@@ -16,7 +16,6 @@ const subjects = useContextSelector(SubjectsContext, (context) => context.subjec
   });
 
   useEffect(() => {
-    setIsLoading(true);
     fetchSubjects('')
       .finally(() => {
         setIsLoading(false);
