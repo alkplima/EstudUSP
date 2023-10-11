@@ -6,6 +6,7 @@ interface SecondaryButtonProps {
 }
 
 export const SecondaryButton = styled.button<SecondaryButtonProps>`
+  font-weight: 700;
   padding: 0.5rem 1.25rem;
   max-height: 40px;
   border-radius: 8px;
@@ -15,11 +16,11 @@ export const SecondaryButton = styled.button<SecondaryButtonProps>`
   border: 1px solid ${props => props.theme['outline']};
 
   ${props => props.variant && `
-    opacity: 0.7;
+    opacity: 0.6;
   `}
 
   &:disabled {
-    opacity: 0.7;
+    opacity: 0.6;
     cursor: not-allowed;
   }
 

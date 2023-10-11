@@ -85,7 +85,7 @@ export function Comments({ post, comments }: PostProps) {
 
   function handleOpenAnswerBox() {
     clearUploads();
-    setIsAnswerBoxOpen(true);
+    setIsAnswerBoxOpen(!isAnswerBoxOpen);
   }
 
   function handleCreateNewComment(data: CreateCommentInput) {
@@ -151,9 +151,10 @@ export function Comments({ post, comments }: PostProps) {
           <FileList />
 
           <footer>
-            {/* <Button type='submit' disabled={isNewCommentEmpty} size='large'>
-              Publicar
-            </Button> */}
+            <SecondaryButton variant={false} onClick={handleOpenAnswerBox}>
+              Cancelar
+            </SecondaryButton>
+
             <Button type='submit'>
               Publicar
             </Button>

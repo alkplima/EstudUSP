@@ -115,6 +115,13 @@ export const CommentForm = styled.form`
     color: red;
   }
 
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+  }
+
   :focus-within footer {
     visibility: visible;
     max-height: none;
