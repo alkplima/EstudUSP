@@ -19,12 +19,14 @@ import { Post as PostType, PostsContext } from '../../../../contexts/PostsContex
 
 interface PostProps {
   post: PostType;
+  isCardOpen: boolean;
+  onOpenCard: () => void;
+  onCloseCard: () => void;
 }
 
-export function PostPreview({ post }: PostProps) {
+export function PostPreview({ post, isCardOpen, onOpenCard, onCloseCard }: PostProps) {
 
   const comments = useContextSelector(CommentsContext, (context) => context.comments);
-  const [isCardOpen, setIsCardOpen] = useState(false);
   const [likeState, setLikeState] = useState('');
   const updateUpvote = useContextSelector(PostsContext, posts => posts.updateUpvote);
   const updateDownvote = useContextSelector(PostsContext, posts => posts.updateDownvote);
@@ -43,12 +45,9 @@ export function PostPreview({ post }: PostProps) {
   });
 
   function handleOpenCard() {
-    const newState = !isCardOpen;
-    setIsCardOpen(newState);
-
-    if (newState) {
-      fetchComments(post.id);
-    }
+    onOpenCard();
+    
+    fetchComments(post.id);
   }
 
   function handleLikePost() {
@@ -106,7 +105,7 @@ export function PostPreview({ post }: PostProps) {
       {isCardOpen &&
         <>
           <Comments key={post.id} post={post} comments={comments} />
-          <div className='uparrow' onClick={handleOpenCard}>
+          <div className='uparrow' onClick={onCloseCard}>
             <p>Ocultar</p>
             <div></div>
           </div>

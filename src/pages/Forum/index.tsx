@@ -25,6 +25,7 @@ export function Forum() {
   const { subjectId } = useParams();
 
   const [isQuestionCardOpen, setIsQuestionCardOpen] = useState(false);
+  const [openedPostId, setOpenedPostId] = useState(-1);
 
   const fetchPosts = useContextSelector(PostsContext, (context) => {
     return context.fetchPosts;
@@ -63,7 +64,17 @@ export function Forum() {
         <SearchForm />
 
             {posts.length === 0 && !isLoading && <h6>Ainda não há perguntas nesta disciplina :(</h6>}
-            {posts.map(post => <PostPreview key={post.id} post={post} />)}
+            {posts.map(post => {
+              return (
+                <PostPreview 
+                  key={post.id} 
+                  post={post} 
+                  isCardOpen={post.id === openedPostId} 
+                  onOpenCard={() => setOpenedPostId(post.id)}
+                  onCloseCard={() => setOpenedPostId(-1)}
+                />
+              )
+            })}
             
             {isLoading &&
               <Loading size={15}>
