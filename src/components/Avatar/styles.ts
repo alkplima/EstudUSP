@@ -16,13 +16,13 @@ export const AvatarContainer = styled.div`
   }
   
   .avatarWithBorder {
-    width: calc(3rem + 12px);
-    height: calc(3rem + 12px);
+    width: calc(3rem + 6px);
+    height: calc(3rem + 6px);
     border-radius: 100%;
     /* border: 4px solid ${props => props.theme['gray-800']}; */
     outline: 2px solid ${props => props.theme['yellow-usp']};
     outline: none;
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
   
   @media (max-width: 1024px) {
@@ -31,6 +31,7 @@ export const AvatarContainer = styled.div`
     .avatarWithBorder {
       width: calc(1.5rem + 12px);
       height: calc(1.5rem + 12px);
+      padding: 0.5rem;
     }
   }
 `
