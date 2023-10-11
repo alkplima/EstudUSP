@@ -22,7 +22,7 @@ export const AvatarContainer = styled.div`
     /* border: 4px solid ${props => props.theme['gray-800']}; */
     outline: 2px solid ${props => props.theme['yellow-usp']};
     outline: none;
-    padding: 0.3rem;
+    padding: 0.5rem;
   }
   
   @media (max-width: 1024px) {
