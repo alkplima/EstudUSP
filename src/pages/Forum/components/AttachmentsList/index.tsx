@@ -85,9 +85,19 @@ const AttachmentsList = ({ attachments }: AttachmentsListProps) => {
         return (
           <li key={index}>
             <FileInfo>
-              <PreviewContainer src={previewSrc} />
+              <a
+                href={download}
+                download
+              >
+                <PreviewContainer src={previewSrc} />
+              </a>
               <div>
-                <strong>{fileName}</strong>
+                <a
+                  href={download}
+                  download
+                >
+                  <strong>{fileName}</strong>
+                </a>
                 {/* <span>
                   {download.readableSize}{" "}
                 </span> */}

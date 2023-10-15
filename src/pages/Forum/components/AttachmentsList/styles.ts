@@ -52,7 +52,15 @@ export const FileInfo = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 
   @media (max-width: 1024px) {
