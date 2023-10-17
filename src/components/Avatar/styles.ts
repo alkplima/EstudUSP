@@ -9,10 +9,10 @@ export const AvatarContainer = styled.div`
   height: fit-content;
 
   .avatar {
-    width: 2rem;
-    height: 2rem;
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 8px;
-    padding: 0.3rem;
+    padding: 0.5rem;
   }
   
   .avatarWithBorder {
