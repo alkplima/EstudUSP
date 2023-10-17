@@ -25,7 +25,8 @@ export const Button = styled.button`
   }
 
   &:disabled {
-    opacity: 0.7;
+    opacity: 0.12;
+    background: ${props => props.theme['on-surface']};
     cursor: not-allowed;
   }
 `;

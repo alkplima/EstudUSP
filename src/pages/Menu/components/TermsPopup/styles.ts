@@ -6,6 +6,7 @@ export const TermsPopupContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  width: calc(100% - 2rem);
   max-width: 48.375rem;
   padding: 3rem 3.5rem;
   display: flex;
@@ -15,6 +16,15 @@ export const TermsPopupContainer = styled.div`
   gap: 1.5rem;
   border-radius: 8px;
   background-color: ${props => props.theme['inverse-on-surface']};
+
+  @media (max-width: 768px) {
+    padding: 3rem 2rem;
+    margin: 1rem;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    max-width: calc(100% - 2rem);
+  }
 `;
 
 export const TermsPopupContent = styled.div`
@@ -105,6 +115,15 @@ export const TermsPopupButtons = styled.div`
     p {
       font: 600 1rem/1.25rem 'Segoe_UI';
       color: ${props => props.theme['on-surface']};
+    }
+  }
+
+  @media (max-width: 1080px) {
+    > div .checkbox input[type="checkbox"]:checked::after {
+      width: 4px;
+      height: 8px;
+      margin-left: 3px;
+      margin-bottom: 5px;
     }
   }
 `;
